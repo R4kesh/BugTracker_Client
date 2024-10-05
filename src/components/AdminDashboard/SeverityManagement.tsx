@@ -33,7 +33,7 @@ import { SidebarDash } from '../../components/SidebarD'; // Import your sidebar 
 import Footer from '../Footer';
 import { Spotlights } from '../Spotlight';
 
-import { TableDemostructure } from '../ui/table';
+// import { TableDemostructure } from '../ui/table';
 
 function SeverityManagement() {
   return (
@@ -44,12 +44,13 @@ function SeverityManagement() {
           <SidebarDash /> {/* Sidebar component */}
         </aside>
         <main className="flex-1 p-6 space-y-8"> {/* Main content area */}
+          
   <div className="mb-8"> {/* Wrapper for Spotlight */}
     <Spotlights /> {/* Spotlight component */}
     
     <div className="flex justify-center mt-8"> {/* Flexbox to center the table */}
       <div className="w-full max-w-4xl"> {/* Limit the width for responsiveness */}
-        <TableDemostructure /> {/* Table component */}
+        {/* <TableDemostructure /> Table component */}
       </div>
     </div>
     
