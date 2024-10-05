@@ -1,6 +1,25 @@
 import { HoverEffect } from "./ui/card-hover-effect";
+import { useEffect, useState } from "react";
+import axios from 'axios';
 
 export function CardHoverEffectDemo() {
+  const [activeSeverityCount, setActiveSeverityCount] = useState(0);
+
+  useEffect(() => {
+    
+    const fetchActiveSeverityCount = async () => {
+      try {
+        const response = axios.get('http://localhost:3000/api/dashboard/dashboard_count');
+        console.log('res',response);
+        // setActiveSeverityCount(data.count);
+      } catch (error) {
+        console.error('Error fetching active severity count:', error);
+      }
+    };
+
+    fetchActiveSeverityCount();
+  }, []);
+
   return (
     <div className="max-w-5xl mx-auto px-8">
       <HoverEffect items={projects} />

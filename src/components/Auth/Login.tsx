@@ -33,8 +33,13 @@ const Login: React.FC = () => {
         localStorage.setItem('token', token);
         localStorage.setItem('user', JSON.stringify(user));
   
-        // Redirect to dashboard
-        navigate('/dashboard');
+        if(response.data.user.role=='projectManager'){
+          navigate("/admindashboard")
+        }else{
+          navigate('/dashboard');
+        }
+     
+        
       }
       
     } catch (error:any) {
