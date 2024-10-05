@@ -15,14 +15,14 @@ export function SidebarDash() {
       ),
     },
     {
-      label: "Severity Request",
-      href: "#",
+      label: "User Request",
+      href: "/severitymanagement",
       icon: (
         <IconUserBolt className="text-neutral-700 dark:text-neutral-200 h-6 w-6 flex-shrink-0" />
       ),
     },
     {
-      label: "SeverityManagement",
+      label: "UserManagement",
       href: "#",
       icon: (
         <IconSettings className="text-neutral-700 dark:text-neutral-200 h-6 w-6 flex-shrink-0" />

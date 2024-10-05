@@ -21,6 +21,7 @@
 import React from "react";
 import { cn } from "../lib/utils";
 import { Spotlight } from "./ui/spotlight";
+import { TableDemostructure } from "./ui/table";
 // import { TableDemo } from "./SeverityTable";
 
 export function Spotlights() {
@@ -31,8 +32,10 @@ export function Spotlights() {
         fill="white"
       />
       <div className="p-4 w-full relative z-10 flex flex-col items-center justify-center">
-        <div className="w-full max-w-5xl">
+          <h3 className='text-center text-4xl mb-10 text-white'>Severity New Requests</h3>
+        <div className="w-full   max-w-7xl">
           {/* <TableDemo />  */}
+          <TableDemostructure/>
         </div>
       </div>
     </div>
