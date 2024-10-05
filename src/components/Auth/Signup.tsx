@@ -6,7 +6,7 @@ import { BackgroundBeamsWithCollision } from "../../components/ui/background-bea
 const Signup = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState(''); // Add phone number state
+  const [phoneNumber, setPhoneNumber] = useState(''); 
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [role, setRole] = useState('');
@@ -33,7 +33,9 @@ const Signup = () => {
       if (response.status === 201) {
         setSuccess('User registered successfully!');
         setError('');
-        window.location.href = '/login'; 
+        console.log('email',email)
+        localStorage.setItem('email', email);
+        window.location.href = '/otp'; 
       }
     } catch (err:any) {
       setError(err.response?.data?.message || 'An error occurred during registration');

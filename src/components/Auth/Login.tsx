@@ -23,13 +23,22 @@ const Login: React.FC = () => {
     try {
       
       const response = await axios.post('http://localhost:3000/api/auth/login', { email, password, role });
+      console.log('res',response);
+      
 
-      if(response){
+      if (response && response.data) {
+        const { token, user } = response.data;
+        
+       
+        localStorage.setItem('token', token);
+        localStorage.setItem('user', JSON.stringify(user));
+  
+        // Redirect to dashboard
         navigate('/dashboard');
       }
       
     } catch (error:any) {
-      // Handle error response from backend
+      
       if (error.response) {
         setError(error.response.data.message);
       } else {
