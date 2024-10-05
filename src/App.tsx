@@ -4,6 +4,8 @@ import LandingPage from './components/Landing/LandingPage';
 import OtpPage from './components/OtpPage';
 import Login from './components/Auth/Login';
 import Signup from './components/Auth/Signup';
+import AdminDashboard from './components/AdminDashboard/AdminDashboard';
+import SeverityManagement from './components/AdminDashboard/SeverityManagement';
 
 
 
@@ -12,16 +14,16 @@ const App = () => {
     <div>
        <Router>
     <Routes>
-      {/* Landing Page Route */}
-      {/* <Route path="/" element={<LandingPage/>} /> */}
-      
-      {/* Example Additional Route */}
+     
       <Route path="/" element={<LandingPage/>} />
       
       
       <Route path="/otp" element={<OtpPage />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
+      <Route path="/admindashboard" element={<AdminDashboard />} />
+      <Route path="/severitymanagement" element={<SeverityManagement />} />
+
 
     </Routes>
   </Router>
