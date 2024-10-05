@@ -32,7 +32,7 @@ export function Spotlights() {
         fill="white"
       />
       <div className="p-4 w-full relative z-10 flex flex-col items-center justify-center">
-          <h3 className='text-center text-4xl mb-10 text-white'>Severity New Requests</h3>
+          <h3 className='text-center text-4xl mb-10 text-white'>User New Requests</h3>
         <div className="w-full   max-w-7xl">
           {/* <TableDemo />  */}
           <TableDemostructure/>
