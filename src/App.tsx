@@ -8,6 +8,7 @@ import AdminDashboard from './components/AdminDashboard/AdminDashboard';
 import SeverityManagement from './components/AdminDashboard/SeverityManagement';
 import UserManagement from './components/AdminDashboard/UserManagement';
 import AddProject from './components/AdminDashboard/AddProject';
+import TaskList from './components/AdminDashboard/TaskList';
 
 
 
@@ -28,6 +29,7 @@ const App = () => {
       <Route path="/userRequest" element={<SeverityManagement />} />
       <Route path="/usermanagement" element={<UserManagement />} />
       <Route path="/addproject" element={<AddProject />} />
+      <Route path="/tasklist" element={<TaskList />} />
    
 
 
