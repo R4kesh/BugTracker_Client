@@ -9,23 +9,30 @@ export function SidebarDash() {
   const links = [
     {
       label: "Dashboard",
-      href: "#",
+      href: "/admindashboard",
       icon: (
         <IconBrandTabler className="text-neutral-700 dark:text-neutral-200 h-6 w-6 flex-shrink-0" />
       ),
     },
     {
       label: "User Request",
-      href: "/severitymanagement",
+      href: "/userRequest",
       icon: (
         <IconUserBolt className="text-neutral-700 dark:text-neutral-200 h-6 w-6 flex-shrink-0" />
       ),
     },
     {
       label: "UserManagement",
-      href: "#",
+      href: "/usermanagement",
       icon: (
         <IconSettings className="text-neutral-700 dark:text-neutral-200 h-6 w-6 flex-shrink-0" />
+      ),
+    },
+    {
+      label: "Add Project",
+      href: "/addproject",
+      icon: (
+        <IconBrandTabler className="text-neutral-700 dark:text-neutral-200 h-6 w-6 flex-shrink-0" />
       ),
     },
     {
@@ -79,7 +86,7 @@ export const Sidebar = ({
   return (
     <motion.div
       className={cn(
-        "relative z-50 h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white flex-shrink-0 flex flex-col items-center",
+        "relative z-50 h-full bg-gradient-to-r from-gray-500 via-cyan-700 to-slate-900 text-white flex-shrink-0 flex flex-col items-center",
         "shadow-xl"
       )}
       initial={{ width: open ? "250px" : "70px" }}

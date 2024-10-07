@@ -6,6 +6,8 @@ import Login from './components/Auth/Login';
 import Signup from './components/Auth/Signup';
 import AdminDashboard from './components/AdminDashboard/AdminDashboard';
 import SeverityManagement from './components/AdminDashboard/SeverityManagement';
+import UserManagement from './components/AdminDashboard/UserManagement';
+import AddProject from './components/AdminDashboard/AddProject';
 
 
 
@@ -22,7 +24,12 @@ const App = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/admindashboard" element={<AdminDashboard />} />
-      <Route path="/severitymanagement" element={<SeverityManagement />} />
+      <Route path="/userRequest" element={<SeverityManagement />} />
+      <Route path="/usermanagement" element={<UserManagement />} />
+      <Route path="/addproject" element={<AddProject />} />
+
+
+
 
 
     </Routes>
