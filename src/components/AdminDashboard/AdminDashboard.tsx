@@ -7,6 +7,7 @@ function AdminDashboard() {
   return (
     <div className="bg-black min-h-screen">
       <AdminNavbar />
+      
       <ShootingStarsAndStarsBackgroundDemo />
       <Footer />
     </div>
