@@ -9,7 +9,7 @@ import { SidebarDash } from "./SidebarD";
 
 export function UserManageSpotlight() {
   return (
-    <div className="h-[40rem] w-full rounded-md flex md:items-center md:justify-center bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
+    <div className="  h-screen  w-full rounded-md flex md:items-center md:justify-center bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
       <SidebarDash/>
       <Spotlight
         className="-top-40 left-0 md:left-60 md:-top-20"
@@ -17,7 +17,7 @@ export function UserManageSpotlight() {
       />
       <div className="p-4 w-full relative z-10 flex flex-col items-center justify-center">
           
-        <div className="w-full   max-w-7xl">
+        <div className="w-full mb-36  max-w-7xl">
           {/* <TableDemo />  */}
          <TableUsermanagement/>
         </div>
