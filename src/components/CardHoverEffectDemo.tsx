@@ -69,9 +69,18 @@ export function CardHoverEffectDemo() {
 
   return (
     <div className="max-w-5xl mx-auto px-8">
+      
       <div>
-        <h3>Active Severity Count: {userRequestCount}</h3> {/* Display the count */}
-      </div>
+        
+        <h3> {userRequestCount}</h3> {/* Display the count */}
+        <button
+            type="button"
+            className="text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium rounded-lg text-sm md:text-base px-4 md:px-10 py-2.5 "
+          >
+            Add New Project
+          </button>
+                </div>
+
       <HoverEffect items={projects} />
     </div>
   );

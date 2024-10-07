@@ -11,6 +11,7 @@ import AddProject from './components/AdminDashboard/AddProject';
 
 
 
+
 const App = () => {
   return (
     <div>
@@ -27,6 +28,8 @@ const App = () => {
       <Route path="/userRequest" element={<SeverityManagement />} />
       <Route path="/usermanagement" element={<UserManagement />} />
       <Route path="/addproject" element={<AddProject />} />
+   
+
 
 
 
