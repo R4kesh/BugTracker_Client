@@ -1,5 +1,6 @@
 // Modal.js
-import React, { FC } from "react";
+import React, { FC,useState,useEffect } from "react";
+import axios from 'axios';
 
 interface ModalProps {
   isOpen: boolean;
@@ -7,13 +8,69 @@ interface ModalProps {
 }
 
 export const Modal: FC<ModalProps> = ({ isOpen, onClose }) => {
-  if (!isOpen) return null;
+  const [projectName, setProjectName] = useState('');
+  const [projectDescription, setProjectDescription] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [projectStatus, setProjectStatus] = useState('');
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+ 
 
+  const isFormValid = () => {
+    return (
+      projectName.trim() !== "" &&
+      projectDescription.trim() !== "" &&
+      startDate !== "" &&
+      projectStatus !== ""
+    );
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!isFormValid()) {
+      setError("All fields must be filled before submitting.");
+      return;
+    }
+
+    try {
+      const projectData = {
+        projectName,
+        projectDescription,
+        startDate,
+        projectStatus,
+      };
+
+      // Send data to backend
+      const response = await axios.post(
+        "http://localhost:3000/api/project/add",
+        projectData
+      );
+
+      if (response.status === 201) {
+        setSuccess("Project saved successfully!");
+        // Clear the form
+        setProjectName("");
+        setProjectDescription("");
+        setStartDate("");
+        setProjectStatus("");
+        onClose(); 
+      }
+    } catch (error) {
+      setError("Error saving project. Please try again.");
+    }
+  };
+
+
+  if (!isOpen) return null;
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-white rounded-lg p-6 shadow-lg max-w-lg w-full">
         <h2 className="text-lg font-semibold">Add New Project</h2>
-        <form>
+
+        {error && <p className="text-red-500">{error}</p>}
+        {success && <p className="text-green-500">{success}</p>}
+        <form onSubmit={handleSubmit}>
           {/* Add your form fields here */}
           <div className="mt-4">
             <label className="block mb-2" htmlFor="projectName">Project Name</label>
@@ -22,6 +79,8 @@ export const Modal: FC<ModalProps> = ({ isOpen, onClose }) => {
               id="projectName"
               className="border border-gray-300 rounded-md w-full p-2"
               placeholder="Enter project name"
+              value={projectName}
+              onChange={(e) => setProjectName(e.target.value)}
               required
             />
             <label className="block mb-2" htmlFor="projectName">Project Description</label>
@@ -30,6 +89,8 @@ export const Modal: FC<ModalProps> = ({ isOpen, onClose }) => {
               id="projectDescription"
               className="border border-gray-300 rounded-md w-full p-2"
               placeholder="Enter project Description"
+              value={projectDescription}
+              onChange={(e) => setProjectDescription(e.target.value)}
               required
             />
             <label className="block mb-2" htmlFor="projectName">Start Date</label>
@@ -38,6 +99,8 @@ export const Modal: FC<ModalProps> = ({ isOpen, onClose }) => {
               id="StartDate"
               className="border border-gray-300 rounded-md w-full p-2"
               placeholder="Enter Start Date"
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
               required
             />
                 <label className="block mb-2" htmlFor="projectStatus">Project Status</label>
@@ -45,6 +108,8 @@ export const Modal: FC<ModalProps> = ({ isOpen, onClose }) => {
               id="projectStatus"
                // Update state on change
               className="border border-gray-300 rounded-md w-full p-2"
+              value={projectStatus}
+              onChange={(e) => setProjectStatus(e.target.value)}
               required
             >
               <option value="" disabled>Select status</option>
@@ -64,7 +129,7 @@ export const Modal: FC<ModalProps> = ({ isOpen, onClose }) => {
               Save Project
             </button>
             <button
-              type="button"
+              type="submit"
               onClick={onClose}
               className="ml-2 text-gray-600"
             >
