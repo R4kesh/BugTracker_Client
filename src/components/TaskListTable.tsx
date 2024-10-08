@@ -72,8 +72,10 @@
 // };
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useParams } from 'react-router-dom'; 
 
 export const TaskListTable = () => {
+  const { id } = useParams();
   const [tasks, setTasks] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
@@ -88,7 +90,11 @@ export const TaskListTable = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/project/task/getAll');
+       
+        const response = await axios.get(`http://localhost:3000/api/project/task/getAll/${id}`);
+        console.log('resp',response.data);
+        
+        
         setTasks(response.data);
       } catch (error) {
         console.error('Error fetching tasks:', error);

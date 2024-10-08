@@ -21,7 +21,7 @@ export const ProjectList = () => {
     };
 
     fetchProjects(); // Fetch the data when the component mounts
-  }, []);
+  }, [projects]);
 
   return (
     <div className="overflow-x-auto">

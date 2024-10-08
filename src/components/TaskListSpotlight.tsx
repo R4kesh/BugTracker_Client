@@ -5,9 +5,13 @@ import { SidebarDash } from "./SidebarD";
 import { TaskListTable } from "./TaskListTable";
 import { TaskModal } from "./TaskModal";
 import { AssignModal } from "./AssignModal";
+import { useParams } from 'react-router-dom';
 
 
 export function TaskListSpotlight() {
+  const { projectId } = useParams();
+  console.log('prooo',projectId);
+  
     const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
 
     const handleOpenModal = () => {
