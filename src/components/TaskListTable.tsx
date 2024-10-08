@@ -78,7 +78,12 @@ export const TaskListTable = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const [dueDate, setDueDate] = useState('');
-  const [priority, setPriority] = useState('');
+  const [deadlineDate, setDeadlineDate] = useState('');
+  const [selectedRole, setSelectedRole] = useState('');
+  const [roles, setRoles] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]);
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -91,7 +96,26 @@ export const TaskListTable = () => {
     };
 
     fetchTasks();
-  }, [tasks]);
+  }, []);
+
+  useEffect(() => {
+    if (showModal) {
+      const fetchRolesAndUsers = async () => {
+        try {
+          const rolesResponse = await axios.get('http://localhost:3000/api/project/task/assign/roles'); // Fetch roles from your API
+          const usersData = rolesResponse.data;
+
+          const uniqueRoles = [...new Set(usersData.map(user => user.role))];
+          setRoles(uniqueRoles);
+          setUsers(usersData);
+        } catch (error) {
+          console.error('Error fetching roles or users:', error);
+        }
+      };
+
+      fetchRolesAndUsers();
+    }
+  }, [showModal]);
 
   const handleAssignClick = (task) => {
     setSelectedTask(task); // Set the task for the modal
@@ -102,13 +126,52 @@ export const TaskListTable = () => {
     setShowModal(false);
     setSelectedTask(null);
     setDueDate('');
-    setPriority('');
+    setDeadlineDate('');
+    setSelectedRole('');
+    setFilteredUsers([]); 
+    setErrorMessage(''); // Reset error message
   };
 
-  const handleSubmit = () => {
-    console.log('Assigned task:', selectedTask, 'Due date:', dueDate, 'Priority:', priority);
-    handleCloseModal();
-    // Add your logic to handle the form submission (e.g., API call)
+  const handleRoleChange = (role) => {
+    setSelectedRole(role);
+    // Filter users based on the selected role
+    const filtered = users.filter(user => user.role === role);
+    setFilteredUsers(filtered);
+  };
+
+  const handleSubmit = async () => {
+    if (!selectedTask || !dueDate || !selectedRole || filteredUsers.length === 0) {
+      setErrorMessage('Please fill in all fields before submitting.');
+      return;
+    }
+
+    const selectedUser = filteredUsers[0]; // Assuming you want to take the first user from filteredUsers
+
+    const dataToSubmit = {
+      taskId: selectedTask.id,
+      assignedTo: selectedUser.id,
+      dueDate: dueDate,
+      deadlineDate: deadlineDate,
+    };
+
+    try {
+      
+      await axios.put('http://localhost:3000/api/project/task/assignto', dataToSubmit);
+
+     
+      setTasks(prevTasks =>
+        prevTasks.map(task =>
+          task.id === selectedTask.id
+            ? { ...task, assigned: selectedUser.name, dueDate, deadlineDate }
+            : task
+        )
+      );
+
+      handleCloseModal();
+    } catch (error) {
+      console.error('Error submitting task assignment:', error);
+      setErrorMessage('Failed to assign the task. Please try again.');
+    }
   };
 
   return (
@@ -170,56 +233,61 @@ export const TaskListTable = () => {
               </p>
             </div>
 
-        
+            {errorMessage && <p className="text-red-500 mb-4">{errorMessage}</p>} {/* Error message display */}
+
             <div className="flex mb-4 space-x-4">
-  {/* Due Date */}
-  <div className="w-1/2">
-    <label className="block text-sm font-medium text-gray-700">Due Date</label>
-    <input
-      type="date"
-      value={dueDate}
-      onChange={(e) => setDueDate(e.target.value)}
-      className="mt-1 p-2 border rounded w-full"
-    />
-  </div>
+              {/* Due Date */}
+              <div className="w-1/2">
+                <label className="block text-sm font-medium text-white-700">Due Date</label>
+                <input
+                  type="date"
+                  value={dueDate}
+                  onChange={(e) => setDueDate(e.target.value)}
+                  className="mt-1 p-2 border rounded w-full"
+                />
+              </div>
 
-  {/* Deadline Date */}
-  <div className="w-1/2">
-    <label className="block text-sm font-medium text-gray-700">Deadline Date</label>
-    <input
-      type="date"
-      className="mt-1 p-2 border rounded w-full"
-      placeholder="Select Deadline"
-    />
-  </div>
-</div>
+              {/* Deadline Date */}
+              <div className="w-1/2">
+                <label className="block text-sm font-medium text-white-700">Deadline Date</label>
+                <input
+                  type="date"
+                  value={deadlineDate}
+                  onChange={(e) => setDeadlineDate(e.target.value)}
+                  className="mt-1 p-2 border rounded w-full"
+                />
+              </div>
+            </div>
 
-        
-<div className="flex mb-4 space-x-4">
-  {/* Name of User */}
-  <div className="w-1/2">
-  <label className="block text-sm font-medium text-gray-700">Name</label>
-    <select
-      className="mt-1 p-2 border rounded w-full"
-    >
-      <option value="">Select Name</option>
-      <option value="Low">Low</option>
-      {/* Add more roles as needed */}
-    </select>
-  </div>
+            <div className="flex mb-4 space-x-4">
+              {/* Role */}
+              <div className="w-1/2">
+                <label className="block text-sm font-medium text-white-700">Role</label>
+                <select
+                  value={selectedRole}
+                  onChange={(e) => handleRoleChange(e.target.value)}
+                  className="mt-1 p-2 border rounded w-full"
+                >
+                  <option value="">Select Role</option>
+                  {roles.map((role) => (
+                    <option key={role} value={role}>{role}</option>
+                  ))}
+                </select>
+              </div>
 
-  {/* Role */}
-  <div className="w-1/2">
-    <label className="block text-sm font-medium text-gray-700">Role</label>
-    <select
-      className="mt-1 p-2 border rounded w-full"
-    >
-      <option value="">Select Role</option>
-      <option value="Low">Low</option>
-      {/* Add more roles as needed */}
-    </select>
-  </div>
-</div>
+              {/* Name of User */}
+              <div className="w-1/2">
+                <label className="block text-sm font-medium text-white-700">Name</label>
+                <select
+                  className="mt-1 p-2 border rounded w-full"
+                >
+                  <option value="">Select Name</option>
+                  {filteredUsers.map((user) => (
+                    <option key={user.id} value={user.name}>{user.name}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
             <div className="flex justify-end">
               <button
                 onClick={handleCloseModal}
@@ -227,11 +295,11 @@ export const TaskListTable = () => {
               >
                 Cancel
               </button>
-              <a href="/assignedlist"><button
+             <a href="/assignedlist"> <button
                 onClick={handleSubmit}
                 className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg"
               >
-                Submit
+                Assign
               </button>
               </a>
             </div>
@@ -241,3 +309,4 @@ export const TaskListTable = () => {
     </div>
   );
 };
+
