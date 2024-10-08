@@ -1,19 +1,19 @@
 import React from 'react'
 import UserNavbar from './UserNavbar'
 import Footer from '../Footer'
-import { UserDashSpotlight } from './UserComponents/UserDashSpotlight'
+import { WorksSotlights } from './UserComponents/WorksSpotlight'
 
-function UserDashboard() {
+function Works() {
   return (
-   <>
+    <>
     <div className="bg-black min-h-screen">
    <UserNavbar/>
    {/* <UserSidebar/> */}
-   <UserDashSpotlight/>
+   <WorksSotlights/>
    <Footer/>
    </div>
    </>
   )
 }
 
-export default UserDashboard
+export default Works
