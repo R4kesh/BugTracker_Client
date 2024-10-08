@@ -36,6 +36,13 @@ export function SidebarDash() {
       ),
     },
     {
+      label: "Assigned List",
+      href: "/assignedlist",
+      icon: (
+        <IconBrandTabler className="text-neutral-700 dark:text-neutral-200 h-6 w-6 flex-shrink-0" />
+      ),
+    },
+    {
         label: "Bugs Reported",
         href: "#",
         icon: (

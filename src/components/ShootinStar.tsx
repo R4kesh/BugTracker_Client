@@ -55,7 +55,7 @@ import { CardHoverEffectDemo } from "./CardHoverEffectDemo";
 
 export function ShootingStarsAndStarsBackgroundDemo() {
   return (
-    <div className="flex h-screen md:h-[40rem] rounded-md bg-neutral-900 w-full relative">
+    <div className="flex h-screen  rounded-md bg-neutral-900 w-full relative">
       {/* Sidebar on the left */}
       <SidebarDash />
 

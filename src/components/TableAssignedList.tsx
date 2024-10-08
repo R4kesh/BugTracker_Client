@@ -28,6 +28,7 @@ export const TableAssignedList = () => {
             <th className="px-6 py-3">StartDate</th>
             <th className="px-6 py-3">Deadline</th>
             <th className="px-6 py-3">Status</th>
+            <th className="px-6 py-3">Verification</th>
             {/* <th className="px-6 py-3">Action</th> Updated header */}
           </tr>
         </thead>
@@ -47,6 +48,16 @@ export const TableAssignedList = () => {
               <td className="px-6 py-4" >startdate</td>
               <td className="px-6 py-4" >deadline</td>
               <td className="px-6 py-4" >status</td>
+              <td className="px-6 py-4">
+      <select
+        className="p-2 border border-gray-300 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-4 focus:ring-green-500"
+        defaultValue="Pending"
+      >
+        <option className='text text-green-500' value="Verified">Verified</option>
+        <option value="Pending">Pending</option>
+        <option value="Rejected">Rejected</option>
+      </select>
+    </td>
             
             </tr>
           {/* ))} */}
