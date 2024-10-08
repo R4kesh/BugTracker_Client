@@ -9,6 +9,8 @@ import SeverityManagement from './components/AdminDashboard/SeverityManagement';
 import UserManagement from './components/AdminDashboard/UserManagement';
 import AddProject from './components/AdminDashboard/AddProject';
 import TaskList from './components/AdminDashboard/TaskList';
+import AssignedList from './components/AdminDashboard/AssignedList';
+import TesterDashboard from './components/TesterDashboard/TesterDashboard';
 
 
 
@@ -31,12 +33,16 @@ const App = () => {
       <Route path="/usermanagement" element={<UserManagement />} />
       <Route path="/addproject" element={<AddProject />} />
       <Route path="/tasklist/:id" element={<TaskList />} />
+      <Route path="/assignedlist" element={<AssignedList />} />
+      <Route path="/testerdashboard" element={<TesterDashboard />} />
+
+
 
    
 
 
 
-      assignedlist
+      
 
 
     </Routes>

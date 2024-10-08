@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+
 export const ProjectList = () => {
   const [projects, setProjects] = useState([]);
 
@@ -33,7 +34,9 @@ export const ProjectList = () => {
             <th className="px-6 py-3">Description</th>
             <th className="px-6 py-3">Start Date</th>
             <th className="px-6 py-3">Status</th>
-            <th className="px-6 py-3">Action</th>
+            <th className="px-6 py-3">Task</th>
+            
+
           </tr>
         </thead>
         <tbody>
@@ -54,6 +57,7 @@ export const ProjectList = () => {
                   </button></a>
                  
                 </td>
+  
               </tr>
             ))
           ) : (
