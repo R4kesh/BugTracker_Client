@@ -4,10 +4,12 @@ import { Spotlight } from "./ui/spotlight";
 import { SidebarDash } from "./SidebarD";
 import { TaskListTable } from "./TaskListTable";
 import { TaskModal } from "./TaskModal";
+import { AssignModal } from "./AssignModal";
 
 
 export function TaskListSpotlight() {
     const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
+
     const handleOpenModal = () => {
         setIsModalOpen(true);
       };
@@ -15,6 +17,7 @@ export function TaskListSpotlight() {
       const handleCloseModal = () => {
         setIsModalOpen(false);
       };
+  
   return (
 
 <div className="h-screen w-full rounded-md flex md:items-center md:justify-center bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
