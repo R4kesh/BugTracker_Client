@@ -295,13 +295,13 @@ export const TaskListTable = () => {
               >
                 Cancel
               </button>
-             <a href="/assignedlist"> <button
+              <button
                 onClick={handleSubmit}
                 className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg"
               >
                 Assign
               </button>
-              </a>
+            
             </div>
           </div>
         </div>

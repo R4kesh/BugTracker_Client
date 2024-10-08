@@ -22,11 +22,18 @@ export function TaskListSpotlight() {
 
 <div className="h-screen w-full rounded-md flex md:items-center md:justify-center bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
       <SidebarDash/>
+      
+      <a href="/assignedlist"><button 
+    type="button" 
+    className="absolute top-0 right-0 text-gray-900 bg-gradient-to-r from-orange-400 to-red-400 hover:bg-gradient-to-l hover:from-red-400 hover:to-orange-300 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:focus:ring-teal-700 font-bold rounded-lg text-sm px-5 py-2.5 text-center me-52 mt-10"
+>Assigned List</button>
+</a>
       <button 
     type="button" 
     onClick={handleOpenModal}
     className="absolute top-0 right-0 text-gray-900 bg-gradient-to-r from-teal-200 to-lime-200 hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-teal-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-10 mt-10"
 >Create New Task</button>
+
 
       <Spotlight
         className="-top-40 left-0 md:left-60 md:-top-20"
