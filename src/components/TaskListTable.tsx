@@ -85,6 +85,7 @@ export const TaskListTable = () => {
   const [roles, setRoles] = useState([]);
   const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
+  const [selectedUserId, setSelectedUserId] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
@@ -92,8 +93,8 @@ export const TaskListTable = () => {
       try {
        
         const response = await axios.get(`http://localhost:3000/api/project/task/getAll/${id}`);
-        console.log('resp',response.data);
         
+
         
         setTasks(response.data);
       } catch (error) {
@@ -135,6 +136,7 @@ export const TaskListTable = () => {
     setDeadlineDate('');
     setSelectedRole('');
     setFilteredUsers([]); 
+    setSelectedUserId('');
     setErrorMessage(''); // Reset error message
   };
 
@@ -155,12 +157,14 @@ export const TaskListTable = () => {
 
     const dataToSubmit = {
       taskId: selectedTask.id,
-      assignedTo: selectedUser.id,
+      assignedTo: selectedUserId,
       dueDate: dueDate,
       deadlineDate: deadlineDate,
     };
 
     try {
+      console.log('data',dataToSubmit);
+      
       
       await axios.put('http://localhost:3000/api/project/task/assignto', dataToSubmit);
 
@@ -200,7 +204,7 @@ export const TaskListTable = () => {
                 <td className="px-6 py-4">{task.id}</td>
                 <td className="px-6 py-4">{task.taskName}</td>
                 <td className="px-6 py-4">{task.description}</td>
-                <td className="px-6 py-4">{task.assigned ? task.assigned : 'Not Assigned'}</td>
+                <td className="px-6 py-4">{task.assignedUser ? task.assignedUser.name : 'Not Assigned'}</td>
                 <td className="px-6 py-4">
                   {/* Assign Task button */}
                   <button
@@ -285,11 +289,13 @@ export const TaskListTable = () => {
               <div className="w-1/2">
                 <label className="block text-sm font-medium text-white-700">Name</label>
                 <select
+                value={selectedUserId} // Use the selected user ID
+                onChange={(e) => setSelectedUserId(e.target.value)}
                   className="mt-1 p-2 border rounded w-full"
                 >
-                  <option value="">Select Name</option>
+                  <option value={selectedUserId}>Select Name</option>
                   {filteredUsers.map((user) => (
-                    <option key={user.id} value={user.name}>{user.name}</option>
+                    <option key={user.id} value={user.id}>{user.name}</option>
                   ))}
                 </select>
               </div>
