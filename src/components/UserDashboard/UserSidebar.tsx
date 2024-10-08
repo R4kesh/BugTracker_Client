@@ -9,16 +9,23 @@ export function UserSidebar() {
   const links = [
     {
       label: "Dashboard",
-      href: "/userdashboard",
+      href: "/dashboard",
       icon: (
         <IconBrandTabler className="text-neutral-700 dark:text-neutral-200 h-6 w-6 flex-shrink-0" />
       ),
     },
     {
-      label: "Report new bug",
-      href: "#",
+      label: "New Assignments",
+      href: "/assignments",
       icon: (
         <IconUserBolt className="text-neutral-700 dark:text-neutral-200 h-6 w-6 flex-shrink-0" />
+      ),
+    },
+    {
+      label: "Task Todo",
+      href: "/works",
+      icon: (
+        <IconBrandTabler className="text-neutral-700 dark:text-neutral-200 h-6 w-6 flex-shrink-0" />
       ),
     },
     {
@@ -168,7 +175,7 @@ export const Logo = () => {
       >
         A
       </motion.div>
-      <span>Acet Labs</span>
+      <span>USER</span>
     </a>
   );
 };

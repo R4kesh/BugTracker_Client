@@ -11,6 +11,9 @@ import AddProject from './components/AdminDashboard/AddProject';
 import TaskList from './components/AdminDashboard/TaskList';
 import AssignedList from './components/AdminDashboard/AssignedList';
 import TesterDashboard from './components/TesterDashboard/TesterDashboard';
+import UserDashboard from './components/UserDashboard/UserDashboard';
+import UserAssignments from './components/UserDashboard/UserAssignments';
+import Works from './components/UserDashboard/Works';
 
 
 
@@ -34,6 +37,17 @@ const App = () => {
       <Route path="/addproject" element={<AddProject />} />
       <Route path="/tasklist/:id" element={<TaskList />} />
       <Route path="/assignedlist" element={<AssignedList />} />
+
+      <Route path="/dashboard" element={<UserDashboard />} />
+      <Route path="/assignments" element={<UserAssignments />} />
+      <Route path="/works" element={<Works />} />
+
+
+
+
+
+
+
       <Route path="/testerdashboard" element={<TesterDashboard />} />
 
 
