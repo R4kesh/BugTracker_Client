@@ -1,7 +1,22 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
+import axios from 'axios';
 
 
 export const TaskListTable = () => {
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/api/project/task/getAll'); 
+        setTasks(response.data); 
+      } catch (error) {
+        console.error('Error fetching tasks:', error);
+      }
+    };
+
+    fetchTasks(); 
+  }, []);
  
 
   return (
@@ -18,15 +33,16 @@ export const TaskListTable = () => {
           </tr>
         </thead>
         <tbody>
-          {/* {data.map((row, index) => ( */}
-            <tr
+        {tasks.length > 0 ? (
+            tasks.map((task, index) => (
+            <tr key={task.id}
             //   key={row.id}
               className={" hover:bg-gray-600 transition-all duration-200"}
             >
-              <td className="px-6 py-4">{}</td>
-              <td className="px-6 py-4">{}</td>
-              <td className="px-6 py-4">{}</td>
-              <td className="px-6 py-4">{}</td>
+              <td className="px-6 py-4">{task.id}</td>
+              <td className="px-6 py-4">{task.taskName}</td>
+              <td className="px-6 py-4">{task.description}</td>
+              <td className="px-6 py-4">{task.assigned ? task.assigned : "Not Assigned"}</td>
               <td className="px-6 py-4">
                 {/* Approve button */}
                 <button
@@ -37,7 +53,14 @@ export const TaskListTable = () => {
                 </button>
               </td>
             </tr>
-          {/* ))} */}
+             ))
+             ) : (
+               <tr>
+                 <td colSpan={5} className="text-center py-4">
+                   No tasks found
+                 </td>
+               </tr>
+             )}
         </tbody>
       </table>
     </div>
