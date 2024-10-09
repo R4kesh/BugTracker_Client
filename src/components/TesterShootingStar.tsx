@@ -4,7 +4,7 @@ import { ShootingStars } from "../components/ui/shooting-stars";
 import { StarsBackground } from "../components/ui/stars-background";
  
 import { TesterSidebar } from "./TesterSidebar";
-// import { CardHoverEffectDemo } from "./CardHoverEffectDemo";
+import { TesterCardHoverEffect } from "./TesterDashboard/TesterComponent/TesterCardHover";
 
 export function TesterShootingStar() {
   return (
@@ -18,7 +18,7 @@ export function TesterShootingStar() {
          
         <h2 className="relative z-10 text-3xl md:text-5xl md:leading-tight max-w-5xl mx-auto text-center tracking-tight font-medium bg-clip-text text-transparent bg-gradient-to-b from-neutral-800 via-white to-white flex items-center gap-2 md:gap-8 mt-10 ">
           
-        <h3>Tester Demo Dashboard</h3>
+        
         </h2>
             
 
@@ -32,7 +32,7 @@ export function TesterShootingStar() {
          
           <div className="flex items-center justify-center w-full">
           
-            {/* <CardHoverEffectDemo /> */}
+            <TesterCardHoverEffect />
           
           </div>
         
