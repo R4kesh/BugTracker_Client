@@ -36,11 +36,11 @@ export const TaskModal: FC<ModalProps> = ({ isOpen, onClose }) => {
           projectName,
           taskName,
           description,
-          projectId: id, // Use project ID from the URL
+          projectId: id, 
         });
         
         console.log("Task created:", response.data);
-        // Optionally reset the form or close the modal after successful submission
+
         onClose();
       } catch (error) {
         console.error("Error saving task:", error);
