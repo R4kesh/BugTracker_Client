@@ -11,6 +11,8 @@ export const TableAssignedList = () => {
       try {
         const response = await axios.get('http://localhost:3000/api/project/tasks/assignedlist');
         setTasks(response.data);
+        console.log('response');
+        
       } catch (error) {
         console.error('Error fetching tasks:', error);
         setErrorMessage('Failed to fetch tasks. Please try again later.');
