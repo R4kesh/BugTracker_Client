@@ -1,9 +1,9 @@
+
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { IconArrowLeft, IconBrandTabler, IconSettings, IconUserBolt } from "@tabler/icons-react";
-import Link from "react-router-dom";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import { cn } from "../../lib/utils";
-// import { InfiniteMovingCardsDemo } from "./InfiniteMovingCardsDemo";
 
 export function UserSidebar() {
   const links = [
@@ -61,28 +61,13 @@ export function UserSidebar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div
-      className={cn(
-        "flex h-screen",
-        // "bg-gray-100 dark:bg-neutral-900"
-      )}
-    >
+    <div className={cn("flex h-screen")}>
       <Sidebar open={open} setOpen={setOpen} links={links} />
-      {/* <Dashboard /> */}
-      {/* <InfiniteMovingCardsDemo/> */}
     </div>
   );
 }
 
-export const Sidebar = ({
-  open,
-  setOpen,
-  links,
-}: {
-  open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  links: { label: string; href: string; icon: React.ReactNode }[];
-}) => {
+export const Sidebar = ({ open, setOpen, links }) => {
   return (
     <motion.div
       className={cn(
@@ -125,13 +110,7 @@ export const Sidebar = ({
   );
 };
 
-export const SidebarLink = ({
-  link,
-  open,
-}: {
-  link: { label: string; href: string; icon: React.ReactNode };
-  open: boolean;
-}) => {
+export const SidebarLink = ({ link, open }) => {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -139,8 +118,8 @@ export const SidebarLink = ({
       whileHover={{ scale: 1.05 }}
       transition={{ duration: 0.3 }}
     >
-      <a
-        href={link.href}
+      <Link
+        to={link.href} // Use 'to' instead of 'href' for navigation
         className={cn(
           "flex items-center justify-start gap-3 py-3 px-2 rounded-lg cursor-pointer transition-all",
           "hover:bg-white hover:bg-opacity-10"
@@ -157,7 +136,7 @@ export const SidebarLink = ({
             {link.label}
           </motion.span>
         )}
-      </a>
+      </Link>
     </motion.div>
   );
 };
@@ -191,12 +170,3 @@ export const LogoIcon = () => {
     </motion.div>
   );
 };
-
-// Dummy dashboard content
-    // const Dashboard = () => {
-    //   return (
-    //     <div className="flex-1 p-8 bg-transparant dark:bg-neutral-900">
-    //       <div className="text-lg font-semibold">Welcome to the Dashboard!</div>
-    //     </div>
-    //   );
-    // };
