@@ -1,26 +1,4 @@
-// import React from 'react';
-// import { Link } from 'react-router-dom';
 
-
-// const UserNavbar: React.FC = () => {
-//   return (
- 
-//     <nav className="bg-gradient-to-r from-slate-900 to-gray-700 text-white w-full py-4 flex justify-between items-center px-8 shadow-lg">
-//       <div className="text-2xl font-extrabold tracking-wide">
-//         Bug Tracker
-//       </div>
-//       <Link
-//         to="/login" 
-//         className="bg-white text-purple-800 font-semibold py-2 px-6 rounded-full shadow-md hover:bg-purple-600 hover:text-white transition-all duration-300"
-//       >
-//         Login
-//       </Link>
-      
-//     </nav>
-//   );
-// };
-
-// export default UserNavbar;
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -29,7 +7,7 @@ const UserNavbar: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(true); // Replace with real authentication logic
 
   const handleLogout = () => {
-    // Perform logout actions here (e.g., clear auth tokens, update state)
+    localStorage.clear();
     setIsLoggedIn(false);
     console.log('User logged out');
   };

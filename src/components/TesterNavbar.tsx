@@ -6,7 +6,7 @@ const TesterNavbar: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(true); // Replace with real authentication logic
 
   const handleLogout = () => {
-    // Perform logout actions here (e.g., clear auth tokens, update state)
+    localStorage.clear();
     setIsLoggedIn(false);
     console.log('User logged out');
   };
