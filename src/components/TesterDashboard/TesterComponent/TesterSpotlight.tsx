@@ -7,7 +7,6 @@ import { TesterTaskTable } from "./TesterTaskTable";
 
 export function TesterSpotlight() {
 
-  
 
       
   return (
