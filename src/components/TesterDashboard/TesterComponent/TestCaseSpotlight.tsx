@@ -3,12 +3,13 @@ import { cn } from "../lib/utils";
 import { Spotlight } from "../../ui/spotlight";
 import { TesterSidebar } from "../../../components/TesterSidebar";
 import { TestCaseModal } from "./TestCaseModal";
-// import { TesterTaskTable } from "./TesterTaskTable";
+import { TestCaseTable } from "./TestCaseTable";
+import { TesterTaskTable } from "./TesterTaskTable";
 
 
 export function TestCaseSpotlight() {
 
-   const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
+  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
     const handleOpenModal = () => {
         setIsModalOpen(true);
       };
@@ -23,7 +24,8 @@ export function TestCaseSpotlight() {
       <TesterSidebar/>
       <button 
     type="button" 
-   onClick={handleOpenModal}
+    onClick={handleOpenModal}
+
     className="absolute top-0 right-0 text-gray-900 bg-gradient-to-r from-teal-200 to-lime-200 hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-teal-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-10 mt-10"
 >Add Test Cases</button>
       <Spotlight
@@ -34,10 +36,12 @@ export function TestCaseSpotlight() {
         
         <div className="w-full mb-36  max-w-7xl">
           {/* <TableDemo />  */}
-         {/* <TesterTaskTable/> */}
+        <TestCaseTable/>
+     
         </div>
+        <TestCaseModal isOpen={isModalOpen} onClose={handleCloseModal} />
+
       </div>
-      <TestCaseModal isOpen={isModalOpen} onClose={handleCloseModal} />
 
     </div>
   );
