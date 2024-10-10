@@ -35,6 +35,9 @@ const Login: React.FC = () => {
   
         if(response.data.user.role=='projectManager'){
           navigate("/admindashboard")
+        }else if(response.data.user.role=='tester'){
+          navigate('/testerdashboard');
+          
         }else{
           navigate('/dashboard');
         }
