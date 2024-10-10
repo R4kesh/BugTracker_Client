@@ -32,7 +32,7 @@ export const TesterTaskTable = () => {
                 <td className="px-6 py-4">username</td>
                 <td className="px-6 py-4 capitalize">status</td>
                 <td className="px-6 py-4">
-                <Link to=''> <button
+                <Link to='/testcase'> <button
                     className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300"
                    
                   >

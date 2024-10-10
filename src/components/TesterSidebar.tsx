@@ -252,7 +252,7 @@ export const Sidebar = ({
 
   return (
     <motion.div
-      className="relative z-50 h-full bg-gradient-to-r from-gray-800 via-cyan-700 to-violet-700 text-white flex-shrink-0 flex flex-col items-center shadow-xl"
+      className="relative z-50 h-full bg-gradient-to-r from-gray-700 via-cyan-700 to-slate-950 text-white flex-shrink-0 flex flex-col items-center shadow-xl"
       variants={sidebarVariants}
       animate={open ? "open" : "closed"}
       initial={false}
