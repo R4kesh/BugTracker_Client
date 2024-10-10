@@ -73,7 +73,7 @@ export const TableAssignedList = () => {
               <td className="px-6 py-4">{task.assignedUser ? task.assignedUser.email : 'N/A'}</td>
               <td className="px-6 py-4">{new Date(task.starting).toLocaleDateString()}</td>
               <td className="px-6 py-4">{new Date(task.deadline).toLocaleDateString()}</td>
-              <td className="px-6 py-4">Pending</td>
+              <td className="px-6 py-4">{task.isVerified ? 'Verified' : 'Pending'}</td>
               <td className="px-6 py-4">In Progress</td>
               <td className="px-6 py-4">
               <select

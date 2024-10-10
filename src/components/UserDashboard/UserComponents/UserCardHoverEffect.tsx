@@ -1,15 +1,54 @@
+import React, { useState, useEffect } from 'react';
 import { HoverEffect } from "../../ui/card-hover-effect";
-
+import axios from 'axios';
 
 export function UserCardHoverEffect() {
- 
-  // Create projects array dynamically using the activeSeverityCount
+  // State to store counts
+  const [counts, setCounts] = useState({
+    assignments: 0,
+    tasksCompleted: 0,
+    newBugs: 0,
+    resolvedBugs: 0,
+  });
+
+  // Fetch counts from the API on component mount
+  useEffect(() => {
+    const fetchCounts = async () => {
+      try {
+        const user = JSON.parse(localStorage.getItem('user')); // 'user' is the key for your localStorage
+
+        if (user && user.id) {
+          const userId = user.id;
+
+          // Make an API call to fetch the counts
+          const response = await axios.get(`http://localhost:3000/api/userDashboard/count?id=${userId}`);
+          const data = response.data;
+          console.log('data',data);
+          
+
+          // Set the state with the fetched counts
+          setCounts({
+            assignments: data.assignments || 0,
+            tasksCompleted: data.tasksCompleted || 0,
+            newBugs: data.newBugs || 0,
+            resolvedBugs: data.resolvedBugs || 0,
+          });
+        }
+      } catch (error) {
+        console.error("Error fetching counts:", error);
+      }
+    };
+
+    fetchCounts();
+  }, []);
+
+  // Create projects array dynamically using the fetched counts
   const projects = [
     {
       title: "New Assignments",
       description: (
         <span style={{ fontSize: '36px', fontStyle: 'Roboto' }}>
-          Total: 
+          Total: {counts.assignments}
         </span>
       ),
       link: "",
@@ -18,46 +57,25 @@ export function UserCardHoverEffect() {
       title: "Task Completed",
       description: (
         <span style={{ fontSize: '36px', fontStyle: 'Roboto' }}>
-          Total: 
+          Total: {counts.tasksCompleted}
         </span>
       ),
       link: "",
     },
     {
       title: "New Bug",
-      description:
-        "A multinational technology company that specializes in Internet-related services and products.",
+      description: `Total: ${counts.newBugs}`,
       link: "",
     },
     {
       title: "Resolved Bug",
-      description:
-        "A technology company that focuses on building products that advance Facebook's mission of bringing the world closer together.",
-      link: "",
-    },
-    {
-      title: "Amazon",
-      description:
-        "A multinational technology company focusing on e-commerce, cloud computing, digital streaming, and artificial intelligence.",
-      link: "",
-    },
-    {
-      title: "Microsoft",
-      description:
-        "A multinational technology company that develops, manufactures, licenses, supports, and sells computer software, consumer electronics, personal computers, and related services.",
+      description: `Total: ${counts.resolvedBugs}`,
       link: "",
     },
   ];
 
   return (
     <div className="max-w-5xl mx-auto px-8">
-      
-      <div>
-        
-        <h3> </h3> {/* Display the count */}
-     
-                </div>
-
       <HoverEffect items={projects} />
     </div>
   );
