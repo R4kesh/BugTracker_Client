@@ -52,7 +52,7 @@ const App = () => {
 
       <Route path="/testerdashboard" element={<TesterDashboard />} />
       <Route path="/testtask" element={<TesterTaskList />} />
-      <Route path="/testcase" element={<AddTestCase />} />
+      <Route path="/testcase/:id" element={<AddTestCase />} />
 
 
 
