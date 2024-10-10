@@ -14,6 +14,7 @@ import TesterDashboard from './components/TesterDashboard/TesterDashboard';
 import UserDashboard from './components/UserDashboard/UserDashboard';
 import UserAssignments from './components/UserDashboard/UserAssignments';
 import Works from './components/UserDashboard/Works';
+import TesterTaskList from './components/TesterDashboard/TesterTaskList';
 
 
 
@@ -43,12 +44,13 @@ const App = () => {
       <Route path="/works" element={<Works />} />
 
 
-
+      
 
 
 
 
       <Route path="/testerdashboard" element={<TesterDashboard />} />
+      <Route path="/testtask" element={<TesterTaskList />} />
 
 
 

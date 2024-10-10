@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-
+import { Link } from 'react-router-dom';
 
 export const ProjectList = () => {
   const [projects, setProjects] = useState([]);
@@ -49,12 +49,12 @@ export const ProjectList = () => {
                 <td className="px-6 py-4">{new Date(project.startDate).toLocaleDateString()}</td>
                 <td className="px-6 py-4 capitalize">{project.status}</td>
                 <td className="px-6 py-4">
-                <a href={`/tasklist/${project.id}`}> <button
+                <Link to={`/tasklist/${project.id}`}> <button
                     className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300"
                     onClick={() => console.log(`Adding task to project ${project.id}`)}
                   >
                     Add Task
-                  </button></a>
+                  </button></Link>
                  
                 </td>
   

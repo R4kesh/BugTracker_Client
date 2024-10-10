@@ -4,8 +4,8 @@ import { Spotlight } from "./ui/spotlight";
 import { SidebarDash } from "./SidebarD";
 import { TaskListTable } from "./TaskListTable";
 import { TaskModal } from "./TaskModal";
-import { AssignModal } from "./AssignModal";
 import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 export function TaskListSpotlight() {
@@ -21,17 +21,17 @@ export function TaskListSpotlight() {
       const handleCloseModal = () => {
         setIsModalOpen(false);
       };
-  
+      
   return (
 
 <div className="h-screen w-full rounded-md flex md:items-center md:justify-center bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
       <SidebarDash/>
       
-      <a href="/assignedlist"><button 
+      <Link to="/assignedlist"><button 
     type="button" 
     className="absolute top-0 right-0 text-gray-900 bg-gradient-to-r from-orange-400 to-red-400 hover:bg-gradient-to-l hover:from-red-400 hover:to-orange-300 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:focus:ring-teal-700 font-bold rounded-lg text-sm px-5 py-2.5 text-center me-52 mt-10"
 >Assigned List</button>
-</a>
+</Link>
       <button 
     type="button" 
     onClick={handleOpenModal}
