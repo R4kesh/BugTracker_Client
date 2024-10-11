@@ -140,7 +140,7 @@ export const TestCaseModal: FC<ModalProps> = ({ isOpen, onClose }) => {
       const response = await axios.post(`http://localhost:3000/api/tester/testCaseCreation/${id}`, {
         name: testName,
         description: testDescription,
-        steps: steps.filter(step => step) // Filter out empty steps
+        steps: steps.filter(step => step) 
       });
 
       if (response.status === 201) {
