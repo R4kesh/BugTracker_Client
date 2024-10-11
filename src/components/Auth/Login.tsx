@@ -130,7 +130,7 @@ const Login: React.FC = () => {
                   <option value="designer">Designer</option>
                   <option value="developer">Developer</option>
                   <option value="projectManager">Project Manager</option>
-                  <option value="projectManager">Project Manager</option>
+                  <option value="projectManager">Client Developer</option>
 
 
                 </select>

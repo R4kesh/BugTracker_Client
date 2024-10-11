@@ -103,7 +103,7 @@ export const TaskListTable = () => {
     };
 
     fetchTasks();
-  }, []);
+  }, [tasks]);
 
   useEffect(() => {
     if (showModal) {
