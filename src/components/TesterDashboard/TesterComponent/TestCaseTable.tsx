@@ -290,7 +290,7 @@ export const TestCaseTable = () => {
     }
 
     try {
-      const response = await axios.put(`http://localhost:3000/api/testcase/${testCaseId}`, formData, {
+      const response = await axios.put(`http://localhost:3000/api/testcase/${id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
