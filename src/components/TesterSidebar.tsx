@@ -213,7 +213,7 @@ export function TesterSidebar() {
     },
     {
       label: "Completed Task",
-      href: "#",
+      href: "/testedlist",
       icon: (
         <IconSettings className="text-neutral-700 dark:text-neutral-200 h-6 w-6 flex-shrink-0" />
       ),
