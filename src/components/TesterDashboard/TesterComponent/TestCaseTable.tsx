@@ -22,7 +22,7 @@ export const TestCaseTable = () => {
     };
 
     fetchTestCases();
-  }, [id]);
+  }, [id,testCases]);
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);

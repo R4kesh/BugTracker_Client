@@ -1,9 +1,9 @@
 
 import React from "react";
 import { cn } from "../lib/utils";
-import { Spotlight } from "./ui/spotlight";
-import { TableDemostructure } from "./ui/table";
+import { Spotlight } from "../ui/spotlight";
 import { SidebarDash } from "../SidebarD";
+import { TestReportTable } from "../TestReportTable";
 
 
 export function TestReportSpotlight() {
@@ -17,8 +17,7 @@ export function TestReportSpotlight() {
       <div className="p-4 w-full relative z-10 flex flex-col items-center justify-center">
           
         <div className="w-full mb-36  max-w-7xl">
-          {/* <TableDemo />  */}
-         <TableUsermanagement/>
+        <TestReportTable/>
         </div>
       </div>
     </div>

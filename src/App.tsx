@@ -16,6 +16,8 @@ import UserAssignments from './components/UserDashboard/UserAssignments';
 import Works from './components/UserDashboard/Works';
 import TesterTaskList from './components/TesterDashboard/TesterTaskList';
 import AddTestCase from './components/TesterDashboard/AddTestCase';
+import TestReport from './components/AdminDashboard/TestReport';
+import TestList from './components/TesterDashboard/TestList';
 
 
 
@@ -39,6 +41,8 @@ const App = () => {
       <Route path="/addproject" element={<AddProject />} />
       <Route path="/tasklist/:id" element={<TaskList />} />
       <Route path="/assignedlist" element={<AssignedList />} />
+      <Route path="/testreport" element={<TestReport />} />
+
 
       <Route path="/dashboard" element={<UserDashboard />} />
       <Route path="/assignments" element={<UserAssignments />} />
@@ -53,6 +57,8 @@ const App = () => {
       <Route path="/testerdashboard" element={<TesterDashboard />} />
       <Route path="/testtask" element={<TesterTaskList />} />
       <Route path="/testcase/:id" element={<AddTestCase />} />
+      <Route path="/testedlist" element={<TestList />} />
+
 
 
 

@@ -1,7 +1,7 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { IconArrowLeft, IconBrandTabler, IconSettings, IconUserBolt } from "@tabler/icons-react";
+import { IconArrowLeft, IconBrandTabler,Icon123, IconSettings, IconUserBolt, Icon360 } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
 import { cn } from "../lib/utils";
 
@@ -39,14 +39,14 @@ export function SidebarDash() {
       label: "Assigned List",
       href: "/assignedlist",
       icon: (
-        <IconBrandTabler className="text-neutral-700 dark:text-neutral-200 h-6 w-6 flex-shrink-0" />
+        <Icon123 className="text-neutral-700 dark:text-neutral-200 h-6 w-6 flex-shrink-0" />
       ),
     },
     {
-      label: "Bugs Reported",
-      href: "#",
+      label: "Test Reports",
+      href: "/testreport",
       icon: (
-        <IconBrandTabler className="text-neutral-700 dark:text-neutral-200 h-6 w-6 flex-shrink-0" />
+        <Icon360 className="text-neutral-700 dark:text-neutral-200 h-6 w-6 flex-shrink-0" />
       ),
     },
     {
