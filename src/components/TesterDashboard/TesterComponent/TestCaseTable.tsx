@@ -2,9 +2,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export const TestCaseTable = () => {
   const { id } = useParams();
+
   const [testCases, setTestCases] = useState([]);
   const [severity, setSeverity] = useState('High');
   const [testStatus, setTestStatus] = useState('Not Started');
@@ -29,7 +31,9 @@ export const TestCaseTable = () => {
   };
 
   const handleUpdateTestCase = async (testCaseId) => {
+
     const formData = new FormData();
+
     formData.append('severity', severity);
     formData.append('testStatus', testStatus);
     formData.append('selectedSteps', JSON.stringify(selectedSteps[testCaseId] || [])); // Include selected steps
@@ -38,8 +42,33 @@ export const TestCaseTable = () => {
       formData.append('file', file);
     }
 
+    const taskId = id;
+    const userData = localStorage.getItem("user"); 
+    let testerId;
+    
+    if (userData) {
+        const user = JSON.parse(userData); // Parse the entire user object
+        testerId = user.id; // Access the id property
+    } else {
+        console.error("No user found in local storage");
+        return; // Early return if no user found
+    }
+
+    formData.append('taskId', taskId);
+    formData.append('testerId', testerId.id);
+
+
+
+
     try {
-      const response = await axios.put(`http://localhost:3000/api/testcase/${id}`, formData, {
+      console.log('severity',severity);
+      console.log('testStatus',testStatus);
+      console.log('selectedSteps',);
+      console.log('taskId',taskId);
+      console.log('testerId',testerId.id);
+
+      
+      const response = await axios.post(`http://localhost:3000/api/tester/bugreport`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -165,10 +194,19 @@ export const TestCaseTable = () => {
                 </select>
               </td>
               <td className="px-6 py-4">
-              <button
+              
+              {/* <Link  to='/testedlist'><button
                   onClick={() => handleUpdateTestCase(testCase.id)}
                   className="bg-blue-500 text-white rounded-md px-2 py-1 mt-2"
                 >
+                
+                  Submit
+                </button></Link> */}
+                <button
+                  onClick={() => handleUpdateTestCase(testCase.id)}
+                  className="bg-blue-500 text-white rounded-md px-2 py-1 mt-2"
+                >
+                
                   Submit
                 </button>
                 </td>
