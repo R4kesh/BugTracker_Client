@@ -35,20 +35,7 @@ export function UserSidebar() {
         <IconSettings className="text-neutral-700 dark:text-neutral-200 h-6 w-6 flex-shrink-0" />
       ),
     },
-    {
-        label: "Bugs Resolved",
-        href: "#",
-        icon: (
-          <IconBrandTabler className="text-neutral-700 dark:text-neutral-200 h-6 w-6 flex-shrink-0" />
-        ),
-      },
-      {
-        label: "Bugs Assigned",
-        href: "#",
-        icon: (
-          <IconSettings className="text-neutral-700 dark:text-neutral-200 h-6 w-6 flex-shrink-0" />
-        ),
-      },
+   
     {
       label: "Logout",
       href: "#",

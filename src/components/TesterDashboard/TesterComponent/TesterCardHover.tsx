@@ -59,17 +59,17 @@ export function TesterCardHoverEffect() {
     },
     {
       title: "Resolved Bug",
-      description: "A technology company that focuses on building products that advance Facebook's mission of bringing the world closer together.",
+      description: 'Demo',
       link: "",
     },
     {
-      title: "Amazon",
-      description: "A multinational technology company focusing on e-commerce, cloud computing, digital streaming, and artificial intelligence.",
+      title: "Demo",
+      description: "Demo",
       link: "",
     },
     {
-      title: "Microsoft",
-      description: "A multinational technology company that develops, manufactures, licenses, supports, and sells computer software, consumer electronics, personal computers, and related services.",
+      title: "Demo",
+      description: "Demo",
       link: "",
     },
   ];
