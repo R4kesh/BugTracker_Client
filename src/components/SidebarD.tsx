@@ -49,13 +49,13 @@ export function SidebarDash() {
         <Icon360 className="text-neutral-700 dark:text-neutral-200 h-6 w-6 flex-shrink-0" />
       ),
     },
-    {
-      label: "Bugs Assigned",
-      href: "#",
-      icon: (
-        <IconSettings className="text-neutral-700 dark:text-neutral-200 h-6 w-6 flex-shrink-0" />
-      ),
-    },
+    // {
+    //   label: "Bugs Assigned",
+    //   href: "#",
+    //   icon: (
+    //     <IconSettings className="text-neutral-700 dark:text-neutral-200 h-6 w-6 flex-shrink-0" />
+    //   ),
+    // },
     {
       label: "Logout",
       href: "#",
@@ -169,7 +169,7 @@ export const Logo = () => {
       >
         A
       </motion.div>
-      <span>Acet Labs</span>
+      <span>ADMIN</span>
     </Link>
   );
 };

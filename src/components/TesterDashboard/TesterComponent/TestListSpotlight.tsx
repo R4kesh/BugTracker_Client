@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import { cn } from "../lib/utils";
 import { Spotlight } from "../../ui/spotlight";
 import { TesterSidebar } from "../../../components/TesterSidebar";
-import { TestCaseModal } from "./TestCaseModal";
-import { TestCaseTable } from "./TestCaseTable";
-import { TesterTaskTable } from "./TesterTaskTable";
+import { TestReportList } from "./TestReportList";
 
 
 export function TestListSpotlight() {
@@ -23,7 +21,7 @@ export function TestListSpotlight() {
         
         <div className="w-full mb-36  max-w-7xl">
           {/* <TableDemo />  */}
-        {/* <TestCaseTable/> */}
+       <TestReportList/>
      
         </div>
 
