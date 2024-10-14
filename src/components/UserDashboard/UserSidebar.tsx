@@ -1,11 +1,15 @@
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { IconArrowLeft, IconBrandTabler, IconSettings, IconUserBolt } from "@tabler/icons-react";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import { cn } from "../../lib/utils";
+import axios from "axios";
 
 export function UserSidebar() {
+
+
+
   const links = [
     {
       label: "Dashboard",
@@ -49,12 +53,12 @@ export function UserSidebar() {
 
   return (
     <div className={cn("flex h-screen")}>
-      <Sidebar open={open} setOpen={setOpen} links={links} />
+      <Sidebar open={open} setOpen={setOpen} links={links} data={data} />
     </div>
   );
 }
 
-export const Sidebar = ({ open, setOpen, links }) => {
+export const Sidebar = ({ open, setOpen, links,data }) => {
   return (
     <motion.div
       className={cn(
@@ -90,14 +94,14 @@ export const Sidebar = ({ open, setOpen, links }) => {
       {/* Links */}
       <div className="flex flex-col gap-6 w-full px-4">
         {links.map((link, idx) => (
-          <SidebarLink key={idx} link={link} open={open} />
+          <SidebarLink key={idx} link={link} open={open} data={data} />
         ))}
       </div>
     </motion.div>
   );
 };
 
-export const SidebarLink = ({ link, open }) => {
+export const SidebarLink = ({ link, open,data }) => {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -141,7 +145,7 @@ export const Logo = () => {
       >
         A
       </motion.div>
-      <span>USER</span>
+      <span>User</span>
     </a>
   );
 };
