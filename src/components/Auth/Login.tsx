@@ -23,7 +23,7 @@ const Login: React.FC = () => {
     try {
       
       const response = await axios.post('http://localhost:3000/api/auth/login', { email, password, role });
-      console.log('res',response);
+      console.log('response login',response);
       
 
       if (response && response.data) {

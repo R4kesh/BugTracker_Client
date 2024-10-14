@@ -1,10 +1,16 @@
 
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const UserNavbar: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(true); // Replace with real authentication logic
+
+
+
+ 
+
+
 
   const handleLogout = () => {
     localStorage.clear();
@@ -17,6 +23,7 @@ const UserNavbar: React.FC = () => {
      <div className="text-2xl font-extrabold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-red-700 via-yellow-300 to-red-600 drop-shadow-md">
   Bug Tracker
 </div>
+
 
       {isLoggedIn ? (
         <Link to='/login'>
