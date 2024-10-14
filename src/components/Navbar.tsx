@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 // import { Link } from 'react-router-dom';
 
 const Navbar: React.FC = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true); // Replace with real authentication logic
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Replace with real authentication logic
 
   const handleLogout = () => {
     // Perform logout actions here (e.g., clear auth tokens, update state)

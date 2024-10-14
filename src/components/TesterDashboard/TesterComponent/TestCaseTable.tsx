@@ -1,8 +1,6 @@
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 
 export const TestCaseTable = () => {
   const { id } = useParams();
@@ -10,7 +8,6 @@ export const TestCaseTable = () => {
   const [testCases, setTestCases] = useState([]);
   const [severity, setSeverity] = useState('High');
   const [testStatus, setTestStatus] = useState('Not Started');
-  const [file, setFile] = useState(null);
   const [selectedSteps, setSelectedSteps] = useState({}); // Store selected steps for each test case
 
   useEffect(() => {
@@ -24,31 +21,22 @@ export const TestCaseTable = () => {
     };
 
     fetchTestCases();
-  }, [id,testCases]);
-
-  const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
-  };
+  }, [id]);
 
   const handleUpdateTestCase = async (testCaseId) => {
-
     const formData = new FormData();
 
     formData.append('severity', severity);
     formData.append('testStatus', testStatus);
     formData.append('selectedSteps', JSON.stringify(selectedSteps[testCaseId] || [])); // Include selected steps
 
-    if (file) {
-      formData.append('file', file);
-    }
-
     const taskId = id;
     const userData = localStorage.getItem("user"); 
     let testerId;
-    
+
     if (userData) {
         const user = JSON.parse(userData); // Parse the entire user object
-        testerId = user.id; // Access the id property
+        testerId = user; // Access the id property
     } else {
         console.error("No user found in local storage");
         return; // Early return if no user found
@@ -57,17 +45,13 @@ export const TestCaseTable = () => {
     formData.append('taskId', taskId);
     formData.append('testerId', testerId.id);
 
-
-
-
     try {
-      console.log('severity',severity);
-      console.log('testStatus',testStatus);
-      console.log('selectedSteps',);
-      console.log('taskId',taskId);
-      console.log('testerId',testerId.id);
+      console.log('severity', severity);
+      console.log('testStatus', testStatus);
+      console.log('selectedSteps', selectedSteps);
+      console.log('taskId', taskId);
+      console.log('testerId', testerId.id);
 
-      
       const response = await axios.post(`http://localhost:3000/api/tester/bugreport`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -105,7 +89,7 @@ export const TestCaseTable = () => {
           <tr className="bg-gray-800 text-left uppercase text-xs text-gray-400">
             <th className="px-6 py-3">ID</th>
             <th className="px-6 py-3">Test Id</th>
-            <th className="px-6 py-3 ">Test Description</th>
+            <th className="px-6 py-3">Test Description</th>
             <th className="px-6 py-3">Steps</th>
             <th className="px-6 py-3">Severity</th>
             <th className="px-6 py-3">Result</th>
@@ -156,6 +140,25 @@ export const TestCaseTable = () => {
                   <option value="Low">Low</option>
                 </select>
               </td>
+
+              <td className="px-6 py-4">
+                <input
+                  type="file"
+                  accept="application/pdf"
+                  
+                  className="p-2 border border-gray-300 bg-slate-600 rounded"
+                />
+                <div className="text-gray-300 mt-1">{}</div>
+                <button
+                  
+                  className="bg-blue-500 text-white rounded-md px-2 py-1 mt-2"
+                >
+                  Update
+                </button>
+              </td>
+
+
+
               
               <td className="px-6 py-4">
                 <select
@@ -167,21 +170,7 @@ export const TestCaseTable = () => {
                
                 </select>
               </td>
-              <td className="px-6 py-4">
-                <input
-                  type="file"
-                  accept="application/pdf"
-                  onChange={handleFileChange}
-                  className="p-2 border border-gray-300 bg-slate-600 rounded"
-                />
-                <div className="text-gray-300 mt-1">{testCase.fileLink}</div>
-                <button
-                  onClick={() => handleUpdateTestCase(testCase.id)}
-                  className="bg-blue-500 text-white rounded-md px-2 py-1 mt-2"
-                >
-                  Update
-                </button>
-              </td>
+              
               <td className="px-6 py-4">
                 <select
                   value={testStatus}
@@ -193,23 +182,15 @@ export const TestCaseTable = () => {
                   <option value="Completed">Completed</option>
                 </select>
               </td>
-              <td className="px-6 py-4">
               
-              {/* <Link  to='/testedlist'><button
-                  onClick={() => handleUpdateTestCase(testCase.id)}
-                  className="bg-blue-500 text-white rounded-md px-2 py-1 mt-2"
-                >
-                
-                  Submit
-                </button></Link> */}
+              <td className="px-6 py-4">
                 <button
                   onClick={() => handleUpdateTestCase(testCase.id)}
                   className="bg-blue-500 text-white rounded-md px-2 py-1 mt-2"
                 >
-                
                   Submit
                 </button>
-                </td>
+              </td>
             </tr>
           ))}
         </tbody>
@@ -217,4 +198,3 @@ export const TestCaseTable = () => {
     </div>
   );
 };
-
