@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { BackgroundBeamsWithCollision } from "../../components/ui/background-beams-with-collision";
 import axios from 'axios';
 
-
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -12,9 +11,7 @@ const Login: React.FC = () => {
   const navigate = useNavigate(); 
 
   // Handle form submission
-  
   const handleSubmit = async (e:any) => {
-   
     e.preventDefault();
 
     // Validate fields
@@ -25,9 +22,7 @@ const Login: React.FC = () => {
 
     try {
       
-
-      
-      const response = await axios.post(`http://localhost:3000/api/auth/login`, { email, password, role });
+      const response = await axios.post('http://localhost:3000/api/auth/login', { email, password, role });
       console.log('res',response);
       
 
