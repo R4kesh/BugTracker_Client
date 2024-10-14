@@ -384,7 +384,7 @@ export const TestCaseTable = () => {
                     type="submit"
                     className="bg-blue-500 text-white rounded-md px-2 py-1 mt-2"
                   >
-                    Submit
+                    SUBMIT
                   </button>
                 </form>
               </td>
