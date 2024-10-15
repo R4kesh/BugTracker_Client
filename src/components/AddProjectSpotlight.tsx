@@ -2,8 +2,6 @@
 import React, { useState } from "react";
 import { cn } from "../lib/utils";
 import { Spotlight } from "./ui/spotlight";
-import { TableDemostructure } from "./ui/table";
-import { TableUsermanagement } from "./TableUsermanagement";
 import { SidebarDash } from "./SidebarD";
 import { Modal } from "./Modals";
 import { ProjectList } from "./ProjectList";
