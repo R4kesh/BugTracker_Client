@@ -191,8 +191,10 @@ export const TaskListTable = () => {
         <thead>
           <tr className="bg-gray-800 text-left uppercase text-xs text-gray-400">
             <th className="px-6 py-3">ID</th>
+            <th className="px-6 py-3">Module Name</th>
             <th className="px-6 py-3">Task Name</th>
             <th className="px-6 py-3">Description</th>
+            <th className="px-6 py-3">User Story</th>
             <th className="px-6 py-3">Assigned To</th>
             <th className="px-6 py-3">Action</th>
           </tr>
@@ -202,8 +204,10 @@ export const TaskListTable = () => {
             tasks.map((task) => (
               <tr key={task.id} className="hover:bg-gray-600 transition-all duration-200">
                 <td className="px-6 py-4">{task.id}</td>
+                <td className="px-6 py-4">modulename</td>
                 <td className="px-6 py-4">{task.taskName}</td>
                 <td className="px-6 py-4">{task.description}</td>
+                <td className="px-6 py-4">users tory</td>
                 <td className="px-6 py-4">{task.assignedUser ? task.assignedUser.name : 'Not Assigned'}</td>
                 <td className="px-6 py-4">
                   {/* Assign Task button */}
