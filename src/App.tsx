@@ -19,6 +19,8 @@ import AddTestCase from './components/TesterDashboard/AddTestCase';
 import TestReport from './components/AdminDashboard/TestReport';
 import TestList from './components/TesterDashboard/TestList';
 import ProjectModule from './components/AdminDashboard/ProjectModule';
+import TrackHistory from './components/AdminDashboard/TrackHistory';
+import EmployeeList from './components/AdminDashboard/EmployeeList';
 
 
 
@@ -44,8 +46,10 @@ const App = () => {
       <Route path="/assignedlist" element={<AssignedList />} />
       <Route path="/testreport" element={<TestReport />} />
       <Route path="/projectModule/id" element={<ProjectModule />} />
+      <Route path="/trackhistory" element={<TrackHistory />} />
+      <Route path="/employeelist" element={<EmployeeList />} />
 
-
+      
 
       <Route path="/dashboard" element={<UserDashboard />} />
       <Route path="/assignments" element={<UserAssignments />} />

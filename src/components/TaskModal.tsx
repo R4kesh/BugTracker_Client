@@ -62,6 +62,14 @@ export const TaskModal: FC<ModalProps> = ({ isOpen, onClose }) => {
               value={projectName} // Pre-filled project name
               readOnly // This makes the field read-only
             />
+                   <label className="block mb-2" htmlFor="projectName">Module Name</label>
+            <input
+              type="text"
+              id="moduleName"
+              className="border border-gray-300 rounded-md w-full p-2 bg-gray-100 cursor-not-allowed"
+              value='' 
+              readOnly 
+            />
 
             {/* Task Name */}
             <label className="block mb-2 mt-4" htmlFor="taskName">Task Name</label>
@@ -85,7 +93,17 @@ export const TaskModal: FC<ModalProps> = ({ isOpen, onClose }) => {
               onChange={(e) => setTaskDescription(e.target.value)} // Update state
               required
             />
+                 <label className="block mb-2 mt-4" htmlFor="taskDescription">User Story</label>
+            <textarea
+              id="userstory"
+              className="border border-gray-300 rounded-md w-full p-2"
+              placeholder="Enter User Story"
+              value=''
+            
+              required
+            />
           </div>
+          
 
           <div className="mt-4">
             {/* Save Button */}
