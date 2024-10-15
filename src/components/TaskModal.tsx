@@ -8,7 +8,7 @@ interface ModalProps {
 }
 
 export const TaskModal: FC<ModalProps> = ({ isOpen, onClose }) => {
-  const { id } = useParams<{ id: string }>(); // Get project ID from URL
+  const { id } = useParams<{ id: string }>(); 
   const [projectName, setProjectName] = useState("");
   const [taskName, setTaskName] = useState("");
   const [description, setTaskDescription] = useState("");

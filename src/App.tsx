@@ -42,7 +42,7 @@ const App = () => {
       <Route path="/userRequest" element={<SeverityManagement />} />
       <Route path="/usermanagement" element={<UserManagement />} />
       <Route path="/addproject" element={<AddProject />} />
-      <Route path="/tasklist/:id" element={<TaskList />} />
+      <Route path="/tasklist/:projectId/:epicId" element={<TaskList />} />
       <Route path="/assignedlist" element={<AssignedList />} />
       <Route path="/testreport" element={<TestReport />} />
       <Route path="/projectModule/:projectId" element={<ProjectModule />} />
