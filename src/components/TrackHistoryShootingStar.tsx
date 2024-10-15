@@ -30,7 +30,7 @@ export function TrackHistoryShootingStar() {
           {/* Center the CardHoverEffectDemo */}
          
          
-          <div className="flex items-center justify-center w-full">
+          <div className="flex items-center justify-center w-full ">
           
             <TrackHistoryCardHover />
           
