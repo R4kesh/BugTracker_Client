@@ -10,7 +10,7 @@ export const ProjectList = () => {
       try {
         const response = await axios.get('http://localhost:3000/api/project/display');
         
-        console.log('Fetched projects:', response.data); // Check what the API returns
+       // Check what the API returns
 
         // Ensure response.data is an array. If it's not, handle it.
         const projectData = Array.isArray(response.data) ? response.data : [];
@@ -49,7 +49,7 @@ export const ProjectList = () => {
                 <td className="px-6 py-4">{new Date(project.startDate).toLocaleDateString()}</td>
                 <td className="px-6 py-4 capitalize">{project.status}</td>
                 <td className="px-6 py-4">
-                <Link to={'/projectModule/id'}> <button
+                <Link to={`/projectModule/${project.id}`}> <button
                     className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300"
                     onClick={() => console.log(`Adding task to project ${project.id}`)}
                   >
