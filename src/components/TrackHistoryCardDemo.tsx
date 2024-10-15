@@ -51,7 +51,7 @@ export function TrackHistoryCardHover() {
   ];
 
   return (
-    <div className="max-w-5xl mx-auto px-8">
+    <div className="max-w-5xl mx-auto px-8 ">
       
       <div>
         

@@ -16,11 +16,7 @@ export function EmployeeSpotlight() {
 <div className="h-screen w-full rounded-md flex md:items-center md:justify-center bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
       <SidebarDash/>
       
-      <Link to="/assignedlist"><button 
-    type="button" 
-    className="absolute top-0 right-0 text-gray-900 bg-gradient-to-r from-orange-400 to-red-400 hover:bg-gradient-to-l hover:from-red-400 hover:to-orange-300 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:focus:ring-teal-700 font-bold rounded-lg text-sm px-5 py-2.5 text-center me-52 mt-10"
->Employee List</button>
-</Link>
+
      
 
       <Spotlight
