@@ -31,22 +31,13 @@ export const AddModuleModal: FC<ModalProps> = ({ isOpen, onClose }) => {
             
               required
             />
-            <label className="block mb-2" htmlFor="projectName">Project ID</label>
-            <input
-              type="text"
-              id="projectId"
-              className="border border-gray-300 rounded-md w-full p-2"
-              placeholder="Enter project Description"
-              value=''
-              
-              required
-            />
+
             <label className="block mb-2" htmlFor="projectName">Module Name</label>
             <input
               type="text"
               id="modulename"
               className="border border-gray-300 rounded-md w-full p-2"
-              placeholder="Enter Start Date"
+              placeholder="Enter Module Name"
               value=''
               
               required
@@ -56,7 +47,7 @@ export const AddModuleModal: FC<ModalProps> = ({ isOpen, onClose }) => {
               type="text"
               id="moduledescription"
               className="border border-gray-300 rounded-md w-full p-2"
-              placeholder="Enter Start Date"
+              placeholder="Enter Module Description"
               value=''
               
               required
