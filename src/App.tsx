@@ -18,6 +18,7 @@ import TesterTaskList from './components/TesterDashboard/TesterTaskList';
 import AddTestCase from './components/TesterDashboard/AddTestCase';
 import TestReport from './components/AdminDashboard/TestReport';
 import TestList from './components/TesterDashboard/TestList';
+import ProjectModule from './components/AdminDashboard/ProjectModule';
 
 
 
@@ -42,6 +43,8 @@ const App = () => {
       <Route path="/tasklist/:id" element={<TaskList />} />
       <Route path="/assignedlist" element={<AssignedList />} />
       <Route path="/testreport" element={<TestReport />} />
+      <Route path="/projectModule" element={<ProjectModule />} />
+
 
 
       <Route path="/dashboard" element={<UserDashboard />} />
