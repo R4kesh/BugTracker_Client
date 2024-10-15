@@ -53,7 +53,7 @@ export function UserSidebar() {
 
   return (
     <div className={cn("flex h-screen")}>
-      <Sidebar open={open} setOpen={setOpen} links={links} data={data} />
+      <Sidebar open={open} setOpen={setOpen} links={links}  />
     </div>
   );
 }
@@ -101,7 +101,7 @@ export const Sidebar = ({ open, setOpen, links,data }) => {
   );
 };
 
-export const SidebarLink = ({ link, open,data }) => {
+export const SidebarLink = ({ link, open }) => {
   return (
     <motion.div
       initial={{ opacity: 0 }}
