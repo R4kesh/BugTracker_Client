@@ -43,7 +43,7 @@ const App = () => {
       <Route path="/tasklist/:id" element={<TaskList />} />
       <Route path="/assignedlist" element={<AssignedList />} />
       <Route path="/testreport" element={<TestReport />} />
-      <Route path="/projectModule/:projectId" element={<ProjectModule />} />
+      <Route path="/projectModule/id" element={<ProjectModule />} />
 
 
 
