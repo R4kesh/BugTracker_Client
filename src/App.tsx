@@ -66,6 +66,7 @@ const App = () => {
       <Route path="/dashboard" element={<UserDashboard />} />
       <Route path="/assignments" element={<UserAssignments />} />
       <Route path="/works" element={<Works />} />
+      <Route path="/userprofile" element={<UserProfile />} />
 
 
      
