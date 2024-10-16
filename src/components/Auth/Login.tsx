@@ -22,8 +22,8 @@ const Login: React.FC = () => {
 
     try {
       
-      const response = await axios.post('http://localhost:3000/api/auth/login', { email, password, role });
-      console.log('response login',response);
+        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/auth/login`, { email, password, role });
+        console.log('response login',response);
       
 
       if (response && response.data) {
