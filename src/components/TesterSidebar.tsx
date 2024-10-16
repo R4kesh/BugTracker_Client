@@ -139,7 +139,7 @@ export const Logo = () => (
     >
       A
     </motion.div>
-    <span>TESTER</span>
+    
   </a>
 );
 

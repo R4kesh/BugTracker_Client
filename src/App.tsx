@@ -25,6 +25,10 @@ import ProjectPreview from './components/AdminDashboard/ProjectPreview';
 import PreviewModuleList from './components/AdminDashboard/PreviewModuleList';
 import PreviewCard from './components/AdminDashboard/PreviewCard';
 
+import UserProfile from './components/UserDashboard/UserComponents/UserProfile';
+import AdminProfile from './components/AdminProfile';
+import TesterProfile from './components/TesterDashboard/TesterProfile';
+
 
 
 
@@ -54,6 +58,7 @@ const App = () => {
       <Route path="/projectpreview" element={<ProjectPreview />} />
       <Route path="/previewmodule/:id" element={<PreviewModuleList />} />
       <Route path="/previewcard/:id/:epicId" element={<PreviewCard />} />
+      <Route path="/adminprofile" element={<AdminProfile />} />
 
       
 
@@ -69,6 +74,7 @@ const App = () => {
       <Route path="/testtask" element={<TesterTaskList />} />
       <Route path="/testcase/:id" element={<AddTestCase />} />
       <Route path="/testedlist" element={<TestList />} />
+      <Route path="/testerprofile" element={<TesterProfile />} />
 
 
 

@@ -145,7 +145,7 @@ export const Logo = () => {
       >
         A
       </motion.div>
-      <span>User</span>
+      
     </a>
   );
 };
