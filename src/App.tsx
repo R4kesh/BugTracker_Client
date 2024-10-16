@@ -21,6 +21,8 @@ import TestList from './components/TesterDashboard/TestList';
 import ProjectModule from './components/AdminDashboard/ProjectModule';
 import EmployeeList from './components/AdminDashboard/EmployeeList';
 import TrackHistory from './components/AdminDashboard/TrackHistory';
+import ProjectPreview from './components/AdminDashboard/ProjectPreview';
+import PreviewModuleList from './components/AdminDashboard/PreviewModuleList';
 
 
 
@@ -48,6 +50,8 @@ const App = () => {
       <Route path="/projectModule/:projectId" element={<ProjectModule />} />
       <Route path="/employeelist" element={<EmployeeList />} />
       <Route path="/trackhistory" element={<TrackHistory />} />
+      <Route path="/projectpreview" element={<ProjectPreview />} />
+      <Route path="/previewmodule" element={<PreviewModuleList />} />
 
       
 
