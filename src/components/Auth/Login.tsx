@@ -1,14 +1,19 @@
 import React,{useState} from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate,useLocation } from 'react-router-dom';
 import { BackgroundBeamsWithCollision } from "../../components/ui/background-beams-with-collision";
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import {useAuth} from '../../providers/auth-provider'
 
 const Login: React.FC = () => {
+  const { login } = useAuth()
+  const [username, setUsername] = useState('')
+  const navigate = useNavigate()
+  const location = useLocation()
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [role, setRole] = useState<string>('');
   const [error, setError] = useState<string | null>(null); 
-  const navigate = useNavigate(); 
 
   // Handle form submission
   const handleSubmit = async (e:any) => {
@@ -32,7 +37,7 @@ const Login: React.FC = () => {
        
         localStorage.setItem('token', token);
         localStorage.setItem('user', JSON.stringify(user));
-  
+        login(user.name)
         if(response.data.user.role=='projectManager'){
           navigate("/admindashboard")
         }else if(response.data.user.role=='tester'){
