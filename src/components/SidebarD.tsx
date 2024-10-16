@@ -176,7 +176,7 @@ export const Logo = () => {
       >
         A
       </motion.div>
-      <span>ADMIN</span>
+      
     </Link>
   );
 };

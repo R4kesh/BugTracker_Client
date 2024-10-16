@@ -9,7 +9,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 
 
-function UserProfileCard() {
+function AdminProfileCard() {
    
   return (
     <div className='flex flex-col md:flex-row h-screen bg-gray-100'>
@@ -57,4 +57,4 @@ function UserProfileCard() {
   )
 }
 
-export default UserProfileCard
+export default AdminProfileCard
