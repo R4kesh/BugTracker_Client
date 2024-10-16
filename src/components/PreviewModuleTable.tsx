@@ -2,7 +2,7 @@
 import React,{useState,useEffect} from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-
+import { Link } from 'react-router-dom';
 export const PreviewModuleTable = () => {
     const { id } = useParams();
     const [modules, setModules] = useState([]);
@@ -51,11 +51,12 @@ export const PreviewModuleTable = () => {
               <td className="px-6 py-4">{module.description}</td>
               <td className="px-6 py-4">{new Date(module.createdAt).toLocaleDateString()}</td>
               <td className="px-6 py-4">
-                <button
+                <Link to={`/previewcard/${id}/${module.id}`}><button
                   className='bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300'
                 >
                   View Details
                 </button>
+                </Link>
               </td>
             </tr>
           ))

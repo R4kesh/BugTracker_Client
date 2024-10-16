@@ -23,6 +23,7 @@ import EmployeeList from './components/AdminDashboard/EmployeeList';
 import TrackHistory from './components/AdminDashboard/TrackHistory';
 import ProjectPreview from './components/AdminDashboard/ProjectPreview';
 import PreviewModuleList from './components/AdminDashboard/PreviewModuleList';
+import PreviewCard from './components/AdminDashboard/PreviewCard';
 
 
 
@@ -52,6 +53,7 @@ const App = () => {
       <Route path="/trackhistory" element={<TrackHistory />} />
       <Route path="/projectpreview" element={<ProjectPreview />} />
       <Route path="/previewmodule/:id" element={<PreviewModuleList />} />
+      <Route path="/previewcard/:id/:epicId" element={<PreviewCard />} />
 
       
 
