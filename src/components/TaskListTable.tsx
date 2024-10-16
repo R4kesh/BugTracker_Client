@@ -75,7 +75,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom'; 
 
 export const TaskListTable = () => {
-  const { id } = useParams();
+  const { epicId } = useParams();
   const [tasks, setTasks] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
@@ -91,8 +91,11 @@ export const TaskListTable = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
+      
+        
        
-        const response = await axios.get(`http://localhost:3000/api/project/task/getAll/${id}`);
+        const response = await axios.get(`http://localhost:3000/api/project/task/getAll/${epicId}`);
+        console.log('respon',response.data);
         
 
         
@@ -204,10 +207,10 @@ export const TaskListTable = () => {
             tasks.map((task) => (
               <tr key={task.id} className="hover:bg-gray-600 transition-all duration-200">
                 <td className="px-6 py-4">{task.id}</td>
-                <td className="px-6 py-4">modulename</td>
+                <td className="px-6 py-4">{task.Epic.name}</td>
                 <td className="px-6 py-4">{task.taskName}</td>
                 <td className="px-6 py-4">{task.description}</td>
-                <td className="px-6 py-4">users tory</td>
+                <td className="px-6 py-4">{task.userStory}</td>
                 <td className="px-6 py-4">{task.assignedUser ? task.assignedUser.name : 'Not Assigned'}</td>
                 <td className="px-6 py-4">
                   {/* Assign Task button */}

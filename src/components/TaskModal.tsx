@@ -8,25 +8,32 @@ interface ModalProps {
 }
 
 export const TaskModal: FC<ModalProps> = ({ isOpen, onClose }) => {
-  const { id } = useParams<{ id: string }>(); 
+  const { projectId, epicId } = useParams<{ projectId: string; epicId: string }>(); 
   const [projectName, setProjectName] = useState("");
+  const [moduleName, setModuleName] = useState("");
   const [taskName, setTaskName] = useState("");
   const [description, setTaskDescription] = useState("");
+  const [userStory, setUserStory] = useState("");
 
   // Fetch project details when modal opens
   useEffect(() => {
-    if (isOpen && id) {
+    if (isOpen ) {
       const fetchProject = async () => {
         try {
-          const response = await axios.get(`http://localhost:3000/api/project/getProjectName/${id}`); 
-          setProjectName(response.data.name); 
+          const projectResponse = await axios.get(`http://localhost:3000/api/project/getProjectName/${projectId}`);
+          setProjectName(projectResponse.data.name);
+
+          
+          const epicResponse = await axios.get(`http://localhost:3000/api/project/getEpicName/${epicId}`);
+          setModuleName(epicResponse.data.name);
+
         } catch (error) {
           console.error("Error fetching project:", error);
         }
       };
       fetchProject();
     }
-  }, [isOpen, id]);
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -36,7 +43,9 @@ export const TaskModal: FC<ModalProps> = ({ isOpen, onClose }) => {
           projectName,
           taskName,
           description,
-          projectId: id, 
+          projectId: projectId, 
+          epicId:epicId,
+          userStory:userStory
         });
         
         console.log("Task created:", response.data);
@@ -67,7 +76,7 @@ export const TaskModal: FC<ModalProps> = ({ isOpen, onClose }) => {
               type="text"
               id="moduleName"
               className="border border-gray-300 rounded-md w-full p-2 bg-gray-100 cursor-not-allowed"
-              value='' 
+              value={moduleName}
               readOnly 
             />
 
@@ -98,8 +107,8 @@ export const TaskModal: FC<ModalProps> = ({ isOpen, onClose }) => {
               id="userstory"
               className="border border-gray-300 rounded-md w-full p-2"
               placeholder="Enter User Story"
-              value=''
-            
+              value={userStory}
+              onChange={(e) => setUserStory(e.target.value)}
               required
             />
           </div>
