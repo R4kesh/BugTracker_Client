@@ -51,7 +51,7 @@ const App = () => {
       <Route path="/employeelist" element={<EmployeeList />} />
       <Route path="/trackhistory" element={<TrackHistory />} />
       <Route path="/projectpreview" element={<ProjectPreview />} />
-      <Route path="/previewmodule" element={<PreviewModuleList />} />
+      <Route path="/previewmodule/:id" element={<PreviewModuleList />} />
 
       
 
