@@ -43,7 +43,7 @@ export const Modal: FC<ModalProps> = ({ isOpen, onClose }) => {
 
       // Send data to backend
       const response = await axios.post(
-        "http://localhost:3000/api/project/add",
+        `${import.meta.env.VITE_BASE_URL}/api/project/add`,
         projectData
       );
 

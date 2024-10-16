@@ -20,11 +20,11 @@ export const TaskModal: FC<ModalProps> = ({ isOpen, onClose }) => {
     if (isOpen ) {
       const fetchProject = async () => {
         try {
-          const projectResponse = await axios.get(`http://localhost:3000/api/project/getProjectName/${projectId}`);
+          const projectResponse = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/project/getProjectName/${projectId}`);
           setProjectName(projectResponse.data.name);
 
           
-          const epicResponse = await axios.get(`http://localhost:3000/api/project/getEpicName/${epicId}`);
+          const epicResponse = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/project/getEpicName/${epicId}`);
           setModuleName(epicResponse.data.name);
 
         } catch (error) {
@@ -39,7 +39,7 @@ export const TaskModal: FC<ModalProps> = ({ isOpen, onClose }) => {
 
   const handleSubmit =async (e: React.FormEvent) => {
     try {
-        const response = await axios.post('http://localhost:3000/api/project/task/create', {
+        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/project/task/create`, {
           projectName,
           taskName,
           description,

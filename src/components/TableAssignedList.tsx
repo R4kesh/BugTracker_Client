@@ -9,7 +9,7 @@ export const TableAssignedList = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/project/tasks/assignedlist');
+        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/project/tasks/assignedlist`);
         setTasks(response.data);
         console.log('response');
         
@@ -25,7 +25,7 @@ export const TableAssignedList = () => {
 
   const handleVerificationChange = async (taskId, newStatus) => {
     try {
-      await axios.patch(`http://localhost:3000/api/project/tasks/assignedlist/${taskId}`, {
+      await axios.patch(`${import.meta.env.VITE_BASE_URL}/api/project/tasks/assignedlist/${taskId}`, {
         isVerified: newStatus === 'Verified', // Set isVerified based on the selection
       });
       // Update local state to reflect the change
@@ -74,7 +74,7 @@ export const TableAssignedList = () => {
               <td className="px-6 py-4">{new Date(task.starting).toLocaleDateString()}</td>
               <td className="px-6 py-4">{new Date(task.deadline).toLocaleDateString()}</td>
               <td className="px-6 py-4">{task.isVerified ? 'Verified' : 'Pending'}</td>
-              <td className="px-6 py-4">In Progress</td>
+              <td className="px-6 py-4">{task.status}</td>
               <td className="px-6 py-4">
               <select
                   className="p-2 border border-gray-300 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-4 focus:ring-green-500"

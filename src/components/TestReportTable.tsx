@@ -7,7 +7,7 @@ export const TestReportTable = () => {
   useEffect(() => {
     const fetchTestReports = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/dashboard/listBugReport');
+        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/dashboard/listBugReport`);
         setTestReports(response.data);
       } catch (error) {
         console.error('Error fetching test reports:', error);

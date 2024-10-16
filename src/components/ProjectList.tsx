@@ -8,7 +8,7 @@ export const ProjectList = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/project/display');
+        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/project/display`);
         
        // Check what the API returns
 

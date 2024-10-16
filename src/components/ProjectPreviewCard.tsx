@@ -10,7 +10,7 @@ export function ProjectPreviewCard() {
     useEffect(() => {
         const fetchProjects = async () => {
           try {
-            const response = await axios.get('http://localhost:3000/api/dashboard/projectpreview'); // Replace with your API URL
+            const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/dashboard/projectpreview`); // Replace with your API URL
          
             setProjects(response.data);
             

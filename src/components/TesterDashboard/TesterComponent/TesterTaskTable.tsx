@@ -11,7 +11,7 @@ export const TesterTaskTable = () => {
     const fetchTasks = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3000/api/tester/listTasks"
+          `${import.meta.env.VITE_BASE_URL}/api/tester/listTasks`
         );
         console.log(response.data); // Check what the response looks like
         setTasks(Array.isArray(response.data) ? response.data : []); // Ensure the data is an array

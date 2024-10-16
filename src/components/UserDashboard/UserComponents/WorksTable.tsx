@@ -12,7 +12,7 @@ export const WorksTable = () => {
         if (user && user.id) {
           const userId = user.id;
 
-          const response = await axios.get(`http://localhost:3000/api/userDashboard/listApprovedTasks/${userId}`);
+          const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/userDashboard/listApprovedTasks/${userId}`);
           setTasks(response.data);
         }
       } catch (error) {
@@ -27,7 +27,7 @@ export const WorksTable = () => {
     const isCompleted = newStatus === 'completed'; // Determine if the task is completed
     try {
       // Update the status and isCompleted in the database
-      await axios.put(`http://localhost:3000/api/userDashboard/changeTasksStatus/${taskId}`, { 
+      await axios.put(`${import.meta.env.VITE_BASE_URL}/api/userDashboard/changeTasksStatus/${taskId}`, { 
         status: newStatus,
         isCompleted: isCompleted, // Send isCompleted status
       });

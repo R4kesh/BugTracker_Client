@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 
 export function TaskListSpotlight() {
   const { projectId } = useParams();
-  console.log('prooo',projectId);
+  
   
     const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
 

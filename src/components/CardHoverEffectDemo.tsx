@@ -9,7 +9,7 @@ export function CardHoverEffectDemo() {
   useEffect(() => {
     const fetchActiveSeverityCount = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/dashboard/dashboard_count');
+        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/dashboard/dashboard_count`);
         console.log('res', response.data.userRequestCount);
         setUserRequestCount(response.data.userRequestCount);
         setActiveUserCount(response.data.activeUserCount)

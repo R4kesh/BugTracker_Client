@@ -33,7 +33,7 @@ export function ThreeDCardDemo() {
       const email= localStorage.getItem('email');
 
       
-      const response = await axios.post('http://localhost:3000/api/auth/verify-otp', { otp,email });
+      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/auth/verify-otp`, { otp,email });
       console.log('res',response);
       
       console.log('OTP Verification Response:', response.data);
@@ -55,7 +55,7 @@ export function ThreeDCardDemo() {
       const email = localStorage.getItem('email'); 
 
       
-      const response = await axios.post('http://localhost:3000/api/auth/resend-otp', { email });
+      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/auth/resend-otp`, { email });
       console.log('OTP Resent:', response.data);
       
      

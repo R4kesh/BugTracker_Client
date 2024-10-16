@@ -15,7 +15,7 @@ export const TableUsermanagement = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/dashboard/usermanagement');
+      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/dashboard/usermanagement`);
       setData(response.data); // Assuming API returns an array of user objects with `isBlocked`
     } catch (error) {
       console.error('Error fetching user data:', error);
@@ -24,7 +24,7 @@ export const TableUsermanagement = () => {
 
   const handleBlockUnblock = async (id, isBlocked) => {
     try {
-      const response = await axios.put(`http://localhost:3000/api/dashboard/usermanagement/block_unblock/${id}`, { isBlocked: !isBlocked });
+      const response = await axios.put(`${import.meta.env.VITE_BASE_URL}/api/dashboard/usermanagement/block_unblock/${id}`, { isBlocked: !isBlocked });
       if (response.data.success) {
         fetchData(); // Refresh data after updating block/unblock status
       } else {

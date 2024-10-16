@@ -9,7 +9,7 @@ export const ModuleListTable = () => {
     useEffect(() => {
         const fetchEpics = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/api/project/listEpic?projectId=${projectId}`); // Ensure this endpoint exists and retrieves data from the epic table
+                const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/project/listEpic?projectId=${projectId}`); // Ensure this endpoint exists and retrieves data from the epic table
                 setEpics(response.data); 
             } catch (error) {
                 console.error('Error fetching epics:', error);

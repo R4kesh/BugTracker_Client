@@ -11,7 +11,7 @@ export const TestCaseTable = () => {
   useEffect(() => {
     const fetchTestCases = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/tester/listTestCases/${id}`);
+        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/tester/listTestCases/${id}`);
         setTestCases(response.data);
 
         // Initialize the state for each test case
@@ -57,7 +57,7 @@ export const TestCaseTable = () => {
     };
 
     try {
-      const response = await axios.post('http://localhost:3000/api/tester/bugreport', dataToSend, {
+      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/tester/bugreport`, dataToSend, {
         headers: {
           'Content-Type': 'application/json', // Use JSON content type
         },

@@ -9,7 +9,7 @@ export const AssignmentList = () => {
       try {
         const user = JSON.parse(localStorage.getItem('user')); // Fetch the user from local storage
         if (user && user.id) {
-          const response = await axios.get(`http://localhost:3000/api/userDashboard/newtasks/user?userId=${user.id}`);
+          const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/userDashboard/newtasks/user?userId=${user.id}`);
           setTasks(response.data);
         }
       } catch (error) {
@@ -24,7 +24,7 @@ export const AssignmentList = () => {
     const confirmApprove = window.confirm('Are you sure you want to approve this task?');
     if (confirmApprove) {
       try {
-        await axios.put('http://localhost:3000/api/userDashboard/tasks/verifyByUser', { taskId });
+        await axios.put(`${import.meta.env.VITE_BASE_URL}/api/userDashboard/tasks/verifyByUser`, { taskId });
        
 
         

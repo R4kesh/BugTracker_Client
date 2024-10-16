@@ -11,9 +11,9 @@ export function TesterCardHoverEffect() {
 
   const fetchTasks = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/tester/dashboardCount');
+      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/tester/dashboardCount`);
       
-      // Set the counts based on the API response
+      
       setTaskCounts({
         newTasks: response.data.newTasks || 0,
         taskToTest: response.data.taskToTest || 0,
