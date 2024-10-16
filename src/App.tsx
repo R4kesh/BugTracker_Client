@@ -24,6 +24,7 @@ import TrackHistory from './components/AdminDashboard/TrackHistory';
 import ProjectPreview from './components/AdminDashboard/ProjectPreview';
 import PreviewModuleList from './components/AdminDashboard/PreviewModuleList';
 import PreviewCard from './components/AdminDashboard/PreviewCard';
+import UserProfile from './components/UserDashboard/UserComponents/UserProfile';
 
 
 
@@ -61,6 +62,7 @@ const App = () => {
       <Route path="/dashboard" element={<UserDashboard />} />
       <Route path="/assignments" element={<UserAssignments />} />
       <Route path="/works" element={<Works />} />
+      <Route path="/userprofile" element={<UserProfile />} />
 
 
      
