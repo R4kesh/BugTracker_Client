@@ -57,6 +57,13 @@ export function SidebarDash() {
       ),
     },
     {
+      label: "Project Preview",
+      href: "/projectpreview",
+      icon: (
+        <IconBrandTabler className="text-neutral-700 dark:text-neutral-200 h-6 w-6 flex-shrink-0" />
+      ),
+    },
+    {
       label: "Logout",
       href: "#",
       icon: (

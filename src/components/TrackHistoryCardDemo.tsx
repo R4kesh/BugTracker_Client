@@ -1,65 +1,167 @@
-import { HoverEffect } from "./ui/card-hover-effect";
+// import { HoverEffect } from "./ui/card-hover-effect";
+// import { useEffect, useState } from "react";
+// import axios from 'axios';
+
+// export function TrackHistoryCardHover() {
+//   const [projects, setProjects] = useState([]);
+
+//   useEffect(() => {
+//     const fetchProjects = async () => {
+//       try {
+//         const response = await axios.get('http://localhost:3000/api/dashboard/projecttrack'); 
+        
+//         setProjects(response.data);
+//         console.log('project',response.data);
+//       } catch (error) {
+//         console.error("Failed to fetch projects:", error);
+//       }
+//     };
+
+//     fetchProjects();
+//   }, []);
+
+//   const projectItems = projects.map(project => ({
+//     title: (
+//       <span style={{ fontSize: '16px', fontWeight: 'bold', fontFamily: 'Roboto' }}>
+//         {project.name}
+//       </span>
+//     ),
+//     description: (
+//       <span style={{ fontSize: '16px', color:'green',fontFamily: 'Roboto' }}>
+//         {project.description}
+//       </span>
+//     ),
+//     link: `/projects/${project.id}`, // Routing to project details page
+//   }));
+
+  
+//   //   {
+//   //     title: "Demo",
+//   //     description: (
+//   //       <span style={{ fontSize: '36px', fontStyle: 'Roboto' }}>
+//   //         Total: 
+//   //       </span>
+//   //     ),
+//   //     link: "",
+//   //   },
+//   //   {
+//   //     title: "Demo",
+//   //     description:
+//   //       "A multinational technology company that specializes in Internet-related services and products.",
+//   //     link: "",
+//   //   },
+//   //   {
+//   //     title: "Demo",
+//   //     description:
+//   //       "A technology company that focuses on building products that advance Facebook's mission of bringing the world closer together.",
+//   //     link: "",
+//   //   },
+//   //   {
+//   //     title: "Amazon",
+//   //     description:
+//   //       "A multinational technology company focusing on e-commerce, cloud computing, digital streaming, and artificial intelligence.",
+//   //     link: "",
+//   //   },
+//   //   {
+//   //     title: "Microsoft",
+//   //     description:
+//   //       "A multinational technology company that develops, manufactures, licenses, supports, and sells computer software, consumer electronics, personal computers, and related services.",
+//   //     link: "",
+//   //   },
+//   // ];
+
+//   return (
+//     <div className="max-w-5xl mx-auto px-8 ">
+      
+//       <div>
+        
+//         <h3> </h3> {/* Display the count */}
+     
+//                 </div>
+
+//       <HoverEffect items={projects} />
+//     </div>
+//   );
+// }
+
+
 import { useEffect, useState } from "react";
-import axios from 'axios';
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 export function TrackHistoryCardHover() {
- 
-  // Create projects array dynamically using the activeSeverityCount
-  const projects = [
-    {
-      title: "Project Name",
-      description: (
-        <span style={{ fontSize: '36px', fontStyle: 'Roboto' }}>
-          Total: 
-        </span>
-      ),
-      link: "/employeelist",
-    },
-    {
-      title: "Demo",
-      description: (
-        <span style={{ fontSize: '36px', fontStyle: 'Roboto' }}>
-          Total: 
-        </span>
-      ),
-      link: "",
-    },
-    {
-      title: "Demo",
-      description:
-        "A multinational technology company that specializes in Internet-related services and products.",
-      link: "",
-    },
-    {
-      title: "Demo",
-      description:
-        "A technology company that focuses on building products that advance Facebook's mission of bringing the world closer together.",
-      link: "",
-    },
-    {
-      title: "Amazon",
-      description:
-        "A multinational technology company focusing on e-commerce, cloud computing, digital streaming, and artificial intelligence.",
-      link: "",
-    },
-    {
-      title: "Microsoft",
-      description:
-        "A multinational technology company that develops, manufactures, licenses, supports, and sells computer software, consumer electronics, personal computers, and related services.",
-      link: "",
-    },
-  ];
+  const [projects, setProjects] = useState([]);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:3000/api/dashboard/projecttrack"
+        );
+        setProjects(response.data);
+        console.log("project", response.data);
+      } catch (error) {
+        console.error("Failed to fetch projects:", error);
+      }
+    };
+
+    fetchProjects();
+  }, []);
 
   return (
-    <div className="max-w-5xl mx-auto px-8 ">
-      
-      <div>
-        
-        <h3> </h3> {/* Display the count */}
-     
-                </div>
+    <div className="max-w-5xl mx-auto px-8 py-10">
+      <h2 className="text-3xl font-bold mb-8 text-center"></h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {projects.map((project) => (
+          <div
+            key={project.id}
+            className="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+          >
+            <div className="p-6">
+              {/* Title */}
+              <h3 className="text-xl font-semibold mb-2 text-gray-800">
+                {project.name}
+              </h3>
 
-      <HoverEffect items={projects} />
+              {/* Description */}
+              <p className="text-gray-600 text-sm mb-4">
+                {project.description}
+              </p>
+
+              {/* Status */}
+              <div className="text-sm font-medium mb-4">
+                <span
+                  className={`px-3 py-1 rounded-full text-white ${
+                    project.status === "completed"
+                      ? "bg-green-500"
+                      : project.status === "in-progress"
+                      ? "bg-blue-500"
+                      : project.status === "not-started"
+                      ? "bg-gray-500"
+                      : "bg-yellow-500"
+                  }`}
+                >
+                  {project.status}
+                </span>
+              </div>
+
+              {/* Start Date */}
+              <p className="text-gray-500 text-xs">
+                <strong>Start Date:</strong>{" "}
+                {new Date(project.startDate).toLocaleDateString()}
+              </p>
+
+              {/* Link to project */}
+              <Link
+                to={`/employeelist/${project.id}`}
+                className="block mt-4 text-blue-600 font-bold hover:underline"
+              >
+                <button>View Project Details →</button>
+              </Link>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
