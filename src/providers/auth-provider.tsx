@@ -23,7 +23,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const logoutHandler = () => {
     dispatch(logout())
   }
-
+  
   return (
     <AuthContext.Provider value={{ login: loginHandler, logout: logoutHandler, isAuthenticated, user }}>
       {children}

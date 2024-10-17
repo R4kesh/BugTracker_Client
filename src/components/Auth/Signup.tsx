@@ -1,16 +1,18 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { BackgroundBeamsWithCollision } from "../../components/ui/background-beams-with-collision";
 
-const Signup = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState(''); 
-  const [password, setPassword] = useState('');
+const Signup: React.FC = () => {
+  const [loading, setLoading] = useState<boolean>(false)
+
+  const [name, setName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [phoneNumber, setPhoneNumber] = useState<string>(''); 
+  const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [role, setRole] = useState('');
-  const [error, setError] = useState('');
+  const [error, setError] = useState<string>('');
   const [success, setSuccess] = useState('');
 
   const handleSubmit = async (e:any) => {
@@ -20,6 +22,7 @@ const Signup = () => {
       setError('Passwords do not match');
       return;
     }
+    setLoading(true)
 
     try {
       const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/auth/register`, {
@@ -39,6 +42,8 @@ const Signup = () => {
       }
     } catch (err:any) {
       setError(err.response?.data?.message || 'An error occurred during registration');
+    } finally {
+      setLoading(false)
     }
   };
 
@@ -168,12 +173,10 @@ const Signup = () => {
               </div>
 
               {/* Submit button */}
-              <button
-                type="submit"
-                className="w-full py-2 bg-indigo-600 text-white rounded-md font-semibold hover:bg-indigo-700"
-              >
-                Sign Up
-              </button>
+              <button type="submit" disabled={loading} className={`w-full py-3 rounded-md font-semibold text-white ${loading ? 'bg-indigo-400 cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-700'
+                  }`}>
+                  {loading ? 'Loading...' : 'Sign Up'}
+                </button>
 
               {/* Login prompt */}
               <div className="mt-4 text-center">
