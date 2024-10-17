@@ -5,6 +5,7 @@ import React, { Suspense,useEffect, useState } from 'react'
 
 import TesterProfileCard from './TesterComponent/TesterProfileSidebar'
 import axios from 'axios';
+import TesterNavbar from '../TesterNavbar';
 
 
 function TesterProfile() {
@@ -40,7 +41,9 @@ function TesterProfile() {
   }, []);
 
   return (
-    <div className="flex flex-col md:flex-row h-screen bg-gray-100">
+    <>
+    <TesterNavbar/>
+    <div className="flex flex-col md:flex-row h-screen bg-gray-600">
 
       <TesterProfileCard/>
      
@@ -48,7 +51,7 @@ function TesterProfile() {
         <h1 className="text-2xl font-bold">Profile</h1>
         <div className="mt-8 space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700">Name</label>
+            <label className="block text-sm font-medium text-white">Name</label>
             <div className="mt-1">
               <input
                 type="text"
@@ -59,7 +62,7 @@ function TesterProfile() {
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Email</label>
+            <label className="block text-sm font-medium text-white">Email</label>
             <div className="mt-1">
               <input
                 type="email"
@@ -70,7 +73,7 @@ function TesterProfile() {
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Phone</label>
+            <label className="block text-sm font-medium text-white">Phone</label>
             <div className="mt-1">
               <input
                 type="tel"
@@ -81,7 +84,7 @@ function TesterProfile() {
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Designation</label>
+            <label className="block text-sm font-medium text-white">Designation</label>
             <div className="mt-1">
               <input
                 type="tel"
@@ -97,6 +100,7 @@ function TesterProfile() {
         </div>
       </main>
     </div>
+    </>
   )
 }
 

@@ -233,6 +233,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export const TestCaseTable = () => {
   const { id } = useParams(); // Assuming 'id' is the taskId
@@ -263,7 +264,7 @@ export const TestCaseTable = () => {
     };
 
     fetchTestCases();
-  }, [id]);
+  }, [id,testCases]);
 
   const handleSubmitSingleTestCase = async (testCaseId, e) => {
     e.preventDefault(); // Prevent default form submission
@@ -450,13 +451,14 @@ export const TestCaseTable = () => {
                 </select>
               </td>
               <td className="px-6 py-4">
-                {/* Submit button for each row */}
+               <Link to='/testedlist'>
                 <button
                   onClick={(e) => handleSubmitSingleTestCase(testCase.id, e)}
                   className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
                 >
                   Submit
                 </button>
+                </Link>
               </td>
             </tr>
           ))}

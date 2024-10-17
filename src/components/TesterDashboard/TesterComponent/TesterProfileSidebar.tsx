@@ -4,10 +4,15 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 
 function TesterProfileCard() {
-   
+  const [user,setUser]=useState([])
+  useEffect(()=>{
+    const data=localStorage.getItem('user')
+    const userdata=JSON.parse(data)
+    setUser(userdata)
+  },[]) 
   return (
     <div className='flex flex-col md:flex-row h-screen bg-gray-100'>
-         <aside className="w-full md:w-64  bg-white shadow-md">
+         <aside className="w-full md:w-64  bg-slate-300 shadow-md">
         <div className="p-6 flex flex-col items-center">
         <img
             className="rounded-full"
@@ -16,16 +21,15 @@ function TesterProfileCard() {
             width={128}
             height={128}
           />
-          <h2 className="mt-4 text-xl font-semibold text-gray-700">name</h2>
-          <p className="text-gray-600">number</p>
-          <p className="text-gray-600">email</p>
+          <h2 className="mt-4 text-xl font-semibold text-gray-700">{user.name}</h2>
+          <p className="text-gray-600">({user.role})</p>
         </div>
         <nav className="mt-6">
           <ul className="space-y-2">
             <li>
               <Link to='/testerprofile'>
               <button
-                  className="block w-full px-4 py-2 text-sm font-semibold text-gray-900 rounded-lg hover:bg-gray-300"
+                  className="block w-full px-4 py-2 text-sm font-semibold text-gray-900 rounded-lg hover:bg-white"
               >
                 Profile
               </button>
@@ -34,7 +38,7 @@ function TesterProfileCard() {
             <li>
               <Link to='/updatetesterprofile'>
               <button
-                 className="block w-full px-4 py-2 text-sm font-semibold text-gray-900 rounded-lg hover:bg-gray-300"
+                 className="block w-full px-4 py-2 text-sm font-semibold text-gray-900 rounded-lg hover:bg-white"
               >
                 Edit profile
               </button>
@@ -43,7 +47,7 @@ function TesterProfileCard() {
           
             <li>
               <button
-                 className="block w-full px-4 py-2 text-sm font-semibold text-gray-900 rounded-lg hover:bg-gray-300"
+                 className="block w-full px-4 py-2 text-sm font-semibold text-gray-900 rounded-lg hover:bg-white"
               >
                 Back  Home
               </button>
