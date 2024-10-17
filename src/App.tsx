@@ -31,6 +31,7 @@ import TesterProfile from "./components/TesterDashboard/TesterProfile";
 import { AuthProvider } from "./providers/auth-provider";
 import { ProtectedRoute } from "./providers/protected-route";
 import EditUserProfile from "./components/UserDashboard/UserComponents/EditProfile";
+import EditTesterProfile from "./components/TesterDashboard/TesterComponent/TesterEditProfile";
 
 const App = () => {
   return (
@@ -80,6 +81,8 @@ const App = () => {
             <Route path="/testcase/:id" element={<AddTestCase />} />
             <Route path="/testedlist" element={<TestList />} />
             <Route path="/testerprofile" element={<TesterProfile />} />
+            <Route path="/updatetesterprofile" element={<EditTesterProfile />} />
+
           </Routes>
         </AuthProvider>
       </Router>

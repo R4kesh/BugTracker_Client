@@ -1,7 +1,7 @@
 
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-
+import { Link } from 'react-router-dom';
 
 function TesterProfileCard() {
    
@@ -23,18 +23,22 @@ function TesterProfileCard() {
         <nav className="mt-6">
           <ul className="space-y-2">
             <li>
+              <Link to='/testerprofile'>
               <button
                   className="block w-full px-4 py-2 text-sm font-semibold text-gray-900 rounded-lg hover:bg-gray-300"
               >
                 Profile
               </button>
+              </Link>
             </li>
             <li>
+              <Link to='/updatetesterprofile'>
               <button
                  className="block w-full px-4 py-2 text-sm font-semibold text-gray-900 rounded-lg hover:bg-gray-300"
               >
                 Edit profile
               </button>
+              </Link>
             </li>
           
             <li>
