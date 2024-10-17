@@ -1,11 +1,5 @@
 
-
-
-
-
-
 import axios from 'axios';
-// import { useRouter, useSearchParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
 
