@@ -87,8 +87,8 @@ export const TestReportList = () => {
             <div className="overflow-y-auto max-h-96">
   {Array.isArray(selectedReport.fileLink) && selectedReport.fileLink.length > 0 ? (
     selectedReport.fileLink.map((file, index) => {
-      const imageUrl = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR61nkhNzdJPaXvZRmUb-sJYd4XFCxC5B-O2w&s'; // Ensure this path is correct
-      console.log(`Image URL: ${imageUrl}`); 
+      const imageUrl = `${import.meta.env.VITE_BASE_URL}${file}`; 
+      console.log(`Image URL: ${imageUrl}`); // Debugging line
 
       return (
         <img
