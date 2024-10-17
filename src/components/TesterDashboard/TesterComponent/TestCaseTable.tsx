@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
 export const TestCaseTable = () => {
-  const { id } = useParams();
+  const { id } = useParams(); // Assuming 'id' is the taskId
 
   const [testCases, setTestCases] = useState([]);
   const [testCaseData, setTestCaseData] = useState({});
@@ -48,18 +48,42 @@ export const TestCaseTable = () => {
       return;
     }
 
+    // Get the testCase object for this specific testCaseId
+    const testCase = testCases.find((tc) => tc.id === testCaseId);
+
+    if (!testCase) {
+      console.error('Test case not found');
+      return;
+    }
+
     // Prepare the data for this specific test case
-    const dataToSend = {
-      taskId: taskId,
-      testerId: testerId.id,
-      testCase: testCaseData[testCaseId],
-       testCaseId:testCaseId
-    };
+    const formData = new FormData();
+    formData.append('taskId', taskId);
+    formData.append('testerId', testerId.id);
+    formData.append('testCaseId', testCaseId); // testId
+    formData.append('testDescription', testCase.description); // testDescription
+    formData.append('severity', testCaseData[testCaseId]?.severity);
+    formData.append('testStatus', testCaseData[testCaseId]?.testStatus);
+    formData.append('result', testCaseData[testCaseId]?.result);
+    formData.append('selectedSteps', JSON.stringify(testCaseData[testCaseId]?.selectedSteps));
+
+    // Append files to FormData
+    const fileInput = document.getElementById(`file-upload-${testCaseId}`);
+    if (fileInput?.files) {
+      Array.from(fileInput.files).forEach((file) => {
+        formData.append('files', file);
+      });
+    }
 
     try {
-      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/tester/bugreport`, dataToSend, {
+      // Log the contents of formData
+      for (let pair of formData.entries()) {
+        console.log(`${pair[0]}: ${pair[1]}`);
+      }
+
+      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/tester/bugreport`, formData, {
         headers: {
-          'Content-Type': 'application/json', // Use JSON content type
+          'Content-Type': 'multipart/form-data',
         },
       });
       console.log('Test case submitted successfully:', response.data);
@@ -171,7 +195,9 @@ export const TestCaseTable = () => {
               <td className="px-6 py-4">
                 <input
                   type="file"
-                  accept="application/pdf"
+                  accept="image/*,application/pdf"
+                  multiple
+                  id={`file-upload-${testCase.id}`}
                   className="p-2 border border-gray-300 bg-slate-600 rounded"
                 />
               </td>
