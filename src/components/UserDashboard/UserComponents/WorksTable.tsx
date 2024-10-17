@@ -96,7 +96,7 @@ import axios from 'axios';
 export const WorksTable = () => {
   const [tasks, setTasks] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const tasksPerPage = 2; // Limit rows per page
+  const tasksPerPage = 4;
 
   useEffect(() => {
     const fetchTasks = async () => {
