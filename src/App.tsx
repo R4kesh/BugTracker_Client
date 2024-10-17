@@ -30,6 +30,7 @@ import AdminProfile from "./components/AdminProfile";
 import TesterProfile from "./components/TesterDashboard/TesterProfile";
 import { AuthProvider } from "./providers/auth-provider";
 import { ProtectedRoute } from "./providers/protected-route";
+import EditUserProfile from "./components/UserDashboard/UserComponents/EditProfile";
 
 const App = () => {
   return (
@@ -71,6 +72,8 @@ const App = () => {
             <Route path="/assignments" element={<UserAssignments />} />
             <Route path="/works" element={<Works />} />
             <Route path="/userprofile" element={<UserProfile />} />
+            <Route path="/edituserprofile" element={<EditUserProfile />} />
+
 
             <Route path="/testerdashboard" element={<TesterDashboard />} />
             <Route path="/testtask" element={<TesterTaskList />} />
