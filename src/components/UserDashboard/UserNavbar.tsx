@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link ,useNavigate} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { useAuth } from '../../providers/auth-provider';
 
 const UserNavbar: React.FC = () => {
+  const { logout } = useAuth()
+  const navigate = useNavigate()
   const [isLoggedIn, setIsLoggedIn] = useState(true); // Replace with real authentication logic
 
   const [userName, setUserName] = useState<string | null>(null);
@@ -22,6 +25,8 @@ const[role,setRole]=useState<string | null>(null);
   }, []);
   const handleLogout = () => {
     localStorage.clear();
+    logout()
+    navigate('/login')
     setIsLoggedIn(false);
     console.log('User logged out');
   };
@@ -40,14 +45,12 @@ const[role,setRole]=useState<string | null>(null);
     <p className="text-sm ">({role})</p> {/* Role displayed under the name */}
   </div>
          <Link to='/userprofile'> <FontAwesomeIcon icon={faUser} size="lg" className="text-white" /></Link>
-          <Link to="/login">
             <button
               onClick={handleLogout}
               className="bg-white text-purple-800 font-semibold py-2 px-6 rounded-full shadow-md hover:bg-purple-600 hover:text-white transition-all duration-300"
             >
               Logout
             </button>
-          </Link>
         </div>
       ) : (
         <Link
