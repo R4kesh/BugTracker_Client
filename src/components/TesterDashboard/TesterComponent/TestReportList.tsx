@@ -33,8 +33,8 @@ export const TestReportList = () => {
         <thead>
           <tr className="bg-gray-800 text-left uppercase text-xs text-gray-400">
             <th className="px-6 py-3">ID</th>
-            <th className="px-6 py-3">Test Id</th>
-            <th className="px-6 py-3 ">Test Description</th>
+            <th className="px-6 py-3">Testcase Name</th>
+            <th className="px-6 py-3 ">Testcase Description</th>
             <th className="px-6 py-3">Steps</th>
             <th className="px-6 py-3">Severity</th>
             <th className="px-6 py-3">Result</th>
