@@ -85,14 +85,24 @@ export const TestReportList = () => {
             <h3 className="text-2xl font-semibold mb-4">Uploaded Images</h3>
 
             <div className="overflow-y-auto max-h-96">
-              {Array.isArray(selectedReport.fileLink) && selectedReport.fileLink.length > 0 ? (
-                selectedReport.fileLink.map((file, index) => (
-                  <img key={index} src={file} alt={`Uploaded file ${index + 1}`} className="mb-4 w-full h-auto" />
-                ))
-              ) : (
-                <p>No images uploaded</p>
-              )}
-            </div>
+  {Array.isArray(selectedReport.fileLink) && selectedReport.fileLink.length > 0 ? (
+    selectedReport.fileLink.map((file, index) => {
+      const imageUrl = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR61nkhNzdJPaXvZRmUb-sJYd4XFCxC5B-O2w&s'; // Ensure this path is correct
+      console.log(`Image URL: ${imageUrl}`); 
+
+      return (
+        <img
+          key={index}
+          src={imageUrl}
+          alt={`Uploaded file ${index + 1}`}
+          className="mb-4 w-full h-auto"
+        />
+      );
+    })
+  ) : (
+    <p>No images uploaded</p>
+  )}
+</div>
 
             <button
               className="absolute top-2 right-2 text-xl text-gray-500 hover:text-gray-800"

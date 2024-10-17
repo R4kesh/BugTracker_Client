@@ -57,21 +57,21 @@ export function TesterCardHoverEffect() {
       ),
       link: "",
     },
-    {
-      title: "Resolved Bug",
-      description: 'Demo',
-      link: "",
-    },
-    {
-      title: "Demo",
-      description: "Demo",
-      link: "",
-    },
-    {
-      title: "Demo",
-      description: "Demo",
-      link: "",
-    },
+    // {
+    //   title: "Resolved Bug",
+    //   description: 'Demo',
+    //   link: "",
+    // },
+    // {
+    //   title: "Demo",
+    //   description: "Demo",
+    //   link: "",
+    // },
+    // {
+    //   title: "Demo",
+    //   description: "Demo",
+    //   link: "",
+    // },
   ];
 
   return (
