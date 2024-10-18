@@ -3,6 +3,7 @@ import { cn } from "../lib/utils";
 import { Spotlight } from "../../ui/spotlight";
 import { TesterSidebar } from "../../../components/TesterSidebar";
 import { TesterTaskTable } from "./TesterTaskTable";
+import { ReAssignTaskTable } from "./ReAssingnTaskTable";
 
 
 export function TesterReAssignSpotlight() {
@@ -22,7 +23,7 @@ export function TesterReAssignSpotlight() {
           
         <div className="w-full mb-36  max-w-7xl">
           {/* <TableDemo />  */}
-         <TesterTaskTable/>
+         <ReAssignTaskTable/>
         </div>
       </div>
    

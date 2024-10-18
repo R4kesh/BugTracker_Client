@@ -33,6 +33,7 @@ import EditUserProfile from "./components/UserDashboard/UserComponents/EditProfi
 import EditTesterProfile from "./components/TesterDashboard/TesterComponent/TesterEditProfile";
 import ReAssignedTaskList from "./components/AdminDashboard/ReAssignedTaskList";
 import ReAssignment from "./components/UserDashboard/ReAssignment";
+import TesterReAssignWork from "./components/TesterDashboard/TesterReAssignWork";
 
 const App = () => {
   return (
@@ -105,6 +106,7 @@ const App = () => {
             <Route path="/testedlist" element={<TestList />} />
             <Route path="/testerprofile" element={<TesterProfile />} />
             <Route path="/updatetesterprofile" element={<EditTesterProfile />} />
+            <Route path="/reassignedtest" element={<TesterReAssignWork />} />
 
           </Routes>
         </AuthProvider>
