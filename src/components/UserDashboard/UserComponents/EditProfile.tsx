@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import UserProfileCard from './UserProfileSidebar';
 import UserNavbar from '../UserNavbar';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
 
 interface  userData{
   name: string
@@ -10,22 +12,22 @@ interface  userData{
   role: string
 }
 function EditUserProfile() {
+  const { user } = useSelector((state: RootState) => state.auth)
+
   const [userData, setUserData] = useState<userData>({
     name: '',
     email: '',
     phoneNumber: '',
     role: ''
   });
-
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   useEffect(() => {
-    const userId = JSON.parse(localStorage.getItem('user') || '{}').id;
-    const id = JSON.parse(userId);
-    const Id = id.id;
 
-    if (Id) {
+
+    if (user) {
       // Fetch user data from backend
+      const Id = user.id
       const fetchUserData = async () => {
         try {
           const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/dashboard/userprofile/${Id}`);
@@ -56,7 +58,7 @@ function EditUserProfile() {
     e.preventDefault();
     setIsSubmitting(true);
     
-    const userId = JSON.parse(localStorage.getItem('user') || '{}').id;
+    const userId = user?.id;
 
     try {
       await axios.put(`${import.meta.env.VITE_BASE_URL}/api/dashboard/updateprofile/${userId}`, userData);

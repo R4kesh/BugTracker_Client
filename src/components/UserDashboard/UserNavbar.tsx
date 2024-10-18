@@ -13,7 +13,7 @@ const UserNavbar: React.FC = () => {
 const[role,setRole]=useState<string | null>(null);
   useEffect(() => {
     // Mock authentication logic - you can replace this with real logic
-    const userDetails = JSON.parse(localStorage.getItem('user') || '{}');
+    const userDetails = JSON.parse(localStorage.getItem('user'));
     
     if (userDetails && userDetails.name) {
       setUserName(userDetails.name);

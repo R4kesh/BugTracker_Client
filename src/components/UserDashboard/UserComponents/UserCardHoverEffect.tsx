@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { HoverEffect } from "../../ui/card-hover-effect";
 import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
 
 interface Counts {
   assignments: number;
@@ -19,6 +21,8 @@ interface ProjectItem {
 
 export function UserCardHoverEffect() {
   // State to store counts
+  const { user } = useSelector((state: RootState) => state.auth)
+
   const [counts, setCounts] = useState<Counts>({
     assignments: 0,
     tasksCompleted: 0,
@@ -30,10 +34,8 @@ export function UserCardHoverEffect() {
   useEffect(() => {
     const fetchCounts = async () => {
       try {
-        const user = JSON.parse(localStorage.getItem('user') || '{}').id;
-
-        if (user && user.id) {
-          const userId = user.id;
+        if (user ) {
+          const userId = user?.id;
 
           // Make an API call to fetch the counts
           const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/userDashboard/count?id=${userId}`);

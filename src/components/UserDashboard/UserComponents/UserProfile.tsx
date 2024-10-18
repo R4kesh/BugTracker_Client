@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import UserProfileCard from './UserProfileSidebar'
 import UserNavbar from '../UserNavbar'
 import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
 
 interface UserData {
   name: string;
@@ -11,6 +13,8 @@ interface UserData {
 }
 
 function UserProfile() {
+  const { user } = useSelector((state: RootState) => state.auth)
+  
   const [userData, setUserData] = useState<UserData>({
     name: '',
     email: '',
@@ -18,20 +22,20 @@ function UserProfile() {
     role: ''
   });
 
-  useEffect(() => {
-    const userId = JSON.parse(localStorage.getItem('user') || "{}"); // Fetch the user from local storage
-    const id = JSON.parse(userId)
-    const Id = id.id
+  useEffect(() => {    
+    const Id = user?.id    
 
     if (Id) {
       // Make a backend request to fetch user data
+      
       const fetchUserData = async () => {
         try {
           const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/dashboard/userprofile/${Id}`);
           const { name, email, phoneNumber, role } = response.data;
+          
           setUserData({ name, email, phoneNumber, role });
         } catch (error) {
-          console.error('Error fetching user data:', error);
+          console.error('Error fetching user dataaa:', error);
         }
       };
 
