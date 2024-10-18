@@ -31,6 +31,7 @@ import { AuthProvider } from "./providers/auth-provider";
 import { ProtectedRoute } from "./providers/protected-route";
 import EditUserProfile from "./components/UserDashboard/UserComponents/EditProfile";
 import EditTesterProfile from "./components/TesterDashboard/TesterComponent/TesterEditProfile";
+import ReAssignedTaskList from "./components/AdminDashboard/ReAssignedTaskList";
 
 const App = () => {
   return (
@@ -60,6 +61,8 @@ const App = () => {
             <Route path="/previewmodule/:id" element={<PreviewModuleList />} />
             <Route path="/previewcard/:id/:epicId" element={<PreviewCard />} />
             <Route path="/adminprofile" element={<AdminProfile />} />
+            <Route path="/reassigntasklist" element={<ReAssignedTaskList />} />
+
 
             {/* developer routes */}
             <Route path="/dashboard" element={
