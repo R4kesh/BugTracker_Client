@@ -58,7 +58,8 @@ const App = () => {
             <Route path="/previewmodule/:id" element={<PreviewModuleList />} />
             <Route path="/previewcard/:id/:epicId" element={<PreviewCard />} />
             <Route path="/adminprofile" element={<AdminProfile />} />
-
+            
+              {/* developer routes */}
             <Route path="/dashboard" element={
               <ProtectedRoute allowedRoles={['developer']}>
                 <UserDashboard />
