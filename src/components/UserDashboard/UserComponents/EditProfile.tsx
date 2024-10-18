@@ -3,18 +3,24 @@ import UserProfileCard from './UserProfileSidebar';
 import UserNavbar from '../UserNavbar';
 import axios from 'axios';
 
+interface  userData{
+  name: string
+  email: string
+  phoneNumber: string
+  role: string
+}
 function EditUserProfile() {
-  const [userData, setUserData] = useState({
+  const [userData, setUserData] = useState<userData>({
     name: '',
     email: '',
     phoneNumber: '',
     role: ''
   });
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   useEffect(() => {
-    const userId = localStorage.getItem('user');
+    const userId = JSON.parse(localStorage.getItem('user') || '{}').id;
     const id = JSON.parse(userId);
     const Id = id.id;
 
@@ -37,7 +43,7 @@ function EditUserProfile() {
   }, []);
 
   // Update user data locally when user types in the input fields
-  const handleInputChange = (e) => {
+  const handleInputChange = (e:any) => {
     const { name, value } = e.target;
     setUserData((prevData) => ({
       ...prevData,
@@ -50,7 +56,7 @@ function EditUserProfile() {
     e.preventDefault();
     setIsSubmitting(true);
     
-    const userId = JSON.parse(localStorage.getItem('user')).id;
+    const userId = JSON.parse(localStorage.getItem('user') || '{}').id;
 
     try {
       await axios.put(`${import.meta.env.VITE_BASE_URL}/api/dashboard/updateprofile/${userId}`, userData);
