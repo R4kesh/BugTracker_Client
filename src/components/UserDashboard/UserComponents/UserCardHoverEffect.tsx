@@ -2,9 +2,24 @@ import React, { useState, useEffect } from 'react';
 import { HoverEffect } from "../../ui/card-hover-effect";
 import axios from 'axios';
 
+interface Counts {
+  assignments: number;
+  tasksCompleted: number;
+  newBugs: number;
+  resolvedBugs: number;
+}
+
+// Define the interface for project items
+interface ProjectItem {
+  title: string;
+  description: JSX.Element | string;
+  link: string;
+}
+
+
 export function UserCardHoverEffect() {
   // State to store counts
-  const [counts, setCounts] = useState({
+  const [counts, setCounts] = useState<Counts>({
     assignments: 0,
     tasksCompleted: 0,
     newBugs: 0,
@@ -15,7 +30,7 @@ export function UserCardHoverEffect() {
   useEffect(() => {
     const fetchCounts = async () => {
       try {
-        const user = JSON.parse(localStorage.getItem('user')); // 'user' is the key for your localStorage
+        const user = JSON.parse(localStorage.getItem('user') || '{}').id;
 
         if (user && user.id) {
           const userId = user.id;
@@ -43,7 +58,7 @@ export function UserCardHoverEffect() {
   }, []);
 
   // Create projects array dynamically using the fetched counts
-  const projects = [
+  const projects: ProjectItem[] = [
     {
       title: "New Assignments",
       description: (
