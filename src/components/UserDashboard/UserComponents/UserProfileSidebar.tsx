@@ -1,18 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import { RootState } from '@/redux/store';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 
-interface User {
-  name: string
-  role: string
-}
 function UserProfileCard() {
-  const [user, setUser] = useState<User | null>(null)
-  useEffect(() => {
-    const data = JSON.parse(localStorage.getItem('user') || "{}"); // Fetch the user from local storage
-    const userdata = JSON.parse(data)
-    setUser(userdata)
-  }, [])
+  const { user } = useSelector((state: RootState) => state.auth)
 
   if (!user) {
     return <div>Loading user data...</div>; // Show loading or fallback if user data is not available
