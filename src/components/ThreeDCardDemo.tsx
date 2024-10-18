@@ -64,6 +64,8 @@ export function ThreeDCardDemo() {
 
       
       setSuccess('OTP resent successfully!');
+      setError("")
+
     } catch (error: any) {
       console.error('Error resending OTP:', error);
       setError('Failed to resend OTP. Please try again.');
@@ -102,7 +104,7 @@ export function ThreeDCardDemo() {
             translateZ={20}
             as="button"
             onClick={handleResendOtp}
-            className={`px-4 py-2 rounded-xl text-xs font-normal dark:text-white ${isResendEnabled ? "" : "opacity-50 cursor-not-allowed"}`}
+            className={`px-4 py-2 rounded-xl text-xs font-normal text-black ${isResendEnabled ? "" : "opacity-50 cursor-not-allowed"}`}
             disabled={!isResendEnabled}
           >
             {isResendEnabled ? "Resend OTP" : `Resend OTP in ${seconds}s`}

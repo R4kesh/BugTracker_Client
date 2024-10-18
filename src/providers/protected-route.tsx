@@ -2,13 +2,19 @@ import React from 'react'
 import { Navigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../providers/auth-provider'
 
-export const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { isAuthenticated } = useAuth()
+
+interface ProtectedRouteProps {
+  children: React.ReactNode;
+  allowedRoles: string[];  // Array of roles allowed to access the route
+}
+
+export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, allowedRoles }) => {
+  const { isAuthenticated, role } = useAuth()
   const location = useLocation()
 
-  if (!isAuthenticated) {
-    return <Navigate to="/login" state={{ from: location }} replace />
-  }
 
+  if (!isAuthenticated || (role && !allowedRoles.includes(role))) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
   return <>{children}</>
 }
