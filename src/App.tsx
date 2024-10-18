@@ -29,6 +29,8 @@ import AdminProfile from "./components/AdminProfile";
 import TesterProfile from "./components/TesterDashboard/TesterProfile";
 import { AuthProvider } from "./providers/auth-provider";
 import { ProtectedRoute } from "./providers/protected-route";
+import EditUserProfile from "./components/UserDashboard/UserComponents/EditProfile";
+import EditTesterProfile from "./components/TesterDashboard/TesterComponent/TesterEditProfile";
 
 const App = () => {
   return (
@@ -58,14 +60,14 @@ const App = () => {
             <Route path="/previewmodule/:id" element={<PreviewModuleList />} />
             <Route path="/previewcard/:id/:epicId" element={<PreviewCard />} />
             <Route path="/adminprofile" element={<AdminProfile />} />
-            
-              {/* developer routes */}
+
+            {/* developer routes */}
             <Route path="/dashboard" element={
               <ProtectedRoute allowedRoles={['developer']}>
                 <UserDashboard />
               </ProtectedRoute>
             } />
-            <Route path="/assignments" element={ 
+            <Route path="/assignments" element={
               <ProtectedRoute allowedRoles={['developer']}>
                 <UserAssignments />
               </ProtectedRoute>
@@ -80,12 +82,20 @@ const App = () => {
                 <UserProfile />
               </ProtectedRoute>
             } />
+            <Route path="/edituserprofile" element={
+              <ProtectedRoute allowedRoles={['developer']}>
+                <EditUserProfile />
+              </ProtectedRoute>
+            } />
+
 
             <Route path="/testerdashboard" element={<TesterDashboard />} />
             <Route path="/testtask" element={<TesterTaskList />} />
             <Route path="/testcase/:id" element={<AddTestCase />} />
             <Route path="/testedlist" element={<TestList />} />
             <Route path="/testerprofile" element={<TesterProfile />} />
+            <Route path="/updatetesterprofile" element={<EditTesterProfile />} />
+
           </Routes>
         </AuthProvider>
       </Router>
