@@ -264,7 +264,7 @@ export const TestCaseTable = () => {
     };
 
     fetchTestCases();
-  }, [id,testCases]);
+  }, [id]);
 
   const handleSubmitSingleTestCase = async (testCaseId, e) => {
     e.preventDefault(); // Prevent default form submission
