@@ -67,32 +67,32 @@ const App = () => {
 
             {/* developer routes */}
             <Route path="/dashboard" element={
-              <ProtectedRoute allowedRoles={['developer']}>
+              <ProtectedRoute allowedRoles={['developer','designer']}>
                 <UserDashboard />
               </ProtectedRoute>
             } />
             <Route path="/assignments" element={
-              <ProtectedRoute allowedRoles={['developer']}>
+              <ProtectedRoute allowedRoles={['developer','designer']}>
                 <UserAssignments />
               </ProtectedRoute>
             } />
             <Route path="/works" element={
-              <ProtectedRoute allowedRoles={['developer']}>
+              <ProtectedRoute allowedRoles={['developer','designer']}>
                 <Works />
               </ProtectedRoute>
             } />
             <Route path="/userprofile" element={
-              <ProtectedRoute allowedRoles={['developer']}>
+              <ProtectedRoute allowedRoles={['developer','designer']}>
                 <UserProfile />
               </ProtectedRoute>
             } />
             <Route path="/edituserprofile" element={
-              <ProtectedRoute allowedRoles={['developer']}>
+              <ProtectedRoute allowedRoles={['developer','designer']}>
                 <EditUserProfile />
               </ProtectedRoute>
             } />
              <Route path="/reassigment" element={
-              <ProtectedRoute allowedRoles={['developer']}>
+              <ProtectedRoute allowedRoles={['developer','designer']}>
                 <ReAssignment />
               </ProtectedRoute>
             } />

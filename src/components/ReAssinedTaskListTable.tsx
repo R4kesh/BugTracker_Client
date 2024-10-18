@@ -18,6 +18,8 @@ export const ReAssignedTaskListTable = () => {
             <th className="px-6 py-3">Task Name</th>
             <th className="px-6 py-3">Reassign id</th>
             <th className="px-6 py-3">Severity</th>
+            <th className="px-6 py-3">Failed Steps</th>
+
             <th className="px-6 py-3">Tester Name</th>
             <th className="px-6 py-3">Previous Developer</th>
             <th className="px-6 py-3">Bug Report</th>
@@ -37,6 +39,8 @@ export const ReAssignedTaskListTable = () => {
                 <td className="px-6 py-4">Taskname</td>
                 <td className="px-6 py-4">reassignid</td>
                 <td className="px-6 py-4">Severity</td>
+            <td className="px-6 py-3">Failed Steps</td>
+
                 <td className="px-6 py-4">Tester name</td>
                 <td className="px-6 py-4">prevoius developer</td>
                 <td className="px-6 py-4">bug report</td>
