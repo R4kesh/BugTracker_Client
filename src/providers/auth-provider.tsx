@@ -4,28 +4,29 @@ import { RootState } from '../redux/store'
 import { login, logout } from '../redux/slice/authSlice'
 
 interface AuthContextType {
-  login: (username: string) => void
+  login: (username: string, role: string) => void;
   logout: () => void
   isAuthenticated: boolean
   user: string | null
+  role: string | null;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null)
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const dispatch = useDispatch()
-  const { isAuthenticated, user } = useSelector((state: RootState) => state.auth)
+  const { isAuthenticated, user, role } = useSelector((state: RootState) => state.auth)
 
-  const loginHandler = (username: string) => {
-    dispatch(login(username))
+  const loginHandler = (username: string, role: string) => {
+    dispatch(login({ username, role} ));
   }
 
   const logoutHandler = () => {
     dispatch(logout())
   }
-
+  
   return (
-    <AuthContext.Provider value={{ login: loginHandler, logout: logoutHandler, isAuthenticated, user }}>
+    <AuthContext.Provider value={{ login: loginHandler, logout: logoutHandler, isAuthenticated, user, role }}>
       {children}
     </AuthContext.Provider>
   )

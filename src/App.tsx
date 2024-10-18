@@ -1,4 +1,3 @@
-import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import LandingPage from "./components/Landing/LandingPage";
 import OtpPage from "./components/OtpPage";
@@ -62,18 +61,32 @@ const App = () => {
             <Route path="/previewcard/:id/:epicId" element={<PreviewCard />} />
             <Route path="/adminprofile" element={<AdminProfile />} />
 
-            <Route
-              path="/dashboard"
-              element={
-                <ProtectedRoute>
-                  <UserDashboard/>
-                </ProtectedRoute>
-              }
-            />
-            <Route path="/assignments" element={<UserAssignments />} />
-            <Route path="/works" element={<Works />} />
-            <Route path="/userprofile" element={<UserProfile />} />
-            <Route path="/edituserprofile" element={<EditUserProfile />} />
+            {/* developer routes */}
+            <Route path="/dashboard" element={
+              <ProtectedRoute allowedRoles={['developer']}>
+                <UserDashboard />
+              </ProtectedRoute>
+            } />
+            <Route path="/assignments" element={
+              <ProtectedRoute allowedRoles={['developer']}>
+                <UserAssignments />
+              </ProtectedRoute>
+            } />
+            <Route path="/works" element={
+              <ProtectedRoute allowedRoles={['developer']}>
+                <Works />
+              </ProtectedRoute>
+            } />
+            <Route path="/userprofile" element={
+              <ProtectedRoute allowedRoles={['developer']}>
+                <UserProfile />
+              </ProtectedRoute>
+            } />
+            <Route path="/edituserprofile" element={
+              <ProtectedRoute allowedRoles={['developer']}>
+                <EditUserProfile />
+              </ProtectedRoute>
+            } />
 
 
             <Route path="/testerdashboard" element={<TesterDashboard />} />
