@@ -26,7 +26,7 @@ export function CardHoverEffectDemo() {
     {
       title: "Active Users",
       description: (
-        <span style={{ fontSize: '36px', fontStyle: 'Roboto' }}>
+        <span style={{ fontSize: '36px',color:'greenyellow', fontStyle: 'Roboto' }}>
           Total: {activeUserCount}
         </span>
       ),
@@ -35,7 +35,7 @@ export function CardHoverEffectDemo() {
     {
       title: "Users Request",
       description: (
-        <span style={{ fontSize: '36px', fontStyle: 'Roboto' }}>
+        <span style={{ fontSize: '36px',color:'greenyellow', fontStyle: 'Roboto' }}>
           Total: {userRequestCount}
         </span>
       ),

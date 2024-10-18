@@ -33,8 +33,8 @@ export function UserSidebar() {
       ),
     },
     {
-      label: "Bug Assigned",
-      href: "#",
+      label: "Re-Assigned Task",
+      href: "/reassigment",
       icon: (
         <IconSettings className="text-neutral-700 dark:text-neutral-200 h-6 w-6 flex-shrink-0" />
       ),
