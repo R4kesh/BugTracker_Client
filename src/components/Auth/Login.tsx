@@ -37,7 +37,7 @@ const Login: React.FC = () => {
 
         localStorage.setItem('token', token);
         localStorage.setItem('user', JSON.stringify(user));
-        login(user.name, user.role)
+        login(user.name, user.role, user.email)
         if (response.data.user.role == 'projectManager') {
           navigate("/admindashboard")
         } else if (response.data.user.role == 'tester') {
