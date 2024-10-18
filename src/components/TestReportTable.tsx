@@ -10,7 +10,7 @@ export const TestReportTable = () => {
   const [isModalOpen, setIsModalOpen] = useState(false); // State to manage View Details modal open/close
   const [showReassignModal, setShowReassignModal] = useState(false); // State to manage ReAssign modal
 
-  const reportsPerPage = 5; // Limit 5 rows per page
+  const reportsPerPage = 4; // Limit 5 rows per page
 
   useEffect(() => {
     const fetchTestReports = async () => {

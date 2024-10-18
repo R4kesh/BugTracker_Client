@@ -32,6 +32,7 @@ import { ProtectedRoute } from "./providers/protected-route";
 import EditUserProfile from "./components/UserDashboard/UserComponents/EditProfile";
 import EditTesterProfile from "./components/TesterDashboard/TesterComponent/TesterEditProfile";
 import ReAssignedTaskList from "./components/AdminDashboard/ReAssignedTaskList";
+import ReAssignment from "./components/UserDashboard/ReAssignment";
 
 const App = () => {
   return (
@@ -90,6 +91,12 @@ const App = () => {
                 <EditUserProfile />
               </ProtectedRoute>
             } />
+             <Route path="/reassigment" element={
+              <ProtectedRoute allowedRoles={['developer']}>
+                <ReAssignment />
+              </ProtectedRoute>
+            } />
+            
 
 
             <Route path="/testerdashboard" element={<TesterDashboard />} />
