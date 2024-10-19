@@ -21,13 +21,28 @@ export const ReAssignmentTable = () => {
 
         // Set the state with the response data
         setReassignedTasks(response.data);
+        setLoading(false);
       } catch (error) {
         setError('Failed to fetch reassigned tasks');
+        setLoading(false);
       }
     };
 
     fetchReassignedTasks();
   }, []);
+
+  // Update task status
+  const updateTaskStatus = async (taskId, status) => {
+    try {
+      await axios.put(`${import.meta.env.VITE_BASE_URL}/api/userDashboard/updateTaskStatus`, {
+        taskId,
+        status,
+      });
+      setReassignedTasks(reassignedTasks.map(task => task.reassignId === taskId ? { ...task, status } : task));
+    } catch (error) {
+      setError('Failed to update status');
+    }
+  };
 
   // Open the modal and set the selected task
   const handleViewMore = (task) => {
@@ -57,11 +72,15 @@ export const ReAssignmentTable = () => {
             <th className="px-6 py-3">Bug Report Result</th>
             <th className="px-6 py-3">Deadline</th>
             <th className="px-6 py-3">Bug Report</th>
-            <th className="px-6 py-3">Action</th>
+            <th className="px-6 py-3">Status</th>
           </tr>
         </thead>
         <tbody>
-          {reassignedTasks.length > 0 ? (
+          {loading ? (
+            <tr>
+              <td colSpan={11} className="text-center py-4">Loading...</td>
+            </tr>
+          ) : reassignedTasks.length > 0 ? (
             reassignedTasks.map((task) => (
               <tr key={task.reassignId} className="bg-gray-800 hover:bg-gray-600 transition-all duration-200">
                 <td className="px-6 py-4">{task.reassignId}</td>
@@ -84,12 +103,12 @@ export const ReAssignmentTable = () => {
                 <td className="px-6 py-4">
                   <select
                     className="bg-gray-700 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300"
-                    defaultValue={task.task?.status || 'pending'}
+                    defaultValue={task?.status || 'pending'}
+                    onChange={(e) => updateTaskStatus(task.id, e.target.value)}
                   >
-                    <option value="pending">Pending</option>
-                    <option value="started">Started</option>
-                    <option value="in-progress">In Progress</option>
-                    <option value="completed">Completed</option>
+                    <option value="not-started">Not started</option>
+                    <option value='in-progress'>In-progress</option>
+                    <option value='completed'>Completed</option>
                   </select>
                 </td>
               </tr>
