@@ -2,9 +2,25 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-export const ReAssignTaskTable = () => {
-  const [reAssignedTasks, setReAssignedTasks] = useState([]);
-  const [selectedTask, setSelectedTask] = useState(null); // State to store selected task for modal
+// Define the structure of each task
+interface Task {
+  id: number;
+  project: { name: string } | null;
+  task: {
+    TaskName: string;
+    description: string;
+    status: string;
+  } | null;
+  previousDeveloper: { name: string } | null;
+  severity: string | null;
+  bugReport?: {
+    fileLink: string[];
+  };
+}
+
+export const ReAssignTaskTable: React.FC = () => {
+  const [reAssignedTasks, setReAssignedTasks] = useState<Task[]>([]);
+  const [selectedTask, setSelectedTask] = useState<Task | null>(null); // State to store selected task for modal
   const [isModalOpen, setIsModalOpen] = useState(false); // Modal open/close state
 
   useEffect(() => {
@@ -21,7 +37,7 @@ export const ReAssignTaskTable = () => {
   }, []);
 
   // Open the modal and set the selected task
-  const handleViewMore = (task) => {
+  const handleViewMore = (task: Task) => {
     setSelectedTask(task);
     setIsModalOpen(true);
   };
@@ -60,7 +76,7 @@ export const ReAssignTaskTable = () => {
                 <td className="px-6 py-4">{task.task?.description || 'N/A'}</td>
                 <td className="px-6 py-4">{task.previousDeveloper?.name || 'N/A'}</td>
                 <td className="px-6 py-4">{task.severity || 'N/A'}</td>
-                <td className="px-6 py-4 capitalize">{task.task.status || 'N/A'}</td>
+                <td className="px-6 py-4 capitalize">{task.task?.status || 'N/A'}</td>
                 <td className="px-6 py-4">
                   <button
                     onClick={() => handleViewMore(task)}

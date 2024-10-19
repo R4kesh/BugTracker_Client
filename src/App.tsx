@@ -45,74 +45,54 @@ const App = () => {
         <AuthProvider>
           <Routes>
             <Route path="/" element={<LandingPage />} />
-
             <Route path="/otp" element={<OtpPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
-            <Route path="/admindashboard" element={<AdminDashboard />} />
-            <Route path="/userRequest" element={<SeverityManagement />} />
-            <Route path="/usermanagement" element={<UserManagement />} />
-            <Route path="/addproject" element={<AddProject />} />
-            <Route path="/tasklist/:projectId/:epicId" element={<TaskList />} />
-            <Route path="/assignedlist" element={<AssignedList />} />
-            <Route path="/testreport" element={<TestReport />} />
-            <Route
-              path="/projectModule/:projectId"
-              element={<ProjectModule />}
-            />
-            <Route path="/employeelist" element={<EmployeeList />} />
-            <Route path="/trackhistory/:id" element={<TrackHistory />} />
-            <Route path="/projectpreview" element={<ProjectPreview />} />
-            <Route path="/previewmodule/:id" element={<PreviewModuleList />} />
-            <Route path="/previewcard/:id/:epicId" element={<PreviewCard />} />
-            <Route path="/adminprofile" element={<AdminProfile />} />
-            <Route path="/reassigntasklist" element={<ReAssignedTaskList />} />
-            <Route path="/usertrack/:id" element={<UserTaskTrack />} />
-            <Route path="/taskhistory" element={<TaskHistoryTable />} />
-            <Route path="/reassigntaskhistory" element={<ReAssignTaskHistory />} />
 
+            {/* admin routes */}
+            <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
+              <Route path="/admindashboard" element={<AdminDashboard />} />
+              <Route path="/userRequest" element={<SeverityManagement />} />
+              <Route path="/usermanagement" element={<UserManagement />} />
+              <Route path="/addproject" element={<AddProject />} />
+              <Route path="/tasklist/:projectId/:epicId" element={<TaskList />} />
+              <Route path="/assignedlist" element={<AssignedList />} />
+              <Route path="/testreport" element={<TestReport />} />
+              <Route path="/projectModule/:projectId" element={<ProjectModule />} />
+              <Route path="/employeelist" element={<EmployeeList />} />
+              <Route path="/trackhistory/:id" element={<TrackHistory />} />
+              <Route path="/projectpreview" element={<ProjectPreview />} />
+              <Route path="/previewmodule/:id" element={<PreviewModuleList />} />
+              <Route path="/previewcard/:id/:epicId" element={<PreviewCard />} />
+              <Route path="/adminprofile" element={<AdminProfile />} />
+              <Route path="/reassigntasklist" element={<ReAssignedTaskList />} />
+              <Route path="/usertrack/:id" element={<UserTaskTrack />} />
+              <Route path="/taskhistory" element={<TaskHistoryTable />} />
+              <Route path="/reassigntaskhistory" element={<ReAssignTaskHistory />} />
+            </Route>
+            {/* admin routes */}
 
             {/* developer routes */}
-            <Route path="/dashboard" element={
-              <ProtectedRoute allowedRoles={['developer','designer']}>
-                <UserDashboard />
-              </ProtectedRoute>
-            } />
-            <Route path="/assignments" element={
-              <ProtectedRoute allowedRoles={['developer','designer']}>
-                <UserAssignments />
-              </ProtectedRoute>
-            } />
-            <Route path="/works" element={
-              <ProtectedRoute allowedRoles={['developer','designer']}>
-                <Works />
-              </ProtectedRoute>
-            } />
-            <Route path="/userprofile" element={
-              <ProtectedRoute allowedRoles={['developer','designer']}>
-                <UserProfile />
-              </ProtectedRoute>
-            } />
-            <Route path="/edituserprofile" element={
-              <ProtectedRoute allowedRoles={['developer','designer']}>
-                <EditUserProfile />
-              </ProtectedRoute>
-            } />
-             <Route path="/reassigment" element={
-              <ProtectedRoute allowedRoles={['developer','designer']}>
-                <ReAssignment />
-              </ProtectedRoute>
-            } />
-            
+            <Route element={<ProtectedRoute allowedRoles={['developer', 'designer']} />}>
+              <Route path="/dashboard" element={<UserDashboard />} />
+              <Route path="/assignments" element={<UserAssignments />} />
+              <Route path="/works" element={<Works />} />
+              <Route path="/userprofile" element={<UserProfile />} />
+              <Route path="/edituserprofile" element={<EditUserProfile />} />
+              <Route path="/reassigment" element={<ReAssignment />} />
+            </Route>
+            {/* developer routes */}
 
-
-            <Route path="/testerdashboard" element={<TesterDashboard />} />
-            <Route path="/testtask" element={<TesterTaskList />} />
-            <Route path="/testcase/:id" element={<AddTestCase />} />
-            <Route path="/testedlist" element={<TestList />} />
-            <Route path="/testerprofile" element={<TesterProfile />} />
-            <Route path="/updatetesterprofile" element={<EditTesterProfile />} />
-            <Route path="/reassignedtest" element={<TesterReAssignWork />} />
+            {/* Tester routes */}
+            <Route element={<ProtectedRoute allowedRoles={['tester']} />}>
+              <Route path="/testerdashboard" element={<TesterDashboard />} />
+              <Route path="/testtask" element={<TesterTaskList />} />
+              <Route path="/testcase/:id" element={<AddTestCase />} />
+              <Route path="/testedlist" element={<TestList />} />
+              <Route path="/testerprofile" element={<TesterProfile />} />
+              <Route path="/updatetesterprofile" element={<EditTesterProfile />} />
+              <Route path="/reassignedtest" element={<TesterReAssignWork />} />
+            </Route>
 
           </Routes>
         </AuthProvider>

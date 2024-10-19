@@ -1,25 +1,47 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
 
-export const ReAssignmentTable = () => {
-  const [reassignedTasks, setReassignedTasks] = useState([]);
+interface Task {
+  reassignId: number;
+  task?: {
+    projectName: string;
+    taskName: string;
+    status: string;
+  };
+  tester?: {
+    name: string;
+  };
+  severity: string;
+  bugReport?: {
+    steps: string;
+    result: string;
+    fileLink: string[];
+  };
+  previousDeveloper?: {
+    name: string;
+  };
+  deadline: string;
+}
+
+export const ReAssignmentTable: React.FC = () => {
+  const [reassignedTasks, setReassignedTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [selectedTask, setSelectedTask] = useState(null); // State to store selected task for modal
+  const [selectedTask, setSelectedTask] = useState<Task | null>(null); // Store selected task for modal
   const [isModalOpen, setIsModalOpen] = useState(false); // Modal open/close state
+  const { user } = useSelector((state: RootState) => state.auth);
 
   useEffect(() => {
     const fetchReassignedTasks = async () => {
-      const user = JSON.parse(localStorage.getItem('user')); 
-      const userId = user.id; // Get user ID from local storage
-
       try {
-        // Fetch the reassigned tasks from the backend
-        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/userDashboard/reassignedList`, {
-          params: { userid: userId },
-        });
-
-        // Set the state with the response data
+        const response = await axios.get(
+          `${import.meta.env.VITE_BASE_URL}/api/userDashboard/reassignedList`,
+          {
+            params: { userid: user?.id },
+          }
+        );
         setReassignedTasks(response.data);
       } catch (error) {
         setError('Failed to fetch reassigned tasks');
@@ -27,10 +49,10 @@ export const ReAssignmentTable = () => {
     };
 
     fetchReassignedTasks();
-  }, []);
+  }, [user?.id]);
 
   // Open the modal and set the selected task
-  const handleViewMore = (task) => {
+  const handleViewMore = (task: Task) => {
     setSelectedTask(task);
     setIsModalOpen(true);
   };
@@ -43,7 +65,7 @@ export const ReAssignmentTable = () => {
 
   return (
     <div className="overflow-x-auto">
-      <h3 className='text-center text-4xl mb-10 text-white'>Re-Assignment</h3>
+      <h3 className="text-center text-4xl mb-10 text-white">Re-Assignment</h3>
       <table className="mb-10 min-w-full table-auto bg-gray-900 text-gray-100 rounded-lg shadow-md">
         <thead>
           <tr className="bg-gray-800 text-left uppercase text-xs text-gray-400">
