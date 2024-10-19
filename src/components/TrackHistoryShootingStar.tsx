@@ -16,10 +16,10 @@ export function TrackHistoryShootingStar() {
       {/* Main content */}
       <div className="flex flex-1 flex-col items-center justify-center relative p-4 md:p-8">
           {/* Shooting Stars Demo Title */}
-        <h2 className="relative z-10 text-3xl md:text-5xl md:leading-tight max-w-5xl mx-auto text-center tracking-tight font-medium bg-clip-text text-transparent bg-gradient-to-b from-neutral-800 via-white to-white flex items-center gap-2 md:gap-8 mt-10 ">
+        {/* <h2 className="relative z-10 text-3xl md:text-5xl md:leading-tight max-w-5xl mx-auto text-center tracking-tight font-medium bg-clip-text text-transparent bg-gradient-to-b from-neutral-800 via-white to-white flex items-center gap-2 md:gap-8 mt-10 ">
           Company Projects
         
-        </h2>
+        </h2> */}
             
 
         <div className="flex flex-col items-center justify-center w-full space-y-4">
@@ -30,11 +30,11 @@ export function TrackHistoryShootingStar() {
           {/* Center the CardHoverEffectDemo */}
          
          
-          <div className="flex items-center justify-center w-full ">
+          {/* <div className="flex items-center justify-center w-full "> */}
           
             <TrackHistoryCardHover />
           
-          </div>
+          {/* </div> */}
         
           
           {/* Optional Stars Background */}

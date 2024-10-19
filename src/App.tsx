@@ -34,6 +34,7 @@ import EditTesterProfile from "./components/TesterDashboard/TesterComponent/Test
 import ReAssignedTaskList from "./components/AdminDashboard/ReAssignedTaskList";
 import ReAssignment from "./components/UserDashboard/ReAssignment";
 import TesterReAssignWork from "./components/TesterDashboard/TesterReAssignWork";
+import UserTaskTrack from "./components/AdminDashboard/UserTasKTrack";
 
 const App = () => {
   return (
@@ -58,12 +59,13 @@ const App = () => {
               element={<ProjectModule />}
             />
             <Route path="/employeelist" element={<EmployeeList />} />
-            <Route path="/trackhistory" element={<TrackHistory />} />
+            <Route path="/trackhistory/:id" element={<TrackHistory />} />
             <Route path="/projectpreview" element={<ProjectPreview />} />
             <Route path="/previewmodule/:id" element={<PreviewModuleList />} />
             <Route path="/previewcard/:id/:epicId" element={<PreviewCard />} />
             <Route path="/adminprofile" element={<AdminProfile />} />
             <Route path="/reassigntasklist" element={<ReAssignedTaskList />} />
+            <Route path="/usertrack/:id" element={<UserTaskTrack />} />
 
 
             {/* developer routes */}
