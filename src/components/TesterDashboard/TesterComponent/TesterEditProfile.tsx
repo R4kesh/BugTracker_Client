@@ -1,10 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import axios from 'axios';
 import TesterNavbar from '../../../components/TesterNavbar';
 import TesterProfileCard from './TesterProfileSidebar';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
 
+interface UserData {
+  name: string
+  email: string
+  phoneNumber: string
+  role: string
+}
 function EditTesterProfile() {
-  const [userData, setUserData] = useState({
+  const [userData, setUserData] = useState<UserData>({
     name: '',
     email: '',
     phoneNumber: '',
@@ -12,11 +20,10 @@ function EditTesterProfile() {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { user } = useSelector((state: RootState) => state.auth)
 
   useEffect(() => {
-    const userId = localStorage.getItem('user');
-    const id = JSON.parse(userId);
-    const Id = id.id;
+    const Id = user?.id
 
     if (Id) {
       // Fetch user data from backend
@@ -37,7 +44,7 @@ function EditTesterProfile() {
   }, []);
 
   // Update user data locally when user types in the input fields
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setUserData((prevData) => ({
       ...prevData,
@@ -46,11 +53,11 @@ function EditTesterProfile() {
   };
 
   // Handle form submission
-  const handleSubmit = async (e:any) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    const userId = JSON.parse(localStorage.getItem('user')).id;
+
+    const userId = user?.id
 
     try {
       await axios.put(`${import.meta.env.VITE_BASE_URL}/api/tester/updatetesterprofile/${userId}`, userData);
@@ -91,7 +98,7 @@ function EditTesterProfile() {
                   type="email"
                   name="email"
                   value={userData.email}
-                 readOnly
+                  readOnly
                   className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
                 />
               </div>

@@ -1,23 +1,40 @@
-
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ChangeEvent, FC } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
 
-export const TestCaseTable = () => {
-  const { id } = useParams(); // Assuming 'id' is the taskId
+// Define types for test case and test case data
+interface TestCase {
+  id: string;
+  name: string;
+  description: string;
+  steps: string[];
+}
 
-  const [testCases, setTestCases] = useState([]);
-  const [testCaseData, setTestCaseData] = useState({});
+interface TestCaseData {
+  severity: string;
+  testStatus: string;
+  selectedSteps: string[];
+  result: string;
+}
+
+export const TestCaseTable: FC = () => {
+  const { id } = useParams<{ id: string }>(); // Get taskId from URL params
+  const { user } = useSelector((state: RootState) => state.auth)
+
+  const [testCases, setTestCases] = useState<TestCase[]>([]);
+  const [testCaseData, setTestCaseData] = useState<Record<string, TestCaseData>>({});
 
   useEffect(() => {
     const fetchTestCases = async () => {
       try {
         const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/tester/listTestCases/${id}`);
-        setTestCases(response.data);
+        const fetchedTestCases: TestCase[] = response.data;
+        setTestCases(fetchedTestCases);
 
         // Initialize the state for each test case
-        const initialTestCaseData = response.data.reduce((acc, testCase) => {
+        const initialTestCaseData = fetchedTestCases.reduce<Record<string, TestCaseData>>((acc, testCase) => {
           acc[testCase.id] = {
             severity: 'High',
             testStatus: 'Not Started',
@@ -35,15 +52,14 @@ export const TestCaseTable = () => {
     fetchTestCases();
   }, [id]);
 
-  const handleSubmitSingleTestCase = async (testCaseId, e) => {
+  const handleSubmitSingleTestCase = async (testCaseId: string, e: React.FormEvent) => {
     e.preventDefault(); // Prevent default form submission
 
     const taskId = id;
-    const userData = localStorage.getItem('user');
+    const userData = user
     let testerId;
 
     if (userData) {
-      const user = JSON.parse(userData);
       testerId = user;
     } else {
       console.error('No user found in local storage');
@@ -60,22 +76,22 @@ export const TestCaseTable = () => {
 
     // Prepare the data for this specific test case
     const formData = new FormData();
-    formData.append('taskId', taskId);
+    formData.append('taskId', taskId!);
     formData.append('testerId', testerId.id);
     formData.append('testCaseId', testCaseId); // testId
     formData.append('testDescription', testCase.description); // testDescription
-    formData.append('severity', testCaseData[testCaseId]?.severity);
-    formData.append('testStatus', testCaseData[testCaseId]?.testStatus);
-    formData.append('result', testCaseData[testCaseId]?.result);
+    formData.append('severity', testCaseData[testCaseId]?.severity || 'High');
+    formData.append('testStatus', testCaseData[testCaseId]?.testStatus || 'Not Started');
+    formData.append('result', testCaseData[testCaseId]?.result || 'Pass');
 
     // Append selectedSteps as an array to FormData
     const selectedSteps = testCaseData[testCaseId]?.selectedSteps || [];
-    selectedSteps.forEach(step => {
-      formData.append('selectedSteps[]', step);  // Use 'selectedSteps[]' to append multiple steps as array items
+    selectedSteps.forEach((step) => {
+      formData.append('selectedSteps[]', step); // Use 'selectedSteps[]' to append multiple steps as array items
     });
 
     // Append files to FormData
-    const fileInput = document.getElementById(`file-upload-${testCaseId}`);
+    const fileInput = document.getElementById(`file-upload-${testCaseId}`) as HTMLInputElement | null;
     if (fileInput?.files) {
       Array.from(fileInput.files).forEach((file) => {
         formData.append('files', file);
@@ -99,7 +115,7 @@ export const TestCaseTable = () => {
     }
   };
 
-  const handleInputChange = (testCaseId, field, value) => {
+  const handleInputChange = (testCaseId: string, field: keyof TestCaseData, value: string) => {
     setTestCaseData((prevData) => ({
       ...prevData,
       [testCaseId]: {
@@ -109,7 +125,7 @@ export const TestCaseTable = () => {
     }));
   };
 
-  const handleStepChange = (testCaseId, step, isChecked) => {
+  const handleStepChange = (testCaseId: string, step: string, isChecked: boolean) => {
     setTestCaseData((prevData) => {
       const updatedSteps = [...(prevData[testCaseId]?.selectedSteps || [])];
 
@@ -220,251 +236,20 @@ export const TestCaseTable = () => {
                 </select>
               </td>
               <td className="px-6 py-4">
-               <Link to='/testedlist'>
                 <button
                   onClick={(e) => handleSubmitSingleTestCase(testCase.id, e)}
-                  className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                  className="bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded-md text-white"
                 >
                   Submit
                 </button>
-                </Link>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      <Link to={`/taskdetails/${id}`}>
+        <button className="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md">Go Back</button>
+      </Link>
     </div>
   );
 };
-
-// import React, { useState, useEffect } from 'react';
-// import axios from 'axios';
-// import { useParams } from 'react-router-dom';
-
-// export const TestCaseTable = () => {
-//   const { id } = useParams(); // Assuming 'id' is the taskId
-
-//   const [testCases, setTestCases] = useState([]);
-//   const [testCaseData, setTestCaseData] = useState({});
-
-//   useEffect(() => {
-//     const fetchTestCases = async () => {
-//       try {
-//         const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/tester/listTestCases/${id}`);
-//         setTestCases(response.data);
-
-//         // Initialize the state for each test case
-//         const initialTestCaseData = response.data.reduce((acc, testCase) => {
-//           acc[testCase.id] = {
-//             severity: 'High',
-//             testStatus: 'Not Started',
-//             selectedSteps: [],
-//             result: 'Pass', // Initialize result field with default value
-//           };
-//           return acc;
-//         }, {});
-//         setTestCaseData(initialTestCaseData);
-//       } catch (error) {
-//         console.error('Error fetching test cases:', error);
-//       }
-//     };
-
-//     fetchTestCases();
-//   }, [id]);
-
-//   const handleSubmitSingleTestCase = async (testCaseId, e) => {
-//     e.preventDefault(); // Prevent default form submission
-
-//     const taskId = id;
-//     const userData = localStorage.getItem('user');
-//     let testerId;
-
-//     if (userData) {
-//       const user = JSON.parse(userData);
-//       testerId = user;
-//     } else {
-//       console.error('No user found in local storage');
-//       return;
-//     }
-
-//     // Get the testCase object for this specific testCaseId
-//     const testCase = testCases.find((tc) => tc.id === testCaseId);
-
-//     if (!testCase) {
-//       console.error('Test case not found');
-//       return;
-//     }
-
-//     // Prepare the data for this specific test case
-//     const formData = new FormData();
-//     formData.append('taskId', taskId);
-//     formData.append('testerId', testerId.id);
-//     formData.append('testCaseId', testCaseId); // testId
-//     formData.append('testDescription', testCase.description); // testDescription
-//     formData.append('severity', testCaseData[testCaseId]?.severity);
-//     formData.append('testStatus', testCaseData[testCaseId]?.testStatus);
-//     formData.append('result', testCaseData[testCaseId]?.result);
-//     formData.append('selectedSteps', testCaseData[testCaseId]?.selectedSteps);
-
-//     // Append files to FormData
-//     const fileInput = document.getElementById(`file-upload-${testCaseId}`);
-//     if (fileInput?.files) {
-//       Array.from(fileInput.files).forEach((file) => {
-//         formData.append('files', file);
-//       });
-//     }
-
-//     try {
-//       // Log the contents of formData
-//       for (let pair of formData.entries()) {
-//         console.log(`${pair[0]}: ${pair[1]}`);
-//       }
-
-//       const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/tester/bugreport`, formData, {
-//         headers: {
-//           'Content-Type': 'multipart/form-data',
-//         },
-//       });
-//       console.log('Test case submitted successfully:', response.data);
-//     } catch (error) {
-//       console.error('Error submitting test case:', error);
-//     }
-//   };
-
-//   const handleInputChange = (testCaseId, field, value) => {
-//     setTestCaseData((prevData) => ({
-//       ...prevData,
-//       [testCaseId]: {
-//         ...prevData[testCaseId],
-//         [field]: value,
-//       },
-//     }));
-//   };
-
-//   const handleStepChange = (testCaseId, step, isChecked) => {
-//     setTestCaseData((prevData) => {
-//       const updatedSteps = [...(prevData[testCaseId]?.selectedSteps || [])];
-
-//       if (isChecked) {
-//         updatedSteps.push(step);
-//       } else {
-//         const stepIndex = updatedSteps.indexOf(step);
-//         if (stepIndex > -1) {
-//           updatedSteps.splice(stepIndex, 1);
-//         }
-//       }
-
-//       return {
-//         ...prevData,
-//         [testCaseId]: {
-//           ...prevData[testCaseId],
-//           selectedSteps: updatedSteps,
-//         },
-//       };
-//     });
-//   };
-
-//   return (
-//     <div className="overflow-x-auto">
-//       <h3 className="text-center text-4xl mb-10 text-white">Test Cases</h3>
-//       <table className="mb-10 min-w-full table-auto bg-gray-900 text-gray-100 rounded-lg shadow-md">
-//         <thead>
-//           <tr className="bg-gray-800 text-left uppercase text-xs text-gray-400">
-//             <th className="px-6 py-3">ID</th>
-//             <th className="px-6 py-3">Test Id</th>
-//             <th className="px-6 py-3">Test Description</th>
-//             <th className="px-6 py-3">Steps</th>
-//             <th className="px-6 py-3">Severity</th>
-//             <th className="px-6 py-3">Result</th>
-//             <th className="px-6 py-3">Bug Report</th>
-//             <th className="px-6 py-3">Test Status</th>
-//             <th className="px-6 py-3">Action</th>
-//           </tr>
-//         </thead>
-//         <tbody>
-//           {testCases.map((testCase) => (
-//             <tr key={testCase.id} className="bg-gray-700 hover:bg-gray-600 transition-all duration-200">
-//               <td className="px-6 py-4">{testCase.id}</td>
-//               <td className="px-6 py-4">{testCase.name}</td>
-//               <td className="px-6 py-4">{testCase.description}</td>
-//               <td className="px-6 py-4">
-//                 <ul>
-//                   {testCase.steps && testCase.steps.length > 0 ? (
-//                     testCase.steps.map((step, index) => (
-//                       <li key={index} className="text-md text-gray-200 w-56">
-//                         <label>
-//                           <input
-//                             type="checkbox"
-//                             checked={testCaseData[testCase.id]?.selectedSteps?.includes(step) || false}
-//                             onChange={(e) => handleStepChange(testCase.id, step, e.target.checked)}
-//                             className="mr-2"
-//                           />
-//                           {step}
-//                         </label>
-//                       </li>
-//                     ))
-//                   ) : (
-//                     <li className="text-sm text-gray-300">No steps provided</li>
-//                   )}
-//                 </ul>
-//               </td>
-//               <td className="px-6 py-4">
-//                 <select
-//                   value={testCaseData[testCase.id]?.severity}
-//                   onChange={(e) => handleInputChange(testCase.id, 'severity', e.target.value)}
-//                   className="border border-gray-300 bg-slate-600 rounded-md w-24 p-2"
-//                   required
-//                 >
-//                   <option value="High">High</option>
-//                   <option value="Medium">Medium</option>
-//                   <option value="Low">Low</option>
-//                 </select>
-//               </td>
-//               <td className="px-6 py-4">
-//                 {/* Result field */}
-//                 <select
-//                   value={testCaseData[testCase.id]?.result}
-//                   onChange={(e) => handleInputChange(testCase.id, 'result', e.target.value)}
-//                   className="p-2 border bg-slate-600 border-gray-300 rounded"
-//                 >
-//                   <option value="Pass">Pass</option>
-//                   <option value="Fail">Fail</option>
-//                 </select>
-//               </td>
-//               <td className="px-6 py-4">
-//                 <input
-//                   type="file"
-//                   accept="image/*,application/pdf"
-//                   multiple
-//                   id={`file-upload-${testCase.id}`}
-//                   className="p-2 border border-gray-300 bg-slate-600 rounded"
-//                 />
-//               </td>
-//               <td className="px-6 py-4">
-//                 <select
-//                   value={testCaseData[testCase.id]?.testStatus}
-//                   onChange={(e) => handleInputChange(testCase.id, 'testStatus', e.target.value)}
-//                   className="p-2 border bg-slate-600 border-gray-300 rounded"
-//                 >
-//                   <option value="Not Started">Not Started</option>
-//                   <option value="In Progress">In Progress</option>
-//                   <option value="Completed">Completed</option>
-//                 </select>
-//               </td>
-//               <td className="px-6 py-4">
-//                 {/* Submit button for each row */}
-//                 <button
-//                   onClick={(e) => handleSubmitSingleTestCase(testCase.id, e)}
-//                   className="bg-blue-500 text-white rounded-md px-4 py-2 mt-4"
-//                 >
-//                   Submit
-//                 </button>
-//               </td>
-//             </tr>
-//           ))}
-//         </tbody>
-//       </table>
-//     </div>
-//   );
-// };
-

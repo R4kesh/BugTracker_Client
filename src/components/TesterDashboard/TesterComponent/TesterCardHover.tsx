@@ -2,8 +2,14 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { HoverEffect } from "../../ui/card-hover-effect";
 
+interface TaskCount {
+  newTasks: number;
+  taskToTest: number;
+  tasksTestedCompleted: number;
+}
+
 export function TesterCardHoverEffect() {
-  const [taskCounts, setTaskCounts] = useState({
+  const [taskCounts, setTaskCounts] = useState<TaskCount>({
     newTasks: 0,
     taskToTest: 0,
     tasksTestedCompleted: 0,
@@ -12,8 +18,8 @@ export function TesterCardHoverEffect() {
   const fetchTasks = async () => {
     try {
       const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/tester/dashboardCount`);
-      
-      
+
+
       setTaskCounts({
         newTasks: response.data.newTasks || 0,
         taskToTest: response.data.taskToTest || 0,
@@ -28,8 +34,14 @@ export function TesterCardHoverEffect() {
     fetchTasks();
   }, []);
 
+  interface Project {
+    title: string;
+    description: JSX.Element;
+    link: string;
+  }
+
   // Define the projects array using the fetched counts
-  const projects = [
+  const projects: Project[] = [
     {
       title: "New Tasks",
       description: (
