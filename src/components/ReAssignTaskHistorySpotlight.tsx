@@ -3,6 +3,7 @@ import { cn } from "../lib/utils";
 import { Spotlight } from "./ui/spotlight";
 import { SidebarDash } from "./SidebarD";
 import { TaskHistoryTable } from "./TaskHistoryTable";
+import { ReAssignTaskHistoryTable } from "./ReAssignTaskHistoryTable";
 
 
 export function ReAssignTaskHistorySpotlight() {
@@ -18,7 +19,7 @@ export function ReAssignTaskHistorySpotlight() {
     <div className="p-4 w-full relative z-10 flex flex-col items-center justify-center">
         
       <div className="w-full mb-36  max-w-7xl">
-      {/* <TaskHistoryTable/> */}
+      <ReAssignTaskHistoryTable/>
       </div>
     </div>
   </div>
