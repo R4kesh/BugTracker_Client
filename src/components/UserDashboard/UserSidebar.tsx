@@ -1,16 +1,23 @@
-
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { IconArrowLeft, IconBrandTabler, IconSettings, IconUserBolt } from "@tabler/icons-react";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import {
+  IconArrowLeft,
+  IconBrandTabler,
+  IconSettings,
+  IconUserBolt,
+} from "@tabler/icons-react";
+import { Link } from "react-router-dom";
 import { cn } from "../../lib/utils";
-import axios from "axios";
+
+// Define the shape of each link in the sidebar
+interface LinkType {
+  label: string;
+  href: string;
+  icon: React.ReactNode;
+}
 
 export function UserSidebar() {
-
-
-
-  const links = [
+  const links: LinkType[] = [
     {
       label: "Dashboard",
       href: "/dashboard",
@@ -39,7 +46,6 @@ export function UserSidebar() {
         <IconSettings className="text-neutral-700 dark:text-neutral-200 h-6 w-6 flex-shrink-0" />
       ),
     },
-   
     {
       label: "Logout",
       href: "#",
@@ -49,16 +55,23 @@ export function UserSidebar() {
     },
   ];
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
 
   return (
     <div className={cn("flex h-screen")}>
-      <Sidebar open={open} setOpen={setOpen} links={links}  />
+      <Sidebar open={open} setOpen={setOpen} links={links} />
     </div>
   );
 }
 
-export const Sidebar = ({ open, setOpen, links,data }) => {
+// Define the props for the Sidebar component
+interface SidebarProps {
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  links: LinkType[];
+}
+
+export const Sidebar: React.FC<SidebarProps> = ({ open, setOpen, links }) => {
   return (
     <motion.div
       className={cn(
@@ -94,14 +107,20 @@ export const Sidebar = ({ open, setOpen, links,data }) => {
       {/* Links */}
       <div className="flex flex-col gap-6 w-full px-4">
         {links.map((link, idx) => (
-          <SidebarLink key={idx} link={link} open={open} data={data} />
+          <SidebarLink key={idx} link={link} open={open} />
         ))}
       </div>
     </motion.div>
   );
 };
 
-export const SidebarLink = ({ link, open }) => {
+// Define the props for the SidebarLink component
+interface SidebarLinkProps {
+  link: LinkType;
+  open: boolean;
+}
+
+export const SidebarLink: React.FC<SidebarLinkProps> = ({ link, open }) => {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -110,7 +129,7 @@ export const SidebarLink = ({ link, open }) => {
       transition={{ duration: 0.3 }}
     >
       <Link
-        to={link.href} // Use 'to' instead of 'href' for navigation
+        to={link.href}
         className={cn(
           "flex items-center justify-start gap-3 py-3 px-2 rounded-lg cursor-pointer transition-all",
           "hover:bg-white hover:bg-opacity-10"
@@ -132,12 +151,9 @@ export const SidebarLink = ({ link, open }) => {
   );
 };
 
-export const Logo = () => {
+export const Logo: React.FC = () => {
   return (
-    <a
-      href="#"
-      className="flex items-center space-x-2 text-lg font-bold text-white"
-    >
+    <a href="#" className="flex items-center space-x-2 text-lg font-bold text-white">
       <motion.div
         className="h-8 w-8 bg-white text-black rounded-full flex items-center justify-center"
         whileHover={{ rotate: 360 }}
@@ -145,12 +161,11 @@ export const Logo = () => {
       >
         A
       </motion.div>
-      
     </a>
   );
 };
 
-export const LogoIcon = () => {
+export const LogoIcon: React.FC = () => {
   return (
     <motion.div
       className="h-8 w-8 bg-white text-black rounded-full flex items-center justify-center"
