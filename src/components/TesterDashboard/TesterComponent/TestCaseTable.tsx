@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ChangeEvent } from 'react';
+import React, { useState, useEffect, ChangeEvent, FC } from 'react';
 import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -19,7 +19,7 @@ interface TestCaseData {
   result: string;
 }
 
-export const TestCaseTable: React.FC = () => {
+export const TestCaseTable: FC = () => {
   const { id } = useParams<{ id: string }>(); // Get taskId from URL params
   const { user } = useSelector((state: RootState) => state.auth)
 

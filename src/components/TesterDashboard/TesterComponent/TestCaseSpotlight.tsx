@@ -7,7 +7,7 @@ import { TestCaseTable } from "./TestCaseTable";
 
 export function TestCaseSpotlight() {
 
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false); // State for modal visibility
+  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
   const handleOpenModal = () => {
     setIsModalOpen(true);
   };

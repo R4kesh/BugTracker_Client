@@ -1,15 +1,11 @@
 
-import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import { RootState } from '@/redux/store';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 function TesterProfileCard() {
-  const [user,setUser]=useState([])
-  useEffect(()=>{
-    const data=localStorage.getItem('user')
-    const userdata=JSON.parse(data)
-    setUser(userdata)
-  },[]) 
+  const { user } = useSelector((state: RootState) => state.auth)
+
   return (
     <div className='flex flex-col md:flex-row h-screen bg-gray-100'>
          <aside className="w-full md:w-64  bg-slate-300 shadow-md">
@@ -21,8 +17,8 @@ function TesterProfileCard() {
             width={128}
             height={128}
           />
-          <h2 className="mt-4 text-xl font-semibold text-gray-700">{user.name}</h2>
-          <p className="text-gray-600">({user.role})</p>
+          <h2 className="mt-4 text-xl font-semibold text-gray-700">{user?.name}</h2>
+          <p className="text-gray-600">({user?.role})</p>
         </div>
         <nav className="mt-6">
           <ul className="space-y-2">

@@ -1,5 +1,3 @@
-import React, { useState } from "react";
-import { cn } from "../lib/utils";
 import { Spotlight } from "../../ui/spotlight";
 import { TesterSidebar } from "../../../components/TesterSidebar";
 import { TesterTaskTable } from "./TesterTaskTable";
