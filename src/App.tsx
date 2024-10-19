@@ -35,6 +35,7 @@ import ReAssignedTaskList from "./components/AdminDashboard/ReAssignedTaskList";
 import ReAssignment from "./components/UserDashboard/ReAssignment";
 import TesterReAssignWork from "./components/TesterDashboard/TesterReAssignWork";
 import UserTaskTrack from "./components/AdminDashboard/UserTasKTrack";
+import TaskHistoryTable from "./components/AdminDashboard/TaskHistoryTable";
 
 const App = () => {
   return (
@@ -66,6 +67,7 @@ const App = () => {
             <Route path="/adminprofile" element={<AdminProfile />} />
             <Route path="/reassigntasklist" element={<ReAssignedTaskList />} />
             <Route path="/usertrack/:id" element={<UserTaskTrack />} />
+            <Route path="/taskhistory" element={<TaskHistoryTable />} />
 
 
             {/* developer routes */}
