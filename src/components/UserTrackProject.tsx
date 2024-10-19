@@ -64,7 +64,7 @@ export function UserTrackProject() {
                   {new Date(project.starting).toLocaleDateString()}
                 </td>
                 <td className="py-4 px-4 border-b border-gray-300">
-                  <Link to='/'>
+                  <Link to='/taskhistory'>
                     <button
                       type="button"
                       className="bg-green-600 text-white py-1 px-4 rounded hover:bg-green-700 transition duration-200"
