@@ -5,38 +5,41 @@ export const ReAssignmentTable = () => {
   const [reassignedTasks, setReassignedTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [selectedTask, setSelectedTask] = useState(null); // State to store selected task for modal
+  const [isModalOpen, setIsModalOpen] = useState(false); // Modal open/close state
 
   useEffect(() => {
     const fetchReassignedTasks = async () => {
       const user = JSON.parse(localStorage.getItem('user')); 
-      console.log('ueser',user);
-      // Assuming userId is stored as a stringified JSON
-        const userid=user.id
-        console.log('jsadf',userid);// Get user ID from local storage
+      const userId = user.id; // Get user ID from local storage
 
       try {
         // Fetch the reassigned tasks from the backend
         const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/userDashboard/reassignedList`, {
-          params: {
-            userid, // Pass the user ID as a query parameter
-          },
+          params: { userid: userId },
         });
-        console.log('response',response.data);
-        
 
         // Set the state with the response data
         setReassignedTasks(response.data);
-       
       } catch (error) {
         setError('Failed to fetch reassigned tasks');
-        
       }
     };
 
     fetchReassignedTasks();
   }, []);
 
+  // Open the modal and set the selected task
+  const handleViewMore = (task) => {
+    setSelectedTask(task);
+    setIsModalOpen(true);
+  };
 
+  // Close the modal
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedTask(null); // Clear the selected task when closing
+  };
 
   return (
     <div className="overflow-x-auto">
@@ -50,10 +53,10 @@ export const ReAssignmentTable = () => {
             <th className="px-6 py-3">Tester</th>
             <th className="px-6 py-3">Severity</th>
             <th className="px-6 py-3">Steps</th>
-
             <th className="px-6 py-3">Previous Developer</th>
-            <th className="px-6 py-3">Bug Report</th>
+            <th className="px-6 py-3">Bug Report Result</th>
             <th className="px-6 py-3">Deadline</th>
+            <th className="px-6 py-3">Bug Report</th>
             <th className="px-6 py-3">Action</th>
           </tr>
         </thead>
@@ -66,11 +69,18 @@ export const ReAssignmentTable = () => {
                 <td className="px-6 py-4">{task.task?.taskName || 'N/A'}</td>
                 <td className="px-6 py-4">{task.tester?.name || 'N/A'}</td>
                 <td className="px-6 py-4">{task.severity || 'N/A'}</td>
-                <td className="px-6 py-4">{task.bugReport.steps || 'N/A'}</td>
-
+                <td className="px-6 py-4">{task.bugReport?.steps || 'N/A'}</td>
                 <td className="px-6 py-4">{task.previousDeveloper?.name || 'N/A'}</td>
                 <td className="px-6 py-4">{task.bugReport?.result || 'N/A'}</td>
                 <td className="px-6 py-4">{new Date(task.deadline).toLocaleDateString() || 'N/A'}</td>
+                <td className="px-6 py-4">
+                  <button
+                    onClick={() => handleViewMore(task)}
+                    className="bg-blue-500 text-white rounded-md px-2 py-1"
+                  >
+                    View More
+                  </button>
+                </td>
                 <td className="px-6 py-4">
                   <select
                     className="bg-gray-700 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300"
@@ -86,13 +96,50 @@ export const ReAssignmentTable = () => {
             ))
           ) : (
             <tr>
-              <td colSpan={9} className="text-center py-4">
+              <td colSpan={11} className="text-center py-4">
                 No reassigned tasks found.
               </td>
             </tr>
           )}
         </tbody>
       </table>
+
+      {/* Modal for showing task details */}
+      {isModalOpen && selectedTask && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 max-w-2xl w-full">
+            <h2 className="text-xl mb-4">Task Details for ID: {selectedTask.reassignId}</h2>
+            <p><strong>Task Name:</strong> {selectedTask.task?.taskName || 'N/A'}</p>
+            <p><strong>Steps:</strong> {selectedTask.bugReport?.steps || 'N/A'}</p>
+
+            {/* Display image previews if available */}
+            <div className="grid grid-cols-2 gap-4 mt-4">
+              {Array.isArray(selectedTask.bugReport?.fileLink) && selectedTask.bugReport.fileLink.length > 0 ? (
+                selectedTask.bugReport.fileLink.map((file, index) => {
+                  const imageUrl = `${import.meta.env.VITE_BASE_URL}${file}`;
+                  return (
+                    <img
+                      key={index}
+                      src={imageUrl}
+                      alt={`Uploaded file ${index + 1}`}
+                      className="mb-4 w-full h-auto"
+                    />
+                  );
+                })
+              ) : (
+                <p>No images uploaded</p>
+              )}
+            </div>
+
+            <button
+              className="mt-4 bg-blue-500 text-white rounded-md px-4 py-2"
+              onClick={handleCloseModal}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

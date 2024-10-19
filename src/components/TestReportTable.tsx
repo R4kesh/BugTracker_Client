@@ -25,6 +25,9 @@ export const TestReportTable = () => {
     fetchTestReports();
   }, []);
 
+console.log('adreport',testReports);
+
+
   // Calculate indices for current page reports
   const indexOfLastReport = currentPage * reportsPerPage;
   const indexOfFirstReport = indexOfLastReport - reportsPerPage;
