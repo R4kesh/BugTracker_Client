@@ -57,6 +57,13 @@ export function SidebarDash() {
     //   ),
     // },
     {
+      label: "Re-Assigned Task",
+      href: "/reassigntasklist",
+      icon: (
+        <IconBrandTabler className="text-neutral-700 dark:text-neutral-200 h-6 w-6 flex-shrink-0" />
+      ),
+    },
+    {
       label: "Project Preview",
       href: "/projectpreview",
       icon: (

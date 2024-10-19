@@ -5,6 +5,8 @@ import axios from 'axios';
 export function CardHoverEffectDemo() {
   const [userRequestCount, setUserRequestCount] = useState(0);
   const [activeUserCount,setActiveUserCount]=useState(0)
+  const [totalProjects, setTotalProjects] = useState(0);
+  const [completedProjects, setCompletedProjects] = useState(0);
 
   useEffect(() => {
     const fetchActiveSeverityCount = async () => {
@@ -13,6 +15,12 @@ export function CardHoverEffectDemo() {
         console.log('res', response.data.userRequestCount);
         setUserRequestCount(response.data.userRequestCount);
         setActiveUserCount(response.data.activeUserCount)
+
+     // Fetch project counts
+     const projectResponse = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/dashboard/project_counts`);
+     setTotalProjects(projectResponse.data.totalProjects);
+     setCompletedProjects(projectResponse.data.completedProjects);
+
       } catch (error) {
         console.error('Error fetching active severity count:', error);
       }
@@ -26,7 +34,7 @@ export function CardHoverEffectDemo() {
     {
       title: "Active Users",
       description: (
-        <span style={{ fontSize: '36px', fontStyle: 'Roboto' }}>
+        <span style={{ fontSize: '36px',color:'greenyellow', fontStyle: 'Roboto' }}>
           Total: {activeUserCount}
         </span>
       ),
@@ -35,22 +43,28 @@ export function CardHoverEffectDemo() {
     {
       title: "Users Request",
       description: (
-        <span style={{ fontSize: '36px', fontStyle: 'Roboto' }}>
+        <span style={{ fontSize: '36px',color:'greenyellow', fontStyle: 'Roboto' }}>
           Total: {userRequestCount}
         </span>
       ),
       link: "",
     },
     {
-      title: "New Bug",
-      description:
-        "A multinational technology company that specializes in Internet-related services and products.",
+      title: "Total Projects",
+      description: (
+        <span style={{ fontSize: '36px',color:'greenyellow', fontStyle: 'Roboto' }}>
+          Total: {totalProjects}
+        </span>
+      ),
       link: "",
     },
     {
-      title: "Resolved Bug",
-      description:
-        "A technology company that focuses on building products that advance Facebook's mission of bringing the world closer together.",
+      title: "Completed Projects",
+      description: (
+        <span style={{ fontSize: '36px',color:'greenyellow', fontStyle: 'Roboto' }}>
+          Completed: {completedProjects}
+        </span>
+      ),
       link: "",
     },
     {

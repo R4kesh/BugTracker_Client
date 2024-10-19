@@ -46,11 +46,12 @@ function TesterProfileCard() {
             </li>
           
             <li>
+              <Link to='/testerdashboard'>
               <button
                  className="block w-full px-4 py-2 text-sm font-semibold text-gray-900 rounded-lg hover:bg-white"
               >
                 Back  Home
-              </button>
+              </button></Link>
             </li>
           </ul>
         </nav>

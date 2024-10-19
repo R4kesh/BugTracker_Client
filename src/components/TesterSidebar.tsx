@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { IconArrowLeft, IconBrandTabler, IconSettings, IconUserBolt } from "@tabler/icons-react";
+import { Icon360, IconArrowLeft, IconBrandTabler, IconSettings, IconUserBolt } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
 import { cn } from "../lib/utils";
 
@@ -26,6 +26,13 @@ export function TesterSidebar() {
       href: "/testedlist",
       icon: (
         <IconSettings className="text-neutral-700 dark:text-neutral-200 h-6 w-6 flex-shrink-0" />
+      ),
+    },
+    {
+      label: "ReAssigned Task",
+      href: "/reassignedtest",
+      icon: (
+        <Icon360 className="text-neutral-700 dark:text-neutral-200 h-6 w-6 flex-shrink-0" />
       ),
     },
     {

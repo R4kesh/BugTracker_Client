@@ -31,6 +31,9 @@ import { AuthProvider } from "./providers/auth-provider";
 import { ProtectedRoute } from "./providers/protected-route";
 import EditUserProfile from "./components/UserDashboard/UserComponents/EditProfile";
 import EditTesterProfile from "./components/TesterDashboard/TesterComponent/TesterEditProfile";
+import ReAssignedTaskList from "./components/AdminDashboard/ReAssignedTaskList";
+import ReAssignment from "./components/UserDashboard/ReAssignment";
+import TesterReAssignWork from "./components/TesterDashboard/TesterReAssignWork";
 
 const App = () => {
   return (
@@ -60,33 +63,41 @@ const App = () => {
             <Route path="/previewmodule/:id" element={<PreviewModuleList />} />
             <Route path="/previewcard/:id/:epicId" element={<PreviewCard />} />
             <Route path="/adminprofile" element={<AdminProfile />} />
+            <Route path="/reassigntasklist" element={<ReAssignedTaskList />} />
+
 
             {/* developer routes */}
             <Route path="/dashboard" element={
-              <ProtectedRoute allowedRoles={['developer']}>
+              <ProtectedRoute allowedRoles={['developer','designer']}>
                 <UserDashboard />
               </ProtectedRoute>
             } />
             <Route path="/assignments" element={
-              <ProtectedRoute allowedRoles={['developer']}>
+              <ProtectedRoute allowedRoles={['developer','designer']}>
                 <UserAssignments />
               </ProtectedRoute>
             } />
             <Route path="/works" element={
-              <ProtectedRoute allowedRoles={['developer']}>
+              <ProtectedRoute allowedRoles={['developer','designer']}>
                 <Works />
               </ProtectedRoute>
             } />
             <Route path="/userprofile" element={
-              <ProtectedRoute allowedRoles={['developer']}>
+              <ProtectedRoute allowedRoles={['developer','designer']}>
                 <UserProfile />
               </ProtectedRoute>
             } />
             <Route path="/edituserprofile" element={
-              <ProtectedRoute allowedRoles={['developer']}>
+              <ProtectedRoute allowedRoles={['developer','designer']}>
                 <EditUserProfile />
               </ProtectedRoute>
             } />
+             <Route path="/reassigment" element={
+              <ProtectedRoute allowedRoles={['developer','designer']}>
+                <ReAssignment />
+              </ProtectedRoute>
+            } />
+            
 
 
             <Route path="/testerdashboard" element={<TesterDashboard />} />
@@ -95,6 +106,7 @@ const App = () => {
             <Route path="/testedlist" element={<TestList />} />
             <Route path="/testerprofile" element={<TesterProfile />} />
             <Route path="/updatetesterprofile" element={<EditTesterProfile />} />
+            <Route path="/reassignedtest" element={<TesterReAssignWork />} />
 
           </Routes>
         </AuthProvider>
