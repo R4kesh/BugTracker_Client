@@ -14,16 +14,16 @@ export const AddModuleModal: FC<ModalProps> = ({ isOpen, onClose }) => {
   const [description, setModuleDescription] = useState('');
   const [status, setModuleStatus] = useState('');
 
-  console.log('id',projectId);
-  
+  console.log('id', projectId);
+
 
   // Fetch project details using projectId
   useEffect(() => {
     const fetchProject = async () => {
       try {
         const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/project/getProjectName/${projectId}`);
-        console.log('ggsdf',response.data);
-        
+        console.log('ggsdf', response.data);
+
         setProjectName(response.data.name); // Assuming 'name' is the project name in response
       } catch (error) {
         console.error('Error fetching project details:', error);
@@ -109,10 +109,10 @@ export const AddModuleModal: FC<ModalProps> = ({ isOpen, onClose }) => {
               required
             >
               <option value="" disabled>Select status</option>
-  <option value="not started">Not Started</option> {/* Use space instead of hyphen */}
-  <option value="started">Started</option>
-  <option value="in progress">In Progress</option>
-  <option value="completed">Completed</option>
+              <option value="not started">Not Started</option> {/* Use space instead of hyphen */}
+              <option value="started">Started</option>
+              <option value="in progress">In Progress</option>
+              <option value="completed">Completed</option>
             </select>
           </div>
 

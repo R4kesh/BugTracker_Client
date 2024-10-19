@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
 
 // Define the task type based on your data structure
 interface Task {
@@ -17,16 +19,15 @@ export const WorksTable: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const tasksPerPage = 4;
+  const { user } = useSelector((state: RootState) => state.auth)
 
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const user = JSON.parse(localStorage.getItem('user') || "{}"); // Fetch the user from local storage
 
-        if (user && user.id) {
-          const userId = user.id;
+        if (user) {
 
-          const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/userDashboard/listApprovedTasks/${userId}`);
+          const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/userDashboard/listApprovedTasks/${user?.id}`);
           setTasks(response.data);
         }
       } catch (error) {
