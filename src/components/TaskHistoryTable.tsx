@@ -20,7 +20,7 @@ export function TaskHistoryTable() {
     fetchTaskHistory();
   }, [id]);
 
-  console.log('host',taskHistory);
+
   
 
   return (

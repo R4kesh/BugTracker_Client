@@ -74,7 +74,7 @@ export function UserTrackProject() {
                   </Link>
                 </td>
                 <td className="py-4 px-4 border-b border-gray-300">
-                  <Link to='/reassigntaskhistory'>
+                  <Link to={`/reassigntaskhistory/${id}`}>
                     <button
                       type="button"
                       className="bg-orange-600 text-white py-1 px-4 rounded hover:bg-orange-700 transition duration-200"

@@ -69,7 +69,7 @@ const App = () => {
             <Route path="/reassigntasklist" element={<ReAssignedTaskList />} />
             <Route path="/usertrack/:id" element={<UserTaskTrack />} />
             <Route path="/taskhistory/:id" element={<TaskHistoryTable />} />
-            <Route path="/reassigntaskhistory" element={<ReAssignTaskHistory />} />
+            <Route path="/reassigntaskhistory/:id" element={<ReAssignTaskHistory />} />
 
 
             {/* developer routes */}
