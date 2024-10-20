@@ -65,7 +65,7 @@ const App = () => {
               <Route path="/adminprofile" element={<AdminProfile />} />
               <Route path="/reassigntasklist" element={<ReAssignedTaskList />} />
               <Route path="/usertrack/:id" element={<UserTaskTrack />} />
-              <Route path="/taskhistory" element={<TaskHistoryTable />} />
+              <Route path="/taskhistory/:id" element={<TaskHistoryTable />} />
               <Route path="/reassigntaskhistory/:id" element={<ReAssignTaskHistory />} />
             </Route>
             {/* admin routes */}
