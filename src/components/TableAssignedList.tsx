@@ -256,7 +256,7 @@ export const TableAssignedList: React.FC = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axios.get<Task[]>(`${import.meta.env.VITE_BASE_URL}/api/project/tasks/assignedlist`);
+        const response = await axios.get<Task[]>(`${import.meta.env.VITE_BASE_URL}/api/project/tasks/assignedlist`,{withCredentials:true});
         setTasks(response.data);
       } catch (error) {
         console.error('Error fetching tasks:', error);
@@ -286,7 +286,7 @@ export const TableAssignedList: React.FC = () => {
     try {
       await axios.patch(`${import.meta.env.VITE_BASE_URL}/api/project/tasks/assignedlist/${taskId}`, {
         isVerified: newStatus === 'Verified', // Set isVerified based on the selection
-      });
+      },{withCredentials:true})
       // Update local state to reflect the change
       setTasks((prevTasks) =>
         prevTasks.map((task) =>
