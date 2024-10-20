@@ -20,11 +20,11 @@ export const TaskModal: FC<ModalProps> = ({ isOpen, onClose }) => {
     if (isOpen ) {
       const fetchProject = async () => {
         try {
-          const projectResponse = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/project/getProjectName/${projectId}`);
+          const projectResponse = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/project/getProjectName/${projectId}`,{withCredentials:true});
           setProjectName(projectResponse.data.name);
 
           
-          const epicResponse = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/project/getEpicName/${epicId}`);
+          const epicResponse = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/project/getEpicName/${epicId}`,{withCredentials:true});
           setModuleName(epicResponse.data.name);
 
         } catch (error) {
@@ -46,7 +46,7 @@ export const TaskModal: FC<ModalProps> = ({ isOpen, onClose }) => {
           projectId: projectId, 
           epicId:epicId,
           userStory:userStory
-        });
+        },{withCredentials:true});
         
         console.log("Task created:", response.data);
 

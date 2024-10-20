@@ -221,7 +221,7 @@ export function ProjectPreviewCard() {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/dashboard/projectpreview`); // Replace with your API URL
+        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/dashboard/projectpreview`,{withCredentials:true}); // Replace with your API URL
         setProjects(response.data);
       } catch (error) {
         console.error("Error fetching projects", error);

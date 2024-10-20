@@ -24,7 +24,7 @@ export const TableUsermanagement: React.FC = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/dashboard/usermanagement`);
+      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/dashboard/usermanagement`,{withCredentials:true});
       setData(response.data);
     } catch (error) {
       console.error('Error fetching user data:', error);

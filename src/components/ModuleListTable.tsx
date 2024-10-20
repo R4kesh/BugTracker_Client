@@ -201,7 +201,7 @@ export const ModuleListTable: React.FC = () => {
   useEffect(() => {
     const fetchEpics = async () => {
       try {
-        const response = await axios.get<Epic[]>(`${import.meta.env.VITE_BASE_URL}/api/project/listEpic?projectId=${projectId}`);
+        const response = await axios.get<Epic[]>(`${import.meta.env.VITE_BASE_URL}/api/project/listEpic?projectId=${projectId}`,{withCredentials:true});
         setEpics(response.data);
       } catch (error) {
         console.error('Error fetching epics:', error);

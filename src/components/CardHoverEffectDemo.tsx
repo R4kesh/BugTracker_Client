@@ -150,24 +150,24 @@ export function CardHoverEffectDemo() {
     const fetchActiveSeverityCount = async () => {
       try {
         const response = await axios.get<DashboardCounts>(
-          `${import.meta.env.VITE_BASE_URL}/api/dashboard/dashboard_count`
+          `${import.meta.env.VITE_BASE_URL}/api/dashboard/dashboard_count`,{withCredentials:true}
         );
         setUserRequestCount(response.data.userRequestCount);
         setActiveUserCount(response.data.activeUserCount);
 
         const projectResponse = await axios.get<ProjectCounts>(
-          `${import.meta.env.VITE_BASE_URL}/api/dashboard/project_counts`
+          `${import.meta.env.VITE_BASE_URL}/api/dashboard/project_counts`,{withCredentials:true}
         );
         setTotalProjects(projectResponse.data.totalProjects);
         setCompletedProjects(projectResponse.data.completedProjects);
 
         const bugReportResponse = await axios.get<BugReportCount>(
-          `${import.meta.env.VITE_BASE_URL}/api/dashboard/testreport_count`
+          `${import.meta.env.VITE_BASE_URL}/api/dashboard/testreport_count`,{withCredentials:true}
         );
         setBugReportCount(bugReportResponse.data.count);
 
         const reassignedTaskResponse = await axios.get<ReassignedTaskCount>(
-          `${import.meta.env.VITE_BASE_URL}/api/dashboard/reassigned_task_count`
+          `${import.meta.env.VITE_BASE_URL}/api/dashboard/reassigned_task_count`,{withCredentials:true}
         );
         setReassignedTaskCount(reassignedTaskResponse.data.count);
       } catch (error) {

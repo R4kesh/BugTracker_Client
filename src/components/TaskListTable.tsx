@@ -284,7 +284,7 @@ export const TaskListTable = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/project/task/getAll/${epicId}`);
+        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/project/task/getAll/${epicId}`,{withCredentials:true});
         console.log('respon', response.data);
         setTasks(response.data);
       } catch (error) {
@@ -299,7 +299,7 @@ export const TaskListTable = () => {
     if (showModal) {
       const fetchRolesAndUsers = async () => {
         try {
-          const rolesResponse = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/project/task/assign/roles`);
+          const rolesResponse = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/project/task/assign/roles`,{withCredentials:true});
           const usersData = rolesResponse.data;
 
           const uniqueRoles = [...new Set(usersData.map(user => user.role))];
@@ -353,7 +353,7 @@ export const TaskListTable = () => {
 
     try {
       console.log('data', dataToSubmit);
-      await axios.put(`${import.meta.env.VITE_BASE_URL}/api/project/task/assignto`, dataToSubmit);
+      await axios.put(`${import.meta.env.VITE_BASE_URL}/api/project/task/assignto`, dataToSubmit,{withCredentials:true});
       setTasks(prevTasks =>
         prevTasks.map(task =>
           task.id === selectedTask.id

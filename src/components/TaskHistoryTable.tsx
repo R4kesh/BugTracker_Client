@@ -24,7 +24,7 @@ export function TaskHistoryTable() {
     // Fetch task details based on the assigned user ID
     const fetchTaskHistory = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/dashboard/trackhistory/listTasks/${id}`);
+        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/dashboard/trackhistory/listTasks/${id}`,{withCredentials:true});
         setTaskHistory(response.data);  // Set the fetched data to the state
       } catch (error) {
         console.error("Error fetching task history:", error);

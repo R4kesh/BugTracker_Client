@@ -21,7 +21,7 @@ export const AddModuleModal: FC<ModalProps> = ({ isOpen, onClose }) => {
   useEffect(() => {
     const fetchProject = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/project/getProjectName/${projectId}`);
+        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/project/getProjectName/${projectId}`,{withCredentials:true});
         console.log('ggsdf', response.data);
 
         setProjectName(response.data.name); // Assuming 'name' is the project name in response
@@ -49,7 +49,7 @@ export const AddModuleModal: FC<ModalProps> = ({ isOpen, onClose }) => {
       };
 
       // Submit the form data to your backend
-      await axios.post(`${import.meta.env.VITE_BASE_URL}/api/project/addModules`, newModule);
+      await axios.post(`${import.meta.env.VITE_BASE_URL}/api/project/addModules`, newModule,{withCredentials:true});
       alert('Module added successfully');
       onClose(); // Close the modal after submission
     } catch (error) {

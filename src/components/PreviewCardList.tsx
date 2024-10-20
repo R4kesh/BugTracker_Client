@@ -243,7 +243,7 @@ export function PreviewCardList() {
     const fetchTasks = async () => {
       if (epicId) { // Only fetch tasks if epicId is available
         try {
-          const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/dashboard/previewcard/${epicId}`);
+          const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/dashboard/previewcard/${epicId}`,{withCredentials:true});
           setTasks(response.data);
         } catch (error) {
           console.error("Error fetching tasks", error);

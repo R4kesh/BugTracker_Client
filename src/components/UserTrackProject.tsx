@@ -19,7 +19,7 @@ export function UserTrackProject() {
       try {
         const response = await axios.get<Project[]>(
           `${import.meta.env.VITE_BASE_URL}/api/dashboard/projecttrack/${id}`
-        );
+         , {withCredentials:true});
         setProjects(response.data);
       } catch (error) {
         console.error("Failed to fetch tasks:", error);

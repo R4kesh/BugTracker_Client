@@ -43,7 +43,7 @@ export const TestReportTable: React.FC = () => {
   useEffect(() => {
     const fetchTestReports = async () => {
       try {
-        const response = await axios.get<BugReport[]>(`${import.meta.env.VITE_BASE_URL}/api/dashboard/listBugReport`);
+        const response = await axios.get<BugReport[]>(`${import.meta.env.VITE_BASE_URL}/api/dashboard/listBugReport`,{withCredentials:true});
         setTestReports(response.data);
       } catch (error) {
         console.error('Error fetching test reports:', error);

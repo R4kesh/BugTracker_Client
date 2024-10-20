@@ -20,7 +20,7 @@ export const ReAssignModal = ({ show, onClose, report }) => {
     const fetchRolesAndUsers = async () => {
       try {
         // Fetch roles and users data from the API (assuming the same API as in TaskListTable)
-        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/project/task/assign/roles`);
+        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/project/task/assign/roles`,{withCredentials:true});
         const usersData = response.data;
 
         // Get unique roles and set them
@@ -68,7 +68,7 @@ export const ReAssignModal = ({ show, onClose, report }) => {
   
     try {
       // Send POST request to the backend
-      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/dashboard/reassign`, reassignData);
+      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/dashboard/reassign`, reassignData,{withCredentials:true});
       console.log('Reassignment successful:', response.data);
   
       // Optionally handle the response if needed (e.g., display a success message)

@@ -194,7 +194,7 @@ export const ProjectList: React.FC = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await axios.get<Project[]>(`${import.meta.env.VITE_BASE_URL}/api/project/display`);
+        const response = await axios.get<Project[]>(`${import.meta.env.VITE_BASE_URL}/api/project/display`,{withCredentials:true});
 
         // Ensure response.data is an array. If it's not, handle it.
         const projectData = Array.isArray(response.data) ? response.data : [];
