@@ -1,16 +1,23 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+
+// Define the type for project data
+interface Project {
+  id: number; // Assuming ID is a number; adjust according to your API response
+  projectName: string;
+  status: "completed" | "in-progress" | "not-started" | "other"; // Define possible statuses
+  starting: string; // Assuming starting is a date string
+}
 
 export function UserTrackProject() {
-  const [projects, setProjects] = useState([]);
-  const { id } = useParams(); // Use useParams to extract the id from the URL
+  const [projects, setProjects] = useState<Project[]>([]); // State with Project type
+  const { id } = useParams<{ id: string }>(); // Extract id as a string from URL params
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await axios.get(
+        const response = await axios.get<Project[]>(
           `${import.meta.env.VITE_BASE_URL}/api/dashboard/projecttrack/${id}`
         );
         setProjects(response.data);
@@ -20,7 +27,7 @@ export function UserTrackProject() {
     };
 
     if (id) {
-      fetchProjects(); // Fetch only if userId is available
+      fetchProjects(); // Fetch only if id is available
     }
   }, [id]);
 
@@ -32,19 +39,16 @@ export function UserTrackProject() {
           <thead>
             <tr className="bg-gray-100">
               <th className="py-3 px-4 text-left text-sm font-medium text-gray-700 border-b border-gray-300">Project Name</th>
-              {/* <th className="py-3 px-4 text-left text-sm font-medium text-gray-700 border-b border-gray-300">Description</th> */}
               <th className="py-3 px-4 text-left text-sm font-medium text-gray-700 border-b border-gray-300">Status</th>
               <th className="py-3 px-4 text-left text-sm font-medium text-gray-700 border-b border-gray-300">Start Date</th>
               <th className="py-3 px-4 text-left text-sm font-medium text-gray-700 border-b border-gray-300">Task</th>
               <th className="py-3 px-4 text-left text-sm font-medium text-gray-700 border-b border-gray-300">Re-Assigned</th>
-
             </tr>
           </thead>
           <tbody>
             {projects.map((project) => (
               <tr key={project.id} className="hover:bg-gray-50 transition duration-200">
                 <td className="py-4 px-4 border-b border-gray-300">{project.projectName}</td>
-                {/* <td className="py-4 px-4 border-b border-gray-300">{project.description}</td> */}
                 <td className="py-4 px-4 border-b border-gray-300">
                   <span
                     className={`px-3 py-1 rounded-full text-white ${

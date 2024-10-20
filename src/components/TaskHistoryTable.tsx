@@ -2,9 +2,23 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
+interface Project {
+  name: string;
+}
+
+interface Task {
+  id: number;
+  Project: Project;
+  taskName: string;
+  description: string;
+  starting: string;
+  deadline: string;
+  status: "completed" | "in-Progress" | "started" | "pending";
+}
+
 export function TaskHistoryTable() {
   const { id } = useParams();  // Get the assigned user ID from URL params
-  const [taskHistory, setTaskHistory] = useState([]);
+  const [taskHistory, setTaskHistory] = useState<Task[]>([]);
 
   useEffect(() => {
     // Fetch task details based on the assigned user ID
@@ -68,7 +82,7 @@ export function TaskHistoryTable() {
               ))
             ) : (
               <tr>
-                <td colSpan="7" className="text-center py-4">
+                <td colSpan={7} className="text-center py-4">
                   No tasks found for this user.
                 </td>
               </tr>

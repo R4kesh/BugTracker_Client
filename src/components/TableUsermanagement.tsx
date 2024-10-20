@@ -2,11 +2,21 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-export const TableUsermanagement = () => {
-  const [datas, setData] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
+// Define the type for user data
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  phoneNumber: string;
+  role: string;
+  isBlocked: boolean;
+}
+
+export const TableUsermanagement: React.FC = () => {
+  const [datas, setData] = useState<User[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const rowsPerPage = 4;
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
   useEffect(() => {
     fetchData();
@@ -22,7 +32,7 @@ export const TableUsermanagement = () => {
     }
   };
 
-  const handleBlockUnblock = async (id, isBlocked) => {
+  const handleBlockUnblock = async (id: number, isBlocked: boolean) => {
     try {
       const response = await axios.put(`${import.meta.env.VITE_BASE_URL}/api/dashboard/usermanagement/block_unblock/${id}`, { isBlocked: !isBlocked });
       if (response.data.success) {
@@ -36,15 +46,14 @@ export const TableUsermanagement = () => {
     }
   };
 
-
   const indexOfLastRow = currentPage * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
   const currentRows = datas.slice(indexOfFirstRow, indexOfLastRow);
 
-  const handlePageChange = (pageNumber) => setCurrentPage(pageNumber);
+  const handlePageChange = (pageNumber: number) => setCurrentPage(pageNumber);
 
   const totalPages = Math.ceil(datas.length / rowsPerPage);
-  const pageNumbers = [];
+  const pageNumbers: number[] = [];
   for (let i = 1; i <= totalPages; i++) {
     pageNumbers.push(i);
   }
@@ -63,7 +72,6 @@ export const TableUsermanagement = () => {
             <th className="px-6 py-3">Role</th>
             <th className="px-6 py-3">Action</th>
             <th className="px-6 py-3">Track history</th>
-
           </tr>
         </thead>
         <tbody>
@@ -82,21 +90,21 @@ export const TableUsermanagement = () => {
                   >
                     {row.isBlocked ? 'Unblock' : 'Block'}
                   </button>
-                  </td>
-                  <td className="px-6 py-4 ">
-<Link to={`/usertrack/${row.id}`}>
-                  <button
-                    className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-300"
-                 
-                  >
-                    View Details
-                  </button></Link>
-                  </td>
+                </td>
+                <td className="px-6 py-4 ">
+                  <Link to={`/usertrack/${row.id}`}>
+                    <button
+                      className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-300"
+                    >
+                      View Details
+                    </button>
+                  </Link>
+                </td>
               </tr>
             ))
           ) : (
             <tr>
-              <td colSpan={6} className="text-center py-4">No users found.</td>
+              <td colSpan={7} className="text-center py-4">No users found.</td>
             </tr>
           )}
         </tbody>

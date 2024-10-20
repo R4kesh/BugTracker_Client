@@ -1,21 +1,49 @@
+// src/components/TestReportTable.tsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
 import { ReAssignModal } from './ReAssignModal';
 
-export const TestReportTable = () => {
-  const [testReports, setTestReports] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [selectedReport, setSelectedReport] = useState(null); // State for selected report to show in modals
-  const [isModalOpen, setIsModalOpen] = useState(false); // State to manage View Details modal open/close
-  const [showReassignModal, setShowReassignModal] = useState(false); // State to manage ReAssign modal
+// Define types for your bug report
+interface AssignedUser {
+  name: string;
+}
 
-  const reportsPerPage = 4; // Limit 5 rows per page
+interface Tester {
+  name: string;
+}
+
+interface Project {
+  name: string;
+}
+
+interface Task {
+  Project: Project;
+  taskName: string;
+  assignedUser?: AssignedUser;
+}
+
+interface BugReport {
+  id: number;
+  task: Task;
+  tester?: Tester;
+  severity: string;
+  result: string;
+  fileLink: string[]; // Assuming it's an array of strings for file links
+}
+
+export const TestReportTable: React.FC = () => {
+  const [testReports, setTestReports] = useState<BugReport[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [selectedReport, setSelectedReport] = useState<BugReport | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [showReassignModal, setShowReassignModal] = useState<boolean>(false);
+  
+  const reportsPerPage = 4; // Limit 4 rows per page
 
   useEffect(() => {
     const fetchTestReports = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/dashboard/listBugReport`);
+        const response = await axios.get<BugReport[]>(`${import.meta.env.VITE_BASE_URL}/api/dashboard/listBugReport`);
         setTestReports(response.data);
       } catch (error) {
         console.error('Error fetching test reports:', error);
@@ -25,28 +53,25 @@ export const TestReportTable = () => {
     fetchTestReports();
   }, []);
 
-console.log('adreport',testReports);
-
-
   // Calculate indices for current page reports
   const indexOfLastReport = currentPage * reportsPerPage;
   const indexOfFirstReport = indexOfLastReport - reportsPerPage;
   const currentReports = testReports.slice(indexOfFirstReport, indexOfLastReport);
 
   // Change page handler
-  const handlePageChange = (pageNumber) => setCurrentPage(pageNumber);
+  const handlePageChange = (pageNumber: number) => setCurrentPage(pageNumber);
 
   // Calculate total pages
   const totalPages = Math.ceil(testReports.length / reportsPerPage);
 
   // Handle View Details modal open/close and set selected report
-  const handleViewDetails = (report) => {
+  const handleViewDetails = (report: BugReport) => {
     setSelectedReport(report);
     setIsModalOpen(true);
   };
 
   // Handle ReAssign modal open/close and set selected report
-  const handleReAssign = (report) => {
+  const handleReAssign = (report: BugReport) => {
     setSelectedReport(report);
     setShowReassignModal(true);
   };
@@ -80,10 +105,10 @@ console.log('adreport',testReports);
             currentReports.map((report) => (
               <tr key={report.id} className="bg-gray-700 hover:bg-gray-600 transition-all duration-200">
                 <td className="px-6 py-4">{report.id}</td>
-                <td className="px-6 py-4">{report.task?.Project?.name || 'N/A'}</td>
-                <td className="px-6 py-4">{report.task?.taskName || 'N/A'}</td>
+                <td className="px-6 py-4">{report.task.Project.name || 'N/A'}</td>
+                <td className="px-6 py-4">{report.task.taskName || 'N/A'}</td>
                 <td className="px-6 py-4">{report.tester?.name || 'N/A'}</td>
-                <td className="px-6 py-4">{report.task?.assignedUser?.name || 'N/A'}</td>
+                <td className="px-6 py-4">{report.task.assignedUser?.name || 'N/A'}</td>
                 <td className="px-6 py-4">{report.severity}</td>
                 <td className="px-6 py-4">{report.result}</td>
                 <td className="px-6 py-4">
@@ -106,7 +131,7 @@ console.log('adreport',testReports);
             ))
           ) : (
             <tr>
-              <td colSpan="9" className="px-6 py-4 text-center">
+              <td colSpan={9} className="px-6 py-4 text-center">
                 No test reports found.
               </td>
             </tr>
@@ -168,6 +193,3 @@ console.log('adreport',testReports);
     </div>
   );
 };
-
-
-

@@ -1,6 +1,4 @@
 
-import React from "react";
-import { cn } from "../lib/utils";
 import { Spotlight } from "../ui/spotlight";
 import { SidebarDash } from "../SidebarD";
 import { TestReportTable } from "../TestReportTable";

@@ -154,9 +154,16 @@
 // };
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+interface Data {
+  id: string
+  name: string
+  email: string
+  phoneNumber: string
+  role: string
+}
 
 export const TableDemostructure = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<Data[]>([]);
   const [currentPage, setCurrentPage] = useState(1); // State for current page
   const rowsPerPage = 4; // Limit of 5 rows per page
 
@@ -175,7 +182,7 @@ export const TableDemostructure = () => {
   };
 
   // Function to handle the approval action
-  const handleApprove = async (id) => {
+  const handleApprove = async (id: string) => {
     try {
       const response = await axios.put(`http://localhost:3000/api/dashboard/approve_user/${id}`);
       if (response.data.success) {
