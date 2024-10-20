@@ -24,7 +24,8 @@ export const AssignmentList: React.FC = () => {
     const fetchTasks = async () => {
       try {
         if (user) {
-          const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/userDashboard/newtasks/user?userId=${user?.id}`);
+          const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/userDashboard/newtasks/user?userId=${user?.id}`,
+          {withCredentials:true});
           setTasks(response.data);
         }
       } catch (error) {
