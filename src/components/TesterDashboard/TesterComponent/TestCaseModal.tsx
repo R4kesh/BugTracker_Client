@@ -42,7 +42,7 @@ export const TestCaseModal: FC<ModalProps> = ({ isOpen, onClose }) => {
         name: testName,
         description: testDescription,
         steps: steps.filter(step => step) 
-      });
+      },{withCredentials:true});
 
       if (response.status === 201) {
         setSuccess("Test case created successfully!");

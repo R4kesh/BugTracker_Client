@@ -24,7 +24,7 @@ function TesterProfile() {
       // Make a backend request to fetch user data
       const fetchUserData = async () => {
         try {
-          const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/tester/testerprofile/${Id}`);
+          const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/tester/testerprofile/${Id}`,{withCredentials:true});
           const { name, email, phoneNumber, role } = response.data;
           setUserData({ name, email, phoneNumber, role });
         } catch (error) {

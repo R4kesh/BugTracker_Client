@@ -342,7 +342,8 @@ export const ReAssignTaskTable: React.FC = () => {
   useEffect(() => {
     const fetchReAssignedTasks = async () => {
       try {
-        const response = await axios.get<ReAssignedTask[]>(`${import.meta.env.VITE_BASE_URL}/api/tester/reassignlist`);
+        const response = await axios.get<ReAssignedTask[]>(`${import.meta.env.VITE_BASE_URL}/api/tester/reassignlist`
+        ,{withCredentials:true});
         setReAssignedTasks(response.data);
       } catch (error) {
         console.error('Error fetching re-assigned tasks:', error);

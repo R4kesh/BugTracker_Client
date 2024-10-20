@@ -38,7 +38,8 @@ export function UserCardHoverEffect() {
           const userId = user?.id;
 
           // Make an API call to fetch the counts
-          const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/userDashboard/count?id=${userId}`);
+          const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/userDashboard/count?id=${userId}`
+          ,{withCredentials: true})
           const data = response.data;
           console.log('data',data);
           

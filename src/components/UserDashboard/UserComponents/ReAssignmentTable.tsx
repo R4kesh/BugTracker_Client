@@ -406,6 +406,7 @@ export const ReAssignmentTable: React.FC = () => {
       try {
         const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/userDashboard/reassignedList`, {
           params: { userid: userId },
+          withCredentials: true,
         });
 
         setReassignedTasks(response.data);
@@ -430,6 +431,7 @@ export const ReAssignmentTable: React.FC = () => {
       await axios.put(`${import.meta.env.VITE_BASE_URL}/api/userDashboard/updateTaskStatus`, {
         taskId,
         status,
+        withCredentials: true,
       });
       setReassignedTasks(reassignedTasks.map((task) =>
         task.reassignId === taskId ? { ...task, status } : task

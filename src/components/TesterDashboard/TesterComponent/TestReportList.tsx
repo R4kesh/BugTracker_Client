@@ -161,7 +161,7 @@ export const TestReportList: React.FC = () => {
     const fetchReports = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_BASE_URL}/api/tester/submited_report/${user?.id}`
+          `${import.meta.env.VITE_BASE_URL}/api/tester/submited_report/${user?.id,{withCredentials:true}}`
         );
         setReports(response.data);
       } catch (error) {

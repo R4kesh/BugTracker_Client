@@ -289,7 +289,7 @@ export const TestCaseTable: FC = () => {
   useEffect(() => {
     const fetchTestCases = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/tester/listTestCases/${id}`);
+        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/tester/listTestCases/${id}`,{withCredentials:true});
         const fetchedTestCases: TestCase[] = response.data;
         setTestCases(fetchedTestCases);
 
@@ -362,6 +362,7 @@ export const TestCaseTable: FC = () => {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
+        withCredentials:true
       });
       console.log('Test case submitted successfully:', response.data);
     } catch (error) {

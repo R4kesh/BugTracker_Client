@@ -29,7 +29,7 @@ function EditTesterProfile() {
       // Fetch user data from backend
       const fetchUserData = async () => {
         try {
-          const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/dashboard/userprofile/${Id}`);
+          const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/dashboard/userprofile/${Id}`,{withCredentials:true});
           const { name, email, phoneNumber, role } = response.data;
           setUserData({ name, email, phoneNumber, role });
         } catch (error) {
@@ -60,7 +60,7 @@ function EditTesterProfile() {
     const userId = user?.id
 
     try {
-      await axios.put(`${import.meta.env.VITE_BASE_URL}/api/tester/updatetesterprofile/${userId}`, userData);
+      await axios.put(`${import.meta.env.VITE_BASE_URL}/api/tester/updatetesterprofile/${userId}`, userData,{withCredentials:true});
       alert('Profile updated successfully!');
     } catch (error) {
       console.error('Error updating profile:', error);

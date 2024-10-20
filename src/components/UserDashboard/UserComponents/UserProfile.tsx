@@ -30,7 +30,8 @@ function UserProfile() {
       
       const fetchUserData = async () => {
         try {
-          const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/dashboard/userprofile/${Id}`);
+          const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/dashboard/userprofile/${Id}`
+          ,{withCredentials: true});
           const { name, email, phoneNumber, role } = response.data;
           
           setUserData({ name, email, phoneNumber, role });

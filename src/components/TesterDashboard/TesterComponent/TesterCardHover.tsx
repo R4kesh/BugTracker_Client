@@ -17,7 +17,7 @@ export function TesterCardHoverEffect() {
 
   const fetchTasks = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/tester/dashboardCount`);
+      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/tester/dashboardCount`,{withCredentials:true});
 
 
       setTaskCounts({

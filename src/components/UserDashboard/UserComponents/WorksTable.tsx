@@ -27,7 +27,8 @@ export const WorksTable: React.FC = () => {
 
         if (user) {
 
-          const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/userDashboard/listApprovedTasks/${user?.id}`);
+          const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/userDashboard/listApprovedTasks/${user?.id}`
+          ,{withCredentials: true});
           setTasks(response.data);
         }
       } catch (error) {
@@ -42,10 +43,11 @@ export const WorksTable: React.FC = () => {
     const isCompleted = newStatus === 'completed'; // Determine if the task is completed
     try {
       // Update the status and isCompleted in the database
-      await axios.put(`${import.meta.env.VITE_BASE_URL}/api/userDashboard/changeTasksStatus/${taskId}`, { 
+      await axios.put(`${import.meta.env.VITE_BASE_URL}/api/userDashboard/changeTasksStatus/${taskId}`,  { 
         status: newStatus,
-        isCompleted: isCompleted, // Send isCompleted status
-      });
+        isCompleted: isCompleted,
+        
+      },{withCredentials: true});
       
       // Update local state to reflect the changes
       setTasks((prevTasks) =>

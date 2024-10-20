@@ -27,7 +27,7 @@ export const TesterTaskTable = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/tester/listTasks`);
+        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/tester/listTasks`,{withCredentials:true});
         console.log(response.data); // Check what the response looks like
         setTasks(Array.isArray(response.data) ? response.data : []); // Ensure the data is an array
         setLoading(false);
