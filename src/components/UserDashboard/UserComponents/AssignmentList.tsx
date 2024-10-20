@@ -40,7 +40,8 @@ export const AssignmentList: React.FC = () => {
     const confirmApprove = window.confirm('Are you sure you want to approve this task?');
     if (confirmApprove) {
       try {
-        await axios.put(`${import.meta.env.VITE_BASE_URL}/api/userDashboard/tasks/verifyByUser`, { taskId });
+        await axios.put(`${import.meta.env.VITE_BASE_URL}/api/userDashboard/tasks/verifyByUser`, { taskId },
+        {withCredentials:true});
         // Remove the approved task from the state
         setTasks(prevTasks => prevTasks.filter(task => task.id !== taskId));
       } catch (error) {
