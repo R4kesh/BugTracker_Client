@@ -87,7 +87,7 @@ export const ModuleListTable = () => {
     };
 
     fetchEpics(); 
-  }, [projectId]); 
+  }, [projectId,epics]); 
 
   // Calculate the indexes for pagination
   const indexOfLastEpic = currentPage * rowsPerPage;

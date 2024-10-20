@@ -508,12 +508,14 @@ export const TestCaseTable: FC = () => {
                 </select>
               </td>
               <td className="px-6 py-4">
+                <Link to="/testedlist">
                 <button
                   onClick={(e) => handleSubmitSingleTestCase(testCase.id, e)}
                   className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
                 >
                   Submit
                 </button>
+                </Link>
               </td>
             </tr>
           ))}

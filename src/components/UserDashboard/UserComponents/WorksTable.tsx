@@ -79,7 +79,7 @@ export const WorksTable: React.FC = () => {
 
   return (
     <div className="overflow-x-auto">
-      <h3 className='text-center text-4xl mb-10 text-white'>New Assignments</h3>
+      <h3 className='text-center text-4xl mb-10 text-white'>Task To Complete</h3>
       <table className="mb-10 min-w-full table-auto bg-gray-900 text-gray-100 rounded-lg shadow-md">
         <thead>
           <tr className="bg-gray-800 text-left uppercase text-xs text-gray-400">
