@@ -18,7 +18,6 @@ import AddTestCase from "./components/TesterDashboard/AddTestCase";
 import TestReport from "./components/AdminDashboard/TestReport";
 import TestList from "./components/TesterDashboard/TestList";
 import ProjectModule from "./components/AdminDashboard/ProjectModule";
-import EmployeeList from "./components/AdminDashboard/EmployeeList";
 import TrackHistory from "./components/AdminDashboard/TrackHistory";
 import ProjectPreview from "./components/AdminDashboard/ProjectPreview";
 import PreviewModuleList from "./components/AdminDashboard/PreviewModuleList";
@@ -50,7 +49,7 @@ const App = () => {
             <Route path="/signup" element={<Signup />} />
 
             {/* admin routes */}
-            <Route element={<ProtectedRoute allowedRoles={['admin','projectManager']} />}>
+            <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
               <Route path="/admindashboard" element={<AdminDashboard />} />
               <Route path="/userRequest" element={<SeverityManagement />} />
               <Route path="/usermanagement" element={<UserManagement />} />
@@ -59,7 +58,6 @@ const App = () => {
               <Route path="/assignedlist" element={<AssignedList />} />
               <Route path="/testreport" element={<TestReport />} />
               <Route path="/projectModule/:projectId" element={<ProjectModule />} />
-              <Route path="/employeelist" element={<EmployeeList />} />
               <Route path="/trackhistory/:id" element={<TrackHistory />} />
               <Route path="/projectpreview" element={<ProjectPreview />} />
               <Route path="/previewmodule/:id" element={<PreviewModuleList />} />
@@ -68,7 +66,7 @@ const App = () => {
               <Route path="/reassigntasklist" element={<ReAssignedTaskList />} />
               <Route path="/usertrack/:id" element={<UserTaskTrack />} />
               <Route path="/taskhistory" element={<TaskHistoryTable />} />
-              <Route path="/reassigntaskhistory/:id" element={<ReAssignTaskHistory />} />
+              <Route path="/reassigntaskhistory" element={<ReAssignTaskHistory />} />
             </Route>
             {/* admin routes */}
 
