@@ -9,6 +9,8 @@ interface Counts {
   tasksCompleted: number;
   newBugs: number;
   resolvedBugs: number;
+  reassignedTasks: number; // Add reassigned tasks count
+
 }
 
 // Define the interface for project items
@@ -28,6 +30,8 @@ export function UserCardHoverEffect() {
     tasksCompleted: 0,
     newBugs: 0,
     resolvedBugs: 0,
+    reassignedTasks: 0, // Initialize reassigned tasks count
+
   });
 
   // Fetch counts from the API on component mount
@@ -50,6 +54,8 @@ export function UserCardHoverEffect() {
             tasksCompleted: data.tasksCompleted || 0,
             newBugs: data.newBugs || 0,
             resolvedBugs: data.resolvedBugs || 0,
+            reassignedTasks: data.reassignedTasks || 0, // Include reassigned tasks count
+
           });
         }
       } catch (error) {
@@ -81,15 +87,19 @@ export function UserCardHoverEffect() {
       link: "",
     },
     {
-      title: "New Bug",
-      description: `Total: ${counts.newBugs}`,
+      title: " Re-Assigned Task",
+      description: (
+        <span style={{ fontSize: '36px', fontStyle: 'Roboto' }}>
+          Total: {counts.reassignedTasks}
+        </span>
+      ),
       link: "",
     },
-    {
-      title: "Resolved Bug",
-      description: `Total: ${counts.resolvedBugs}`,
-      link: "",
-    },
+    // {
+    //   title: "Resolved Bug",
+    //   description: `Total: ${counts.resolvedBugs}`,
+    //   link: "",
+    // },
   ];
 
   return (
