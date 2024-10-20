@@ -24,7 +24,8 @@ export const TableUsermanagement = () => {
 
   const handleBlockUnblock = async (id, isBlocked) => {
     try {
-      const response = await axios.put(`${import.meta.env.VITE_BASE_URL}/api/dashboard/usermanagement/block_unblock/${id}`, { isBlocked: !isBlocked });
+      const response = await axios.put(`${import.meta.env.VITE_BASE_URL}/api/dashboard/usermanagement/block_unblock/${id}`, { isBlocked: !isBlocked },
+      {withCredentials:true});
       if (response.data.success) {
         fetchData();
       } else {

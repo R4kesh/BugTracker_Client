@@ -27,7 +27,9 @@ const Login: React.FC = () => {
     setLoading(true)
     try {
 
-      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/auth/login`, { email, password, role });
+      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/auth/login`, { email, password, role },
+      {withCredentials:true}
+      );
       console.log('response login', response);
 
 
