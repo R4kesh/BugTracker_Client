@@ -50,7 +50,7 @@ const App = () => {
             <Route path="/signup" element={<Signup />} />
 
             {/* admin routes */}
-            <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
+            <Route element={<ProtectedRoute allowedRoles={['admin','projectManager']} />}>
               <Route path="/admindashboard" element={<AdminDashboard />} />
               <Route path="/userRequest" element={<SeverityManagement />} />
               <Route path="/usermanagement" element={<UserManagement />} />

@@ -293,7 +293,7 @@ export const TaskListTable = () => {
     };
 
     fetchTasks();
-  }, [epicId]); // Corrected dependency to avoid infinite loop
+  }, [epicId,selectedUserId]); // Corrected dependency to avoid infinite loop
 
   useEffect(() => {
     if (showModal) {
