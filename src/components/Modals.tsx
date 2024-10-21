@@ -1,5 +1,4 @@
-// Modal.js
-import React, { FC,useState,useEffect } from "react";
+import React, { FC, useState } from "react";
 import axios from 'axios';
 
 interface ModalProps {
@@ -11,25 +10,46 @@ export const Modal: FC<ModalProps> = ({ isOpen, onClose }) => {
   const [projectName, setProjectName] = useState('');
   const [projectDescription, setProjectDescription] = useState('');
   const [startDate, setStartDate] = useState('');
+  const [completionDate, setCompletionDate] = useState('');
   const [projectStatus, setProjectStatus] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
- 
 
   const isFormValid = () => {
-    return (
-      projectName.trim() !== "" &&
-      projectDescription.trim() !== "" &&
-      startDate !== "" &&
-      projectStatus !== ""
-    );
+    const currentDate = new Date().toISOString().split("T")[0]; // Current date in YYYY-MM-DD format
+    
+    // Check if all fields are filled
+    if (
+      projectName.trim() === "" ||
+      projectDescription.trim() === "" ||
+      startDate === "" ||
+      completionDate === "" ||
+      projectStatus === ""
+    ) {
+      setError("All fields must be filled before submitting.");
+      return false;
+    }
+
+    // Check if start date is not in the future
+    if (startDate < currentDate) {
+      setError("Start date cannot be below current date.");
+      return false;
+    }
+
+    // Check if completion date is after the start date
+    if (completionDate < startDate) {
+      setError("Completion date cannot be before the start date.");
+      return false;
+    }
+
+    setError(null);
+    return true;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!isFormValid()) {
-      setError("All fields must be filled before submitting.");
       return;
     }
 
@@ -38,13 +58,14 @@ export const Modal: FC<ModalProps> = ({ isOpen, onClose }) => {
         projectName,
         projectDescription,
         startDate,
+        completionDate,
         projectStatus,
       };
 
       // Send data to backend
       const response = await axios.post(
         `${import.meta.env.VITE_BASE_URL}/api/project/add`,
-        projectData,{withCredentials:true}
+        projectData, { withCredentials: true }
       );
 
       if (response.status === 201) {
@@ -53,16 +74,18 @@ export const Modal: FC<ModalProps> = ({ isOpen, onClose }) => {
         setProjectName("");
         setProjectDescription("");
         setStartDate("");
+        setCompletionDate("");
         setProjectStatus("");
-        onClose(); 
+        onClose();
       }
     } catch (error) {
       setError("Error saving project. Please try again.");
+      console.log(error);
     }
   };
 
-
   if (!isOpen) return null;
+  
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-white rounded-lg p-6 shadow-lg max-w-lg w-full">
@@ -70,8 +93,8 @@ export const Modal: FC<ModalProps> = ({ isOpen, onClose }) => {
 
         {error && <p className="text-red-500">{error}</p>}
         {success && <p className="text-green-500">{success}</p>}
+        
         <form onSubmit={handleSubmit}>
-          {/* Add your form fields here */}
           <div className="mt-4">
             <label className="block mb-2" htmlFor="projectName">Project Name</label>
             <input
@@ -83,30 +106,37 @@ export const Modal: FC<ModalProps> = ({ isOpen, onClose }) => {
               onChange={(e) => setProjectName(e.target.value)}
               required
             />
-            <label className="block mb-2" htmlFor="projectName">Project Description</label>
+            <label className="block mb-2" htmlFor="projectDescription">Project Description</label>
             <input
               type="text"
               id="projectDescription"
               className="border border-gray-300 rounded-md w-full p-2"
-              placeholder="Enter project Description"
+              placeholder="Enter project description"
               value={projectDescription}
               onChange={(e) => setProjectDescription(e.target.value)}
               required
             />
-            <label className="block mb-2" htmlFor="projectName">Start Date</label>
+            <label className="block mb-2" htmlFor="startDate">Start Date</label>
             <input
               type="date"
-              id="StartDate"
+              id="startDate"
               className="border border-gray-300 rounded-md w-full p-2"
-              placeholder="Enter Start Date"
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
               required
             />
-                <label className="block mb-2" htmlFor="projectStatus">Project Status</label>
+            <label className="block mb-2" htmlFor="completionDate">Completion Date</label>
+            <input
+              type="date"
+              id="completionDate"
+              className="border border-gray-300 rounded-md w-full p-2"
+              value={completionDate}
+              onChange={(e) => setCompletionDate(e.target.value)}
+              required
+            />
+            <label className="block mb-2" htmlFor="projectStatus">Project Status</label>
             <select
               id="projectStatus"
-               // Update state on change
               className="border border-gray-300 rounded-md w-full p-2"
               value={projectStatus}
               onChange={(e) => setProjectStatus(e.target.value)}
@@ -118,8 +148,6 @@ export const Modal: FC<ModalProps> = ({ isOpen, onClose }) => {
               <option value="completed">Completed</option>
               <option value="on-hold">On Hold</option>
             </select>
-       
-       
           </div>
           <div className="mt-4">
             <button
@@ -129,7 +157,7 @@ export const Modal: FC<ModalProps> = ({ isOpen, onClose }) => {
               Save Project
             </button>
             <button
-              type="submit"
+              type="button"
               onClick={onClose}
               className="ml-2 text-gray-600"
             >
