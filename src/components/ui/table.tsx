@@ -174,7 +174,7 @@ export const TableDemostructure = () => {
   // Function to fetch data
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/dashboard/requested_user');
+      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/dashboard/requested_user`,{withCredentials:true});
       setData(response.data); // Set the state with the fetched data
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -184,7 +184,7 @@ export const TableDemostructure = () => {
   // Function to handle the approval action
   const handleApprove = async (id: string) => {
     try {
-      const response = await axios.put(`http://localhost:3000/api/dashboard/approve_user/${id}`);
+      const response = await axios.put(`${import.meta.env.VITE_BASE_URL}/api/dashboard/approve_user/${id}`,{withCredentials:true});
       if (response.data.success) {
         alert('User approved successfully');
         fetchData(); // Refresh the table after successful approval
