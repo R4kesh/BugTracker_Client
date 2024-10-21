@@ -311,27 +311,86 @@ export const TestCaseTable: FC = () => {
     fetchTestCases();
   }, [id]);
 
+  // const handleSubmitSingleTestCase = async (testCaseId: string, e: React.FormEvent) => {
+  //   e.preventDefault();
+
+  //   const taskId = id;
+  //   const userData = user;
+  //   let testerId;
+
+  //   if (userData) {
+  //     testerId = user;
+  //   } else {
+  //     console.error('No user found in local storage');
+  //     return;
+  //   }
+
+  //   const testCase = testCases.find((tc) => tc.id === testCaseId);
+
+  //   if (!testCase) {
+  //     console.error('Test case not found');
+  //     return;
+  //   }
+
+  //   const formData = new FormData();
+  //   formData.append('taskId', taskId!);
+  //   formData.append('testerId', testerId.id);
+  //   formData.append('testCaseId', testCaseId);
+  //   formData.append('testDescription', testCase.description);
+  //   formData.append('severity', testCaseData[testCaseId]?.severity || 'High');
+  //   formData.append('testStatus', testCaseData[testCaseId]?.testStatus || 'Not Started');
+  //   formData.append('result', testCaseData[testCaseId]?.result || 'Pass');
+
+  //   const selectedSteps = testCaseData[testCaseId]?.selectedSteps || [];
+  //   selectedSteps.forEach((step) => {
+  //     formData.append('selectedSteps[]', step);
+  //   });
+
+  //   const fileInput = document.getElementById(`file-upload-${testCaseId}`) as HTMLInputElement | null;
+  //   if (fileInput?.files) {
+  //     Array.from(fileInput.files).forEach((file) => {
+  //       formData.append('files', file);
+  //     });
+  //   }
+
+  //   try {
+  //     for (let pair of formData.entries()) {
+  //       console.log(`${pair[0]}: ${pair[1]}`);
+  //     }
+
+  //     const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/tester/bugreport`, formData, {
+  //       headers: {
+  //         'Content-Type': 'multipart/form-data',
+  //       },
+  //       withCredentials:true
+  //     });
+  //     console.log('Test case submitted successfully:', response.data);
+  //   } catch (error) {
+  //     console.error('Error submitting test case:', error);
+  //   }
+  // };
+
   const handleSubmitSingleTestCase = async (testCaseId: string, e: React.FormEvent) => {
     e.preventDefault();
-
+  
     const taskId = id;
     const userData = user;
     let testerId;
-
+  
     if (userData) {
       testerId = user;
     } else {
       console.error('No user found in local storage');
       return;
     }
-
+  
     const testCase = testCases.find((tc) => tc.id === testCaseId);
-
+  
     if (!testCase) {
       console.error('Test case not found');
       return;
     }
-
+  
     const formData = new FormData();
     formData.append('taskId', taskId!);
     formData.append('testerId', testerId.id);
@@ -340,36 +399,44 @@ export const TestCaseTable: FC = () => {
     formData.append('severity', testCaseData[testCaseId]?.severity || 'High');
     formData.append('testStatus', testCaseData[testCaseId]?.testStatus || 'Not Started');
     formData.append('result', testCaseData[testCaseId]?.result || 'Pass');
-
+  
     const selectedSteps = testCaseData[testCaseId]?.selectedSteps || [];
     selectedSteps.forEach((step) => {
       formData.append('selectedSteps[]', step);
     });
-
+  
+    // Get the file input element
     const fileInput = document.getElementById(`file-upload-${testCaseId}`) as HTMLInputElement | null;
+    
     if (fileInput?.files) {
-      Array.from(fileInput.files).forEach((file) => {
+      const maxSizeInBytes = 5 * 1024 * 1024; // 5 MB limit (change this as needed)
+  
+      for (const file of fileInput.files) {
+        if (file.size > maxSizeInBytes) {
+          alert(`File size exceeds the limit of 5 MB: ${file.name}`);
+          return; // Prevent form submission if any file exceeds the limit
+        }
         formData.append('files', file);
-      });
+      }
     }
-
+  
     try {
       for (let pair of formData.entries()) {
         console.log(`${pair[0]}: ${pair[1]}`);
       }
-
+  
       const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/tester/bugreport`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
-        withCredentials:true
+        withCredentials: true
       });
       console.log('Test case submitted successfully:', response.data);
     } catch (error) {
       console.error('Error submitting test case:', error);
     }
   };
-
+  
   const handleInputChange = (testCaseId: string, field: keyof TestCaseData, value: string) => {
     setTestCaseData((prevData) => ({
       ...prevData,
