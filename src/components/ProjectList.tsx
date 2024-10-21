@@ -184,6 +184,7 @@ interface Project {
   description: string;
   startDate: string;
   status: string;
+  completionDate: string
 }
 
 export const ProjectList: React.FC = () => {
@@ -232,6 +233,7 @@ export const ProjectList: React.FC = () => {
             <th className="px-6 py-3">Project Name</th>
             <th className="px-6 py-3">Description</th>
             <th className="px-6 py-3">Start Date</th>
+            <th className="px-6 py-3">Last Date</th>
             <th className="px-6 py-3">Status</th>
             <th className="px-6 py-3">Task</th>
           </tr>
@@ -244,6 +246,7 @@ export const ProjectList: React.FC = () => {
                 <td className="px-6 py-4">{project.name}</td>
                 <td className="px-6 py-4">{project.description}</td>
                 <td className="px-6 py-4">{new Date(project.startDate).toLocaleDateString()}</td>
+                <td className="px-6 py-4">{new Date(project.completionDate).toLocaleDateString()}</td>
                 <td className="px-6 py-4 capitalize">{project.status}</td>
                 <td className="px-6 py-4">
                   <Link to={`/projectModule/${project.id}`}>
