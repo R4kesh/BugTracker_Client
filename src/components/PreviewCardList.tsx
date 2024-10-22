@@ -217,7 +217,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
 import { useParams } from "react-router-dom";
-
+import { Link } from "react-router-dom";
 // Define the Task interface based on the structure of task data
 interface Task {
   id: number;
@@ -314,6 +314,11 @@ export function PreviewCardList() {
                 <p className="text-gray-500 text-xs mb-4">
                   <strong>Deadline:</strong> {new Date(task.deadline).toLocaleDateString()}
                 </p>
+                <div className="text-sm font-medium mb-4">
+                  <p>Status:</p>
+                <Link to='/tasktracking/:id'> <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300"
+                >Track History</button></Link>
+                </div>
               </div>
             </motion.div>
           ))

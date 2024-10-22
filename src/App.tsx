@@ -70,7 +70,7 @@ const App = () => {
               <Route path="/usertrack/:id" element={<UserTaskTrack />} />
               <Route path="/taskhistory/:id" element={<TaskHistoryTable />} />
               <Route path="/reassigntaskhistory/:id" element={<ReAssignTaskHistory />} />
-              <Route path="/tasktracking" element={<TaskTracking />} />
+              <Route path="/tasktracking/:id" element={<TaskTracking />} />
 
             </Route>
             {/* admin routes */}
