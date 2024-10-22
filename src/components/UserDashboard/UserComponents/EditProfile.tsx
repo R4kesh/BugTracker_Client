@@ -4,8 +4,9 @@ import UserNavbar from '../UserNavbar';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
+import useToast from '../../../hooks/useToast';
 
-interface  userData{
+interface userData {
   name: string
   email: string
   phoneNumber: string
@@ -13,7 +14,7 @@ interface  userData{
 }
 function EditUserProfile() {
   const { user } = useSelector((state: RootState) => state.auth)
-
+  const {showError, showSuccess} = useToast()
   const [userData, setUserData] = useState<userData>({
     name: '',
     email: '',
@@ -31,7 +32,7 @@ function EditUserProfile() {
       const fetchUserData = async () => {
         try {
           const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/dashboard/userprofile/${Id}`,
-          {withCredentials:true});
+            { withCredentials: true });
           const { name, email, phoneNumber, role } = response.data;
           setUserData({ name, email, phoneNumber, role });
         } catch (error) {
@@ -46,7 +47,7 @@ function EditUserProfile() {
   }, []);
 
   // Update user data locally when user types in the input fields
-  const handleInputChange = (e:any) => {
+  const handleInputChange = (e: any) => {
     const { name, value } = e.target;
     setUserData((prevData) => ({
       ...prevData,
@@ -55,19 +56,24 @@ function EditUserProfile() {
   };
 
   // Handle form submission
-  const handleSubmit = async (e:any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     const userId = user?.id;
 
     try {
-      await axios.put(`${import.meta.env.VITE_BASE_URL}/api/dashboard/updateprofile/${userId}`, userData,
-      {withCredentials:true});
-      alert('Profile updated successfully!');
+      const res = await axios.put(`${import.meta.env.VITE_BASE_URL}/api/dashboard/updateprofile/${userId}`, userData,
+        { withCredentials: true });
+        console.log(res);
+
+        if (res.status === 200) {
+          showSuccess(res.data.message);
+        }
     } catch (error) {
       console.error('Error updating profile:', error);
-      alert('Failed to update profile. Please try again.');
+      showError('Failed to update profile. Please try again.'); // Use toast to notify user of the error
+
     } finally {
       setIsSubmitting(false);
     }
@@ -101,7 +107,7 @@ function EditUserProfile() {
                   type="email"
                   name="email"
                   value={userData.email}
-                 readOnly
+                  readOnly
                   className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
                 />
               </div>
