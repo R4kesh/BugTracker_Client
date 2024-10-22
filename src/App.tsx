@@ -36,12 +36,14 @@ import TesterReAssignWork from "./components/TesterDashboard/TesterReAssignWork"
 import UserTaskTrack from "./components/AdminDashboard/UserTasKTrack";
 import TaskHistoryTable from "./components/AdminDashboard/TaskHistoryTable";
 import ReAssignTaskHistory from "./components/AdminDashboard/ReAssignTaskHistory";
+import { ToastContainer } from "react-toastify";
 
 const App = () => {
   return (
     <div>
       <Router>
         <AuthProvider>
+          <ToastContainer />
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/otp" element={<OtpPage />} />
