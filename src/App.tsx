@@ -37,6 +37,7 @@ import UserTaskTrack from "./components/AdminDashboard/UserTasKTrack";
 import TaskHistoryTable from "./components/AdminDashboard/TaskHistoryTable";
 import ReAssignTaskHistory from "./components/AdminDashboard/ReAssignTaskHistory";
 import { ToastContainer } from "react-toastify";
+import TaskTracking from "./components/AdminDashboard/TaskTracking";
 
 const App = () => {
   return (
@@ -69,6 +70,8 @@ const App = () => {
               <Route path="/usertrack/:id" element={<UserTaskTrack />} />
               <Route path="/taskhistory/:id" element={<TaskHistoryTable />} />
               <Route path="/reassigntaskhistory/:id" element={<ReAssignTaskHistory />} />
+              <Route path="/tasktracking" element={<TaskTracking />} />
+
             </Route>
             {/* admin routes */}
 

@@ -3,10 +3,10 @@ import React from "react";
 import { cn } from "../lib/utils";
 import { Spotlight } from "./ui/spotlight";
 import { SidebarDash } from "./SidebarD";
-import { PreviewCardList } from "./PreviewCardList";
+import { TaskTrackingTable } from "./TaskTrackingTable";
 
 
-export function PreviewCardSpotlight() {
+export function TaskTrackingSpotlight() {
   return (
     <div className="  h-screen  w-full rounded-md flex md:items-center md:justify-center bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
       <SidebarDash/>
@@ -18,7 +18,7 @@ export function PreviewCardSpotlight() {
           
         <div className="w-full mb-36  max-w-7xl">
           {/* <TableDemo />  */}
-         <PreviewCardList/>
+         <TaskTrackingTable/>
         </div>
       </div>
     </div>
