@@ -109,7 +109,7 @@ export const AddModuleModal: FC<ModalProps> = ({ isOpen, onClose }) => {
               required
             >
               <option value="" disabled>Select status</option>
-              <option value="not started">Not Started</option> {/* Use space instead of hyphen */}
+              <option value="not started">Not Started</option> 
               <option value="started">Started</option>
               <option value="in progress">In Progress</option>
               <option value="completed">Completed</option>

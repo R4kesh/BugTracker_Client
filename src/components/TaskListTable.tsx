@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
@@ -8,6 +6,7 @@ export const TaskListTable = () => {
   const { epicId } = useParams();
   const [tasks, setTasks] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [showImageModal, setShowImageModal] = useState(false); // New state for image modal
   const [selectedTask, setSelectedTask] = useState(null);
   const [dueDate, setDueDate] = useState('');
   const [deadlineDate, setDeadlineDate] = useState('');
@@ -17,6 +16,7 @@ export const TaskListTable = () => {
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [selectedUserId, setSelectedUserId] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [imageLinks, setImageLinks] = useState([]); // New state for image links
 
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
@@ -25,7 +25,7 @@ export const TaskListTable = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/project/task/getAll/${epicId}`,{withCredentials:true});
+        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/project/task/getAll/${epicId}`, { withCredentials: true });
         console.log('respon', response.data);
         setTasks(response.data);
       } catch (error) {
@@ -34,13 +34,13 @@ export const TaskListTable = () => {
     };
 
     fetchTasks();
-  }, [epicId,selectedUserId]); // Corrected dependency to avoid infinite loop
+  }, [epicId, selectedUserId]); // Corrected dependency to avoid infinite loop
 
   useEffect(() => {
     if (showModal) {
       const fetchRolesAndUsers = async () => {
         try {
-          const rolesResponse = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/project/task/assign/roles`,{withCredentials:true});
+          const rolesResponse = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/project/task/assign/roles`, { withCredentials: true });
           const usersData = rolesResponse.data;
 
           const uniqueRoles = [...new Set(usersData.map(user => user.role))];
@@ -94,7 +94,7 @@ export const TaskListTable = () => {
 
     try {
       console.log('data', dataToSubmit);
-      await axios.put(`${import.meta.env.VITE_BASE_URL}/api/project/task/assignto`, dataToSubmit,{withCredentials:true});
+      await axios.put(`${import.meta.env.VITE_BASE_URL}/api/project/task/assignto`, dataToSubmit, { withCredentials: true });
       setTasks(prevTasks =>
         prevTasks.map(task =>
           task.id === selectedTask.id
@@ -107,6 +107,12 @@ export const TaskListTable = () => {
       console.error('Error submitting task assignment:', error);
       setErrorMessage('Failed to assign the task. Please try again.');
     }
+  };
+
+  // New function to handle image view
+  const handleViewClick = (task) => {
+    setImageLinks(task.fileLink || []); // Assuming imageLinks is a property of task
+    setShowImageModal(true);
   };
 
   // Pagination logic
@@ -139,6 +145,7 @@ export const TaskListTable = () => {
             <th className="px-6 py-3">Description</th>
             <th className="px-6 py-3">User Story</th>
             <th className="px-6 py-3">Assigned To</th>
+            <th className="px-6 py-3">Details</th>
             <th className="px-6 py-3">Action</th>
           </tr>
         </thead>
@@ -152,6 +159,11 @@ export const TaskListTable = () => {
                 <td className="px-6 py-4">{task.description}</td>
                 <td className="px-6 py-4">{task.userStory}</td>
                 <td className="px-6 py-4">{task.assignedUser ? task.assignedUser.name : 'Not Assigned'}</td>
+                <td className="px-6 py-4">
+                  <button onClick={() => handleViewClick(task)} className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg">
+                    View
+                  </button>
+                </td>
                 <td className="px-6 py-4">
                   <button
                     onClick={() => handleAssignClick(task)}
@@ -191,93 +203,109 @@ export const TaskListTable = () => {
         </button>
       </div>
 
-      {/* Modal */}
+      {/* Assign Task Modal */}
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
           <div className="bg-slate-700 p-6 rounded-lg shadow-lg w-1/3">
-            <h3 className="text-3xl font-bold mb-4">Assign Task</h3>
+            <h3 className="text-2xl font-semibold mb-4">Assign Task</h3>
+            <p className="text-red-500">{errorMessage}</p>
             <div className="mb-4">
-              <p className='text text-slate-200 text-2xl'>
-                <strong>Task Name:</strong> {selectedTask.taskName}
-              </p>
-              <p className='text text-slate-200 text-2xl'>
-                <strong>Description:</strong> {selectedTask.description}
-              </p>
-              <p className='text text-slate-200 text-2xl'>
-                <strong>Assigned To:</strong> {selectedTask.assigned || 'Not Assigned'}
-              </p>
-            </div>
-
-            {errorMessage && <p className="text-red-500 mb-4">{errorMessage}</p>}
-
-            <div className="flex mb-4 space-x-4">
-              <div className="w-1/2">
-                <label className="block text-sm font-medium text-white-700">Due Date</label>
-                <input
-                  type="date"
-                  value={dueDate}
-                  onChange={(e) => setDueDate(e.target.value)}
-                  className="mt-1 p-2 block w-full border-gray-300 rounded-md"
-                />
-              </div>
-              <div className="w-1/2">
-                <label className="block text-sm font-medium text-white-700">Deadline Date</label>
-                <input
-                  type="date"
-                  value={deadlineDate}
-                  onChange={(e) => setDeadlineDate(e.target.value)}
-                  className="mt-1 p-2 block w-full border-gray-300 rounded-md"
-                />
-              </div>
-            </div>
-
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-white-700">Select Role</label>
+              <label className="block text-white">Role</label>
               <select
                 value={selectedRole}
                 onChange={(e) => handleRoleChange(e.target.value)}
-                className="mt-1 p-2 block w-full border-gray-300 rounded-md"
+                className="w-full p-2 border rounded-md"
               >
-                <option value="">-- Select Role --</option>
-                {roles.map((role, index) => (
-                  <option key={index} value={role}>{role}</option>
+                <option value="">Select Role</option>
+                {roles.map(role => (
+                  <option key={role} value={role}>{role}</option>
                 ))}
               </select>
             </div>
-
-            {filteredUsers.length > 0 && (
-              <div className="mb-4">
-                <label className="block text-sm font-medium text-white-700">Select User</label>
-                <select
-                  value={selectedUserId}
-                  onChange={(e) => setSelectedUserId(e.target.value)}
-                  className="mt-1 p-2 block w-full border-gray-300 rounded-md"
-                >
-                  <option value="">-- Select User --</option>
-                  {filteredUsers.map((user) => (
-                    <option key={user.id} value={user.id}>{user.name}</option>
-                  ))}
-                </select>
-              </div>
-            )}
-
+            <div className="mb-4">
+              <label className="block text-white">User</label>
+              <select
+                value={selectedUserId}
+                onChange={(e) => setSelectedUserId(e.target.value)}
+                className="w-full p-2 border rounded-md"
+              >
+                <option value="">Select User</option>
+                {filteredUsers.map(user => (
+                  <option key={user.id} value={user.id}>{user.name}</option>
+                ))}
+              </select>
+            </div>
+            <div className="mb-4">
+              <label className="block text-white">Due Date</label>
+              <input
+                type="date"
+                value={dueDate}
+                onChange={(e) => setDueDate(e.target.value)}
+                className="w-full p-2 border rounded-md"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-white">Deadline Date</label>
+              <input
+                type="date"
+                value={deadlineDate}
+                onChange={(e) => setDeadlineDate(e.target.value)}
+                className="w-full p-2 border rounded-md"
+              />
+            </div>
             <div className="flex justify-end">
-              <button
-                onClick={handleCloseModal}
-                className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg mr-2"
-              >
-                Close
+              <button onClick={handleCloseModal} className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg mr-2">
+                Cancel
               </button>
-              <button
-                onClick={handleSubmit}
-                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg"
-              >
-                Assign Task
+              <button onClick={handleSubmit} className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg">
+                Submit
               </button>
             </div>
           </div>
         </div>
       )}
+
+      {/* Image Viewing Modal */}
+      {showImageModal && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
+    <div className="bg-slate-700 p-6 rounded-lg shadow-lg w-1/2">
+      <h3 className="text-2xl font-semibold mb-4">Uploaded Images</h3>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {imageLinks && imageLinks.length > 0 ? (
+          imageLinks.map((link, index) => {
+            console.log('image',link);
+            
+            const imageUrl = `${import.meta.env.VITE_BASE_URL}${link}`; // Construct the full URL
+            console.log('ur',imageUrl);
+            
+            return (
+              <img
+                key={index}
+                src={imageUrl}
+                alt={`Task Image ${index + 1}`}
+                className="object-cover rounded-md"
+                onError={(e) => {
+                  e.target.onerror = null; // Prevents looping
+                  e.target.src = 'path/to/placeholder/image.png'; // Fallback image
+                }}
+              />
+            );
+          })
+        ) : (
+          <p className="text-white">No images uploaded</p>
+        )}
+      </div>
+      <div className="flex justify-end mt-4">
+        <button
+          onClick={() => setShowImageModal(false)}
+          className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+)}
     </div>
   );
 };
