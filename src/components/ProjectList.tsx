@@ -126,7 +126,6 @@
 //     </div>
 //   );
 // };
-
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -166,6 +165,7 @@ export const ProjectList: React.FC = () => {
     fetchProjects();
   }, [projects]);
 
+ 
   // Pagination logic
   const indexOfLastProject = currentPage * projectsPerPage;
   const indexOfFirstProject = indexOfLastProject - projectsPerPage;
@@ -190,18 +190,31 @@ export const ProjectList: React.FC = () => {
     }
   };
 
-  // Handle project update (can integrate API call)
   const handleUpdateProject = async () => {
     if (editedProject) {
+      console.log('Sending update for project:', editedProject); // Debugging
       try {
-        await axios.put(`${import.meta.env.VITE_BASE_URL}/api/project/update/${editedProject.id}`, editedProject, { withCredentials: true });
-        setIsModalOpen(false); // Close modal after successful update
+        await axios.put(`${import.meta.env.VITE_BASE_URL}/api/project/updateProject/${editedProject.id}`, 
+          {
+            name: editedProject.name,
+            description: editedProject.description,
+            startDate: editedProject.startDate,
+            completionDate: editedProject.completionDate,
+            status: editedProject.status,
+          }, 
+          { withCredentials: true }
+        );
+  
+        setIsModalOpen(false); 
+        setProjects(prevProjects => prevProjects.map(proj => 
+          proj.id === editedProject.id ? editedProject : proj
+        )); 
       } catch (error) {
         console.error('Error updating project:', error);
       }
     }
   };
-
+  
   return (
     <div className="overflow-x-auto">
       <h3 className="text-center text-4xl mb-10 text-white">Projects</h3>
@@ -271,11 +284,21 @@ export const ProjectList: React.FC = () => {
                 <textarea name="description" value={editedProject?.description} onChange={handleInputChange} className="w-full p-2 rounded bg-gray-700 text-gray-300" />
               </div>
               <div className="mb-4">
+                <label className="block text-gray-300 mb-2">Start Date</label>
+                <input type="date" name="startDate" value={editedProject?.startDate} onChange={handleInputChange} className="w-full p-2 rounded bg-gray-700 text-gray-300" />
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-300 mb-2">Completion Date</label>
+                <input type="date" name="completionDate" value={editedProject?.completionDate} onChange={handleInputChange} className="w-full p-2 rounded bg-gray-700 text-gray-300" />
+              </div>
+              <div className="mb-4">
                 <label className="block text-gray-300 mb-2">Status</label>
                 <select name="status" value={editedProject?.status} onChange={handleInputChange} className="w-full p-2 rounded bg-gray-700 text-gray-300">
-                  <option value="pending">Pending</option>
-                  <option value="in progress">In Progress</option>
-                  <option value="completed">Completed</option>
+                <option value="" disabled>Select status</option>
+              <option value="not-started">Not Started</option>
+              <option value="in-progress">In Progress</option>
+              <option value="completed">Completed</option>
+              <option value="on-hold">On Hold</option>
                 </select>
               </div>
               <div className="flex justify-end">
@@ -289,3 +312,5 @@ export const ProjectList: React.FC = () => {
     </div>
   );
 };
+
+export default ProjectList;
