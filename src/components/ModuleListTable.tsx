@@ -124,6 +124,7 @@ export const ModuleListTable: React.FC = () => {
                   <RiDeleteBin5Line
                     size={30}
                     className="text-red-400 cursor-pointer hover:text-red-700"
+                    onClick={() => handleDeleteClick(epic)}
                   />
                 </td>
               </tr>
