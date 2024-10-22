@@ -561,8 +561,10 @@ export const TestCaseTable: FC = () => {
                   type="file"
                   multiple
                   className="file-input"
-                  placeholder='Choose file lessthan 5MB'
+                 
                 />
+                  <small className="text-gray-500">File size must be less than 5MB.</small>
+
               </td>
               <td className="px-6 py-4">
                 <select

@@ -126,6 +126,7 @@
 //     </div>
 //   );
 // };
+
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -151,6 +152,7 @@ export const ProjectList: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [editedProject, setEditedProject] = useState<Project | null>(null);
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -165,7 +167,28 @@ export const ProjectList: React.FC = () => {
     fetchProjects();
   }, [projects]);
 
- 
+  const validateForm = () => {
+    const newErrors: { [key: string]: string } = {};
+
+    if (!editedProject?.name.trim()) {
+      newErrors.name = "Project name cannot be empty or contain only spaces.";
+    }
+
+    if (!editedProject?.description.trim()) {
+      newErrors.description = "Description cannot be empty or contain only spaces.";
+    }
+
+    const currentDate = new Date().toISOString().split('T')[0]; // Get current date in YYYY-MM-DD format
+    if (editedProject?.startDate && editedProject.startDate < currentDate) {
+      newErrors.startDate = "Start date cannot be in the past.";
+    }
+    if (editedProject?.completionDate && editedProject?.startDate > editedProject?.completionDate) {
+      newErrors.completionDate = "Completion date cannot be earlier than the start date.";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
   // Pagination logic
   const indexOfLastProject = currentPage * projectsPerPage;
   const indexOfFirstProject = indexOfLastProject - projectsPerPage;
@@ -190,31 +213,31 @@ export const ProjectList: React.FC = () => {
     }
   };
 
+  
   const handleUpdateProject = async () => {
-    if (editedProject) {
-      console.log('Sending update for project:', editedProject); // Debugging
+    if (validateForm()) {
       try {
-        await axios.put(`${import.meta.env.VITE_BASE_URL}/api/project/updateProject/${editedProject.id}`, 
+        await axios.put(`${import.meta.env.VITE_BASE_URL}/api/project/updateProject/${editedProject?.id}`, 
           {
-            name: editedProject.name,
-            description: editedProject.description,
-            startDate: editedProject.startDate,
-            completionDate: editedProject.completionDate,
-            status: editedProject.status,
+            name: editedProject?.name,
+            description: editedProject?.description,
+            startDate: editedProject?.startDate,
+            completionDate: editedProject?.completionDate,
+            status: editedProject?.status,
           }, 
           { withCredentials: true }
         );
   
         setIsModalOpen(false); 
         setProjects(prevProjects => prevProjects.map(proj => 
-          proj.id === editedProject.id ? editedProject : proj
+          proj.id === editedProject?.id ? editedProject : proj
         )); 
       } catch (error) {
         console.error('Error updating project:', error);
       }
     }
   };
-  
+
   return (
     <div className="overflow-x-auto">
       <h3 className="text-center text-4xl mb-10 text-white">Projects</h3>
@@ -277,19 +300,37 @@ export const ProjectList: React.FC = () => {
             <form>
               <div className="mb-4">
                 <label className="block text-gray-300 mb-2">Project Name</label>
-                <input type="text" name="name" value={editedProject?.name} onChange={handleInputChange} className="w-full p-2 rounded bg-gray-700 text-gray-300" />
+                <input type="text"    name="name" value={editedProject?.name} onChange={handleInputChange} className="w-full p-2 rounded bg-gray-700 text-gray-300" />
+                {errors.name && <small className="text-red-500">{errors.name}</small>}
+
               </div>
               <div className="mb-4">
                 <label className="block text-gray-300 mb-2">Description</label>
-                <textarea name="description" value={editedProject?.description} onChange={handleInputChange} className="w-full p-2 rounded bg-gray-700 text-gray-300" />
+                <textarea name="description"  value={editedProject?.description} onChange={handleInputChange} className="w-full p-2 rounded bg-gray-700 text-gray-300" />
+                {errors.description && <small className="text-red-500">{errors.description}</small>}
+
               </div>
               <div className="mb-4">
                 <label className="block text-gray-300 mb-2">Start Date</label>
-                <input type="date" name="startDate" value={editedProject?.startDate} onChange={handleInputChange} className="w-full p-2 rounded bg-gray-700 text-gray-300" />
+                {editedProject?.startDate && (
+    <p className="text-gray-400 mb-2">
+      Current Start Date: {new Date(editedProject.startDate).toLocaleDateString('en-GB')}
+    </p>
+  )}
+                <input type="date"min={new Date().toISOString().split('T')[0]}  name="startDate" value={editedProject?.startDate} onChange={handleInputChange} className="w-full p-2 rounded bg-gray-700 text-gray-300" />
+                {errors.startDate && <small className="text-red-500">{errors.startDate}</small>}
+
               </div>
               <div className="mb-4">
                 <label className="block text-gray-300 mb-2">Completion Date</label>
-                <input type="date" name="completionDate" value={editedProject?.completionDate} onChange={handleInputChange} className="w-full p-2 rounded bg-gray-700 text-gray-300" />
+                {editedProject?.startDate && (
+    <p className="text-gray-400 mb-2">
+      Current Completion Date: {new Date(editedProject.completionDate).toLocaleDateString('en-GB')}
+    </p>
+  )}
+                <input type="date" min={new Date().toISOString().split('T')[0]}  name="completionDate" value={editedProject?.completionDate} onChange={handleInputChange} className="w-full p-2 rounded bg-gray-700 text-gray-300" />
+                {errors.completionDate && <small className="text-red-500">{errors.completionDate}</small>}
+
               </div>
               <div className="mb-4">
                 <label className="block text-gray-300 mb-2">Status</label>
