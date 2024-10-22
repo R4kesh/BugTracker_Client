@@ -14,9 +14,9 @@ export const Modal: FC<ModalProps> = ({ isOpen, onClose }) => {
   const [projectStatus, setProjectStatus] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const currentDate = new Date().toISOString().split("T")[0]; // Current date in YYYY-MM-DD format
 
   const isFormValid = () => {
-    const currentDate = new Date().toISOString().split("T")[0]; // Current date in YYYY-MM-DD format
     
     // Check if all fields are filled
     if (
@@ -121,6 +121,7 @@ export const Modal: FC<ModalProps> = ({ isOpen, onClose }) => {
               type="date"
               id="startDate"
               className="border border-gray-300 rounded-md w-full p-2"
+              min={currentDate}
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
               required
@@ -130,6 +131,7 @@ export const Modal: FC<ModalProps> = ({ isOpen, onClose }) => {
               type="date"
               id="completionDate"
               className="border border-gray-300 rounded-md w-full p-2"
+              min={startDate || currentDate}
               value={completionDate}
               onChange={(e) => setCompletionDate(e.target.value)}
               required
