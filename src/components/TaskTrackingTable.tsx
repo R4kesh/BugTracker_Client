@@ -2,11 +2,30 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 
 export const TaskTrackingTable: React.FC = () => {
- 
+  const [reassignDetails, setReassignDetails] = useState([]);
+  const { id } = useParams();  
 
+
+  useEffect(() => {
+    const fetchReAssignDetails = async () => {
+      try {
+        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/dashboard/trackHistory/${id}`);  // Pass taskId to the backend
+        setReassignDetails(response.data);
+        console.log('dataz',response.data);
+        
+      } catch (error) {
+        console.error('Error fetching task history:', error);
+      }
+    };
+
+    fetchReAssignDetails();
+  }, [id]);
+
+console.log('pareams',id);
 
   return (
     <div className="overflow-x-auto">

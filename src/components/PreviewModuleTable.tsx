@@ -193,7 +193,7 @@ export const PreviewModuleTable: React.FC = () => {
   useEffect(() => {
     const fetchModules = async () => {
       try {
-        const response = await axios.get<Module[]>(`http://localhost:3000/api/dashboard/previewmodule/${id}`,{withCredentials:true});
+        const response = await axios.get<Module[]>(`${import.meta.env.VITE_BASE_URL}/api/dashboard/previewmodule/${id}`,{withCredentials:true});
         setModules(response.data);
       } catch (error) {
         console.error('Error fetching modules:', error);
