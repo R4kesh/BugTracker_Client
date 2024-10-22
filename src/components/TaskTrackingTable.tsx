@@ -37,35 +37,37 @@ console.log('pareams',id);
             <th className="px-6 py-3">ID</th>
             <th className="px-6 py-3">Task Name</th>
             <th className="px-6 py-3">Status</th>
-            <th className="px-6 py-3">developer</th>
+            <th className="px-6 py-3">Previous Developer</th>
+            <th className="px-6 py-3">Re-assigned</th>
+            <th className="px-6 py-3">Reassign Date</th>
             <th className="px-6 py-3">Tester</th>
             <th className="px-6 py-3">Report</th>
           </tr>
         </thead>
         <tbody>
-          
-              <tr  className='bg-gray-700  hover:bg-gray-600 transition-all duration-200'>
-                <td className="px-6 py-4">id</td>
-                <td className="px-6 py-4">taskname</td>
-                <td className="px-6 py-4">status</td>
-                <td className="px-6 py-4">devloper</td>
-                <td className="px-6 py-4">tester</td>
+          {reassignDetails.length > 0 ? (
+            reassignDetails.map((reassign) => (
+              <tr key={reassign.reassignId} className="bg-gray-700 hover:bg-gray-600 transition-all duration-200">
+                <td className="px-6 py-4">{reassign.reassignId}</td>
+                <td className="px-6 py-4">{reassign.task?.taskName}</td>
+                <td className="px-6 py-4">{reassign.status}</td>
                
-                <td className="px-6 py-4 ">
-                 
-                    <button
-                      className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-300"
-                    >
-                      View Report
-                    </button>
-              
+                <td className="px-6 py-4">{reassign.previousDeveloper?.name}</td>  {/* Correct previous developer */}
+                <td className="px-6 py-4">{reassign.reassignedTo?.name}</td> 
+                <td className="px-6 py-4">{new Date(reassign.reassignDate).toLocaleDateString()}</td>
+                <td className="px-6 py-4">{reassign.tester?.name}</td>
+                <td className="px-6 py-4">
+                  <button className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-300">
+                    View Report
+                  </button>
                 </td>
               </tr>
-         
+            ))
+          ) : (
             <tr>
-              <td colSpan={7} className="text-center py-4">No users found.</td>
+              <td colSpan={6} className="text-center py-4">No tasks found.</td>
             </tr>
-          
+          )}
         </tbody>
       </table>
 
