@@ -26,6 +26,8 @@ const Login: React.FC = () => {
     }
     setLoading(true)
     try {
+      console.log('clicking');
+      
 
       const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/auth/login`, { email, password, role },
       {withCredentials:true}
